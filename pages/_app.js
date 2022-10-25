@@ -1,0 +1,1213 @@
+// Style
+import "../styles/globals.css";
+import "../styles/style.css";
+
+// Locomotive style
+import "../node_modules/locomotive-scroll/dist/locomotive-scroll.css"
+
+// React
+import { React, useEffect, useRef, useState } from "react";
+
+// Next Component
+import Link from "next/link";
+
+import { useRouter } from "next/router"
+// import Router from "next/router";
+
+// Gsap
+import { gsap } from "gsap/dist/gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+
+// Splitingjs
+import "splitting/dist/splitting.css";
+import "splitting/dist/splitting-cells.css";
+// import Splitting from "splitting";
+
+
+// Fractional Component
+function NavItem(props){
+
+    return(
+    <div className="Menu-navItem">
+            <div className="Menu-navItemNum">
+                <span>{props.itemNum}</span>
+            </div>
+            <Link href={props.href}>
+                <a href={props.href} className="Menu-navItemLink">
+                    <div data-label={props.linkLabel} className="Menu-navItemLinkInner colorFill" style={{"--x":"0px","--y":"0px","--r":"0px"}}>
+                        {props.linkLabel}
+                        <span data-label={props.linkLabel} className="Menu-navItemLinkInnerHover" style={{"color":"rgb(85, 65, 248)"}}>
+                        </span>
+                    </div>
+                </a>
+            </Link>
+        </div>
+    );
+}
+
+// Main component
+function MyApp({ Component, pageProps }) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const router = useRouter();
+
+    const executed = useRef(0);
+
+    const mouse_pos = useRef([0, 0]);
+    const menuState = useRef(false);
+    const visitedUrl = useRef([]);
+
+    const [m_content_icon, setm_content_icon] = useState("");
+
+    const locomotiveScrollInstance = useRef();
+    const pageMicroHistory = useRef({prevPage:"", currentPage:""});
+    const [pageMicroHistoryState, setPageMicroHistory] = useState({prevPage:"", currentPage:""});
+    const windowListeners = useRef({listeners:[], endFunc:[]});
+
+    const headerTriggerStart = useRef("init");
+    const s_ref = useRef(0);
+
+    const el_h_event = useRef([]);
+
+    const [headerVisibilityState, setHeaderVisibilityState] = useState(0);
+
+	function trackMouse(){
+		document.body.addEventListener("mousemove", (e)=>{
+			mouse_pos.current[0] = e.clientX;
+			mouse_pos.current[1] = e.clientY;
+		})
+	}
+
+	function getRelativePos(element){
+		let element_pos = element.getBoundingClientRect();
+		return [mouse_pos.current[0]-element_pos.left, mouse_pos.current[1]-element_pos.top]
+	}
+
+    // Functions
+    const locomotiveInit = () => {
+        import("locomotive-scroll").then((LocomotiveScroll) => {
+            locomotiveScrollInstance.current = new LocomotiveScroll.default({
+                el: document.querySelector("[data-scroll-container]"),
+                smooth: true,
+                lerp: 0.11
+            });
+        });
+
+    }
+
+    const scrollTrigger = () => {
+        var scroller = document.querySelector("[data-scroll-container]");
+        var scrollMag, prevScrollMag, headerTrigDist;
+
+        headerTrigDist = document.querySelector(".Header").clientHeight*1.2;
+
+        const scrollMagSet = (scrollMag, prevScrollMag) => {
+
+            headerTriggerStart.current = "init";
+
+            if ( scrollMag >= headerTrigDist ){ // just after scrolled above trigger -_
+                if ( prevScrollMag <= headerTrigDist ){
+                    gsap.set(".Header", {y:"0px"});
+                    document.querySelector('.Header').classList.add("fixed");
+                    gsap.fromTo(".MenuButton", { scale: 0 }, { duration: 0.5, scale: 1, ease:"circ"});
+                    headerTriggerStart.current = "init";
+                }
+
+            } else if (scrollMag < headerTrigDist && prevScrollMag >= headerTrigDist) { // just after scrolled below trigger -^
+                gsap.set(".Header", {y:((-scrollMag).toString()+"px")});
+                document.querySelector('.Header').classList.remove("fixed");
+                headerTriggerStart.current = "fixed";
+            } else if ( scrollMag < headerTrigDist ) { // inbetween scrolling init and fixed =-
+                gsap.set(".Header", {y:((-scrollMag).toString()+"px")});
+            }
+
+            if ( scrollMag < headerTrigDist && scrollMag > 0 ) { // inbetween scrolling init and fixed =-
+                headerTriggerStart.current = "scroll";
+            }
+        }
+
+        if ( document.body.clientWidth > 1023 ){
+            var styleEventListener = new MutationObserver((mutations) => {
+                mutations.forEach((MutationRecord) => {
+                    scrollMag = scroller.style.getPropertyValue("transform").split("(")[1].split(")")[0].split(",")[13]*(-1);
+
+                    scrollMagSet(scrollMag, prevScrollMag);
+                    prevScrollMag = scrollMag;
+                })
+            })
+
+            styleEventListener.observe(scroller, { attributes : true, attributeFilter : ['style'] });
+        }
+
+        if ( document.body.clientWidth <= 1023 ){
+            (window).addEventListener("scroll", ()=>{
+                scrollMag = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+
+                scrollMagSet(scrollMag, prevScrollMag);
+                prevScrollMag = scrollMag;
+            })
+        }
+    }
+
+    const menuButton = () => {
+        var menuButtonRef = document.querySelector(".Header .MenuButton");
+        var menuContainerRef = document.querySelector(".Header .Menu")
+        var menuNavItem = document.querySelectorAll(".Header .Menu-navItem")
+
+
+        let toggleMenuState = () => {
+            menuState.current = !menuState.current;
+            if ( menuState.current ) {
+
+                let menuSecDelay = 0;
+
+                if ( headerTriggerStart.current == "scroll" ){
+                    locomotiveScrollInstance.current.scrollTo("top");
+
+                    menuSecDelay = 0.5;
+                }
+
+                menuContainerRef.style.removeProperty("display");
+                gsap.set((document.body || window), { overflowY:"hidden" });
+
+                const gsapTimelineAnimation = gsap.timeline({ defaults:{ duration: 0.5, ease:"power1" } });
+
+                let menuButtonBoundingRect = menuButtonRef.getBoundingClientRect();
+
+                gsap.set(menuContainerRef, { "--x": ((menuButtonBoundingRect.left + (menuButtonBoundingRect.width)/2).toString() + "px"), "--y": ((menuButtonBoundingRect.top + (menuButtonBoundingRect.height)/2).toString() + "px")})
+                gsap.fromTo(menuContainerRef, { "--r":"0px" }, { duration:1.5, "--r":(((window.innerWidth >= window.innerHeight ? window.innerWidth : window.innerHeight)*1.3).toString() + "px"), ease:"power3", delay:menuSecDelay });
+
+                menuNavItem.forEach((element, index) => {
+                    let delay;
+                    if ( index < 1 ){
+                        delay = "<0.25"
+                        if ( headerTriggerStart.current == "scroll" )
+                            delay = "<0.75"
+                    }
+                    else
+                        delay = "<0.1"
+
+                    gsapTimelineAnimation
+                        .fromTo(element.querySelector(".Menu-navItemNum"), { x: element.querySelector(".Menu-navItemNum").clientWidth*7, opacity:0 }, { x: 0, opacity:1 }, delay)
+                        .fromTo(element.querySelector(".Menu-navItemLinkInner"), { x: element.querySelector(".Menu-navItemLinkInner").clientWidth }, { x: 0, opacity:1 }, "<0.1");
+                });
+
+                gsapTimelineAnimation
+                    .fromTo(".Header .Menu-logoContainer", { x:document.querySelector(".Header .Menu-logoContainer").clientWidth/3, opacity:0 }, { x: 0, opacity:1 }, "<0.1")
+                    .fromTo(".Header .Menu-quickAccessItem", { x:document.querySelector(".Header .Menu-quickAccessItem").clientWidth/3, opacity:0 }, { x: 0, opacity:1 }, "<0.1")
+                    .fromTo(".Header .Menu-socials", { x:document.querySelector(".Header .Menu-socials").clientWidth/3, opacity:0 }, { x: 0, opacity:1 }, "<0.1");
+
+
+                menuButtonRef.classList.toggle("menu-open")
+                m_cursor_states("color", {color: "black"})
+
+            } else {
+                (document.body || window).style.removeProperty("overflow-y");
+                gsap.to(menuContainerRef, { duration:0.5, "--r":"0px", ease:"circ.out", onComplete:()=>{
+                    gsap.set(menuContainerRef, {display:"none"});
+                    menuButtonRef.classList.toggle("menu-open");
+                } });
+                m_cursor_states("color", {color: "rgb(85, 65, 248)"});
+            }
+        }
+
+        menuButtonRef.addEventListener("click", ()=>{
+            toggleMenuState()
+        })
+    }
+
+    const colorFiller = (colorFillsFiltered) => {
+        colorFillsFiltered.forEach(element => {
+
+            element.style.setProperty("--x", "0px");
+            element.style.setProperty("--y", "0px");
+            gsap.set(element, { "--r":"0px" });
+
+            var max_radius = element.clientWidth*1.1;
+            var easeValueIn = "sine";
+            var easeValueOut = "circ";
+            var easeValueOutTime = 1;
+
+            if (element.style.getPropertyValue("--ease") != '')
+                easeValueIn = element.style.getPropertyValue("--ease");
+
+            if (element.style.getPropertyValue("--ease-end") != '')
+                easeValueOut = element.style.getPropertyValue("--ease-end");
+
+            if (element.style.getPropertyValue("--ease-end-duration") != '')
+                easeValueOutTime = element.style.getPropertyValue("--ease-end-duration");
+
+
+            element.addEventListener("mousemove", (e)=>{
+                let relativePos = getRelativePos(e.target)
+                element.style.setProperty("--x", (relativePos[0]).toString() + "px")
+                element.style.setProperty("--y", (relativePos[1]).toString() + "px")
+            })
+
+            element.addEventListener("mouseenter", (e)=>{
+                max_radius = element.clientWidth*1.1;
+                gsap.to(e.target, { duration: 0.7, "--r":max_radius+"px", ease: easeValueIn})
+            })
+
+            element.addEventListener("mouseleave", (e)=>{
+                gsap.to(e.target, { duration: easeValueOutTime, "--r":"0px", ease: easeValueOut})
+            })
+
+        });
+    }
+
+    const m_cursor_states = (state, options) => {
+
+        const c_tl =  gsap.timeline({ defaults:{
+            duration: 0.2,
+            ease:"power1"
+        } })
+
+        if ( state == "link" ){
+            c_tl
+                .to(".mouseCursor", { scale:1, onComplete: ()=>{
+                    setm_content_icon(<svg xmlns="http://www.w3.org/2000/svg" className="mouseCursorIcon icon sprite-icons arrow-diag-icon">
+                            <path xmlns="http://www.w3.org/2000/svg" d="M8.307 10.89h9.472L7.203 21.466l2.207 2.206 10.575-10.575v9.472h3.12V7.771H8.307v3.12z"/>
+                        </svg>)
+                }})
+                .fromTo(".mouseCursorIconWrapper", { x: -document.querySelector(".mouseCursor").clientWidth/2, y: document.querySelector(".mouseCursor").clientWidth/2, opacity:0 }, { duration:0.5, x: 0, y: 0, opacity:1, ease:"back" });
+        }
+        else if ( state == "link-end"){
+            c_tl
+                // .set(m_cursor_scale, { current:1 });
+                .to(".mouseCursor", { scale:0.2, onComplete: ()=>{
+                    setm_content_icon("")
+                }});
+        }
+        else if ( state == "move-slide" ){
+            c_tl
+                .to(".mouseCursor", { scale:1, onComplete: ()=>{
+                    setm_content_icon(
+                        <div className="mouseCursorIcon drag-drop-icon">
+                            <svg className="drag-drop-arrow icon sprite-icons" xmlns="http://www.w3.org/2000/svg" style={{transform: "rotate(180deg) scale(1, -1)"}}>
+                                <use href="/assets/required_vectors.svg#i-arrow-right" ></use>
+                            </svg>
+                            <svg className="drag-drop-arrow icon sprite-icons" xmlns="http://www.w3.org/2000/svg">
+                                <use href="/assets/required_vectors.svg#i-arrow-right" ></use>
+                            </svg>
+                        </div>
+                    );
+
+                    let i = setInterval(() => {
+
+
+                        if ( document.querySelectorAll(".drag-drop-arrow") === undefined ) return;
+
+                        try {
+                            c_tl
+                            .fromTo(document.querySelectorAll(".drag-drop-arrow")[0],
+                                { x: document.querySelector(".drag-drop-arrow").clientWidth, opacity:0 },
+                                { duration:0.5, x: 0, opacity:1, ease:"back" }
+                            )
+                            .fromTo(document.querySelectorAll(".drag-drop-arrow")[1],
+                                { x: -document.querySelector(".drag-drop-arrow").clientWidth, opacity:0 },
+                                { duration:0.5, x: 0, opacity:1, ease:"back" }, "<0"
+                            );
+                        } catch (error) {
+                        }
+
+
+                        clearInterval(i);
+
+                    }, 0);
+
+            }});
+        }
+        else if ( state == "move-slide-click"){
+            try {
+                c_tl
+                    .fromTo(document.querySelectorAll(".drag-drop-arrow")[0],
+                        { x: 0 },
+                        { duration:0.5,  x: document.querySelector(".drag-drop-arrow").clientWidth/2, ease:"back" }
+                    )
+                    .fromTo(document.querySelectorAll(".drag-drop-arrow")[1],
+                        { x: 0 },
+                        { duration:0.5,  x: -document.querySelector(".drag-drop-arrow").clientWidth/2, ease:"back" },
+                        "<0"
+                    )
+                    .to(".mouseCursor", { scale:0.8 }, "<0");
+            } catch (error) { }
+        }
+        else if ( state == "move-slide-click-end"){
+            try {
+                c_tl
+                    .fromTo(document.querySelectorAll(".drag-drop-arrow")[0],
+                        { x: document.querySelector(".drag-drop-arrow").clientWidth/2 },
+                        { duration:0.5,  x: 0, ease:"back" }
+                    )
+                    .fromTo(document.querySelectorAll(".drag-drop-arrow")[1],
+                        { x: -document.querySelector(".drag-drop-arrow").clientWidth/2 },
+                        { duration:0.5,  x: 0, ease:"back" },
+                        "<0"
+                    )
+                    .to(".mouseCursor", { scale:1 }, "<0");
+            } catch (error) { }
+        }
+        else if ( state == "move-slide-end" ){
+            c_tl
+                .to(".mouseCursor", { scale:0.2, onComplete: ()=>{
+                    setm_content_icon("")
+                }});
+        }
+
+        else if ( state == "color" ){
+            options.color = ( options.color == "default" ) ? "rgb(85, 65, 248)" : options.color;
+            c_tl
+                .to(".mouseCursor", { duration:0.5, backgroundColor:(options.color), borderColor:(options.color), ease:"sine" });
+        }
+
+    }
+
+    const m_cursor_eventListeners = () => {
+
+        m_cursor_states("link-end");
+
+        if ( pageMicroHistory.current.currentPage == "/contact" ) m_cursor_states("color", {color: "black"});
+        else m_cursor_states("color", {color: "default"});
+
+        // classes having link
+        var cl_h_link = {
+            "/" : [".Works-slideContent", ".ideasBehind-item", ".AppButton", ".Menu-navItemLink"],
+            "/work" : [".WorksListItem", ".AppButton", ".Menu-navItemLink"],
+            "/directors" : [".AppButton", ".Menu-navItemLink"],
+            "/team" : [".AppButton", ".Menu-navItemLink"],
+            "/contact" : [".AppButton"],
+            "/about" : [".AppButton", ".Menu-navItemLink"],
+        }
+
+        if ( cl_h_link[router.asPath] !== undefined ){
+
+            cl_h_link[router.asPath].forEach(cl => {
+
+                let interv_cl_vis = setInterval(() => {
+
+                    if ( document.querySelectorAll(cl) == undefined ) return;
+
+                    document.querySelectorAll(cl).forEach(h_link => {
+
+                        if ( el_h_event.current.indexOf(h_link) === -1 ){
+
+                            h_link.addEventListener("mouseenter", (e)=>{
+                                if ( cl === ".ideasBehind-item" ){
+                                    m_cursor_states("color", { color: h_link.style.getPropertyValue("--ideasBehindColor")});
+                                }
+                                m_cursor_states("link");
+                            });
+                            h_link.addEventListener("mouseleave", (e)=>{
+
+                                if ( cl === ".ideasBehind-item" ){
+                                    m_cursor_states("color", { color: "default"});
+                                }
+
+                                m_cursor_states("link-end");
+                            });
+
+                            el_h_event.current.push(h_link);
+                        }
+                    });
+
+                    clearInterval(interv_cl_vis);
+                }, 0);
+
+            });
+
+        }
+
+        // cl having slide
+        var cl_h_slide = {
+            "/" : [".Works-slider"],
+            "/work" : [],
+            "/directors" : [],
+            "/team" : [],
+            "/contact" : [],
+            "/about" : [],
+        }
+
+        if ( cl_h_slide[router.asPath] !== undefined ){
+
+            cl_h_slide[router.asPath].forEach(cl => {
+                document.querySelectorAll(cl).forEach(h_link => {
+                    if ( el_h_event.current.indexOf(h_link) === -1 ){
+
+                        h_link.addEventListener("mouseover", (e)=>{
+                            m_cursor_states("move-slide");
+                        });
+                        h_link.addEventListener("mouseleave", (e)=>{
+                            m_cursor_states("move-slide-end");
+                        });
+
+                        el_h_event.current.push(h_link);
+
+                    }
+                });
+            });
+
+        }
+
+    }
+
+    const s_trigger_anim = ( callBack ) =>{
+        let inter_ref = setInterval(() => {
+
+            if ( locomotiveScrollInstance.current === undefined ) return;
+
+            locomotiveScrollInstance.current.on("scroll", ScrollTrigger.update);
+            ScrollTrigger.scrollerProxy("[data-scroll-container]", {
+                scrollTop(value) {
+                    return arguments.length ? locomotiveScrollInstance.current.scrollTo(value, 0, 0) : locomotiveScrollInstance.current.scroll.instance.scroll.y;
+                },
+                getBoundingClientRect() {
+                    return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
+                },
+
+                pinType: document.querySelector("[data-scroll-container]").style.transform ? "transform" : "fixed"
+            });
+
+            if ( callBack !== undefined ) callBack();
+
+            if ( locomotiveScrollInstance.current !== undefined ) clearInterval(inter_ref);
+
+        }, 0);
+    }
+
+    useEffect(() => {
+        if (typeof window === "undefined") { return; }
+
+        pageMicroHistory.current = {prevPage: pageMicroHistory.current.currentPage, currentPage: router.asPath};
+        setPageMicroHistory( {prevPage: pageMicroHistoryState.currentPage, currentPage: router.asPath} );
+
+        if (executed.current == 0) {
+
+            // Mouse Cursor Positioning
+            if ( true ){
+                // Cursor Following
+                document.addEventListener("mousemove", (e) => {
+
+                    let m_pos_l = [];
+
+                    let el = document.querySelector(".mouseCursor");
+                    let t = el.style.getPropertyValue("transform");
+
+                    if ( t.substring( t.indexOf("scale(")+6, t.indexOf("scale(")+9) == "0.2" ){
+                        m_pos_l = [-document.querySelector(".mouseCursor").clientWidth/3, document.querySelector(".mouseCursor").clientWidth/3]
+                    } else {
+                        m_pos_l = [10 - document.querySelector(".mouseCursor").clientWidth/2, 10 + document.querySelector(".mouseCursor").clientWidth/2]
+                    }
+
+                    gsap.to(".mouseCursor", { duration: 0.5, x: `${e.pageX + m_pos_l[0]}px`, y:`${(e.pageY - scrollY) + m_pos_l[1]}}px`, ease: "sine" })
+                })
+
+            }
+
+			// Header Menu button
+			if ( true ){
+                menuButton()
+			}
+
+            // routeChangeStart
+            if ( true ){
+
+                let f_load_s = () => {
+                    document.querySelector(".Load-screen").classList.remove("--is-hidden");
+                    document.body.style.setProperty("overflow-y", "hidden");
+                }
+
+                f_load_s();
+
+                router.events.on("routeChangeStart", (route)=>{
+                    if ( pageMicroHistory.current.currentPage !== route ){
+                        f_load_s();
+                        gsap.fromTo(".Load-screen", { y:"100vh" }, { duration:1, y:"0vh", ease:"power3"});
+                    }
+                    m_cursor_states("color", {color: "default"});
+                });
+
+            }
+
+            // resize event vw size
+            if ( true ){
+                document.body.style.setProperty("--vw-size-px", window.innerWidth/100);
+                window.addEventListener("resize", ()=>{
+                    document.body.style.setProperty("--vw-size-px", window.innerWidth/100);
+                });
+            }
+
+            executed.current += 1;
+
+        }
+
+        if ( executed.current >= 0 ){
+
+            // On page change
+            if ( pageMicroHistory.current.prevPage !== pageMicroHistory.current.currentPage ){
+
+                // Mouse Cursor
+                if ( true ){
+                    el_h_event.current = [];
+                    m_cursor_eventListeners();
+                }
+
+                // Loading Screen and Locomotive setup
+                if ( true ){
+                    setTimeout(() => {
+                        let loadingScreenInterval = setInterval(() => {
+                            if ( router.isReady === true )
+                                gsap.to(".Load-screen", { duration:1, y:"-100vh", ease:"power3", onComplete:()=>{
+                                    window.scroll(0, 0);
+                                    document.querySelector(".Load-screen").classList.add("--is-hidden");
+                                    // document.body.style.removeProperty("overflow-y");
+
+                                }});
+                                clearInterval(loadingScreenInterval);
+                        }, 0);
+
+                        // Locomotive
+                        if ( true ){
+                            if ( locomotiveScrollInstance.current !== undefined ){
+                                locomotiveScrollInstance.current.destroy();
+                            }
+                            locomotiveInit();
+                        }
+
+                        // Onscroll Animation
+                        if ( true ){
+                            // Making web gsap scroll trigger compatible
+                            s_trigger_anim(()=>{
+
+                                // classes
+                                var split_t_anim_cl = {
+                                //  "<route>": {main_target:"<root_class_cont or just el>", head_obj:"<main_heading>", opacity_obj:"<>", lower_part:"<>", button:"<button_root_class>"}
+                                    "/" : {main_target:[".ideasTitle", ".footerLearnMore", ".ideasBehind-wrapper", ".Works-slider", ".ideasImageCarousel", ".footerTrustedBy"],
+                                            head_obj:[".ideasTitle > h1", ".footerLearnMore > h4, .footerLearnMore > h1", "", "", "", "" ],
+                                            opacity_obj:["", " > p", ".ideasBehind-item", "", ".swiper", "h2, .trustersLoop"],
+                                            // slide_obj:["", "", "", ".Works-wrapper", "", ""],
+                                            opacity_dur:["undef", "undef", "0.5", "0.5", "0.5", "0.5"],
+                                            button_obj:["", ".AppButton", "", "", "", ""],
+                                            anim_trig:["", ".footerLearnMore > h4", ".ideasBehind-item:nth-child(1)", ".Works-wrapper", ".swiper", "h2"]},
+
+                                    "/work" : {main_target:[".readyToMake"],
+                                                head_obj:[".readyToMake-text"],
+                                                button_obj:[".AppButton"]},
+
+                                    "/directors" : {main_target:[], head_obj:[]},
+
+                                    "/team" : {main_target:[], head_obj:[]},
+
+                                    "/contact" : {main_target:[], head_obj:[]},
+
+                                    "/about" : {main_target:[".readyToMake", ".Label", ".footerTrustedBy"],
+                                                head_obj:[".readyToMake-text", ".Label-header > h2", ""],
+                                                opacity_obj:["", ".Label-tags, .Label-title > h4", "h2, .trustersLoop" ],
+                                                opacity_dur:["undef", "undef", "0.5"],
+                                                button_obj:[".AppButton", "", ""],
+                                                anim_trig:["", ".Label-header", "h2"]
+                                            },
+                                }
+
+                                import("splitting").then((Splitting) => {
+
+                                    // animtating
+                                    if ( Splitting === undefined ) return;
+                                    if ( split_t_anim_cl[router.asPath] !== undefined ){
+                                        let c_p_l = split_t_anim_cl[router.asPath]
+                                        c_p_l.main_target.forEach( (target_bunch, index) => {
+
+                                            let target_bunch_copy = target_bunch
+                                            // let tar  = target_bunch
+
+                                            document.querySelectorAll(target_bunch).forEach(
+                                                (cur_target, m_ind)=>{
+
+                                                    if ( document.querySelectorAll(c_p_l.main_target[index]).length > 1 ){
+                                                        target_bunch = `${target_bunch_copy}:nth-child(${m_ind+1})`
+                                                    }
+
+                                                    let start_el = c_p_l.main_target[index]
+
+                                                    // Defines what a object will be initial in default
+                                                    let default_from = {
+                                                        opacity: 0
+                                                    }
+
+                                                    let default_tl_to = {
+                                                        stagger:0.05
+                                                    }
+                                                    let tween_to = {
+                                                        opacity: 1,
+                                                        x: 0,
+                                                        y: 0,
+                                                        rotate: 0
+                                                    }
+
+                                                    if ( c_p_l.anim_trig !== undefined && c_p_l.anim_trig !== "" ){
+                                                        if ( c_p_l.anim_trig[index] !== "" )
+                                                            if ( start_el.indexOf(target_bunch) === -1 )
+                                                                start_el = target_bunch + " " + c_p_l.anim_trig[index]
+                                                    }
+
+                                                    // console.log(start_el)
+
+                                                    const sc_anim_tl = gsap.timeline({
+                                                        defaults:{
+                                                            ease: "sine"
+                                                        },
+                                                        scrollTrigger:{
+                                                            trigger: start_el,
+                                                            scroller: "[data-scroll-container]",
+                                                            start: "top bottom",
+                                                            end: "top 30%",
+                                                        }
+                                                    });
+
+                                                    if ( c_p_l.main_target !== undefined ){
+
+                                                        //  For text having splitting thing
+                                                        let anim_f = ( { el, tween_p, delay, break_down=["chars", "char"], fn_c } )=>{
+
+                                                            if ( el === "root_el" ) el = c_p_l.main_target[index];
+                                                            else el = el;
+
+                                                            if ( el.indexOf(target_bunch) === -1 )
+                                                                el = target_bunch + " " + el.replace(",", `, ${target_bunch}`);
+
+                                                            if ( el === undefined ) return;
+
+                                                            // console.log(document.querySelector(el), el)
+
+                                                            // Incase of Heading element if style not provided
+                                                            if ( (["h1", "h2", "h3", "h4"].indexOf( document.querySelector(el).tagName.toLowerCase()) !== -1) ){
+                                                                tween_p = (tween_p !== undefined) ? tween_p : {
+                                                                    x: cur_target.clientWidth*0.08
+                                                                }
+                                                            }
+
+                                                            if ( c_p_l.main_target[index] == ".readyToMake" ){
+                                                                default_tl_to = {...default_tl_to, ...{
+                                                                    duration: document.querySelector(el).clientWidth*0.001,
+                                                                    stagger: document.querySelector(el).clientWidth*0.0001*0.25
+                                                                }}
+                                                            }
+
+                                                            // Spliting the text for our requirement.
+                                                            Splitting.default({ target:el, by:break_down[0] });
+
+                                                            let cur_tar_bunch = target_bunch
+
+                                                            // Waiting until split text is done.
+                                                            let tl_interv = setInterval(() => {
+
+                                                                let cur_el = document.querySelectorAll((break_down[0] == "") ? el:(el.replace(",", " ."+break_down[1]+",")+" ."+break_down[1]));
+
+                                                                if ( cur_el  === undefined ) return;
+
+                                                                gsap
+                                                                    .set( cur_el , {...tween_p, ...default_from} );
+
+                                                                sc_anim_tl
+                                                                    .to( cur_el, {...tween_to, ...default_tl_to}, delay );
+
+                                                                fn_c(cur_tar_bunch)
+
+                                                                clearInterval(tl_interv)
+                                                            }, 0);
+
+                                                        }
+
+                                                        // opacity and button obj func
+                                                        let opac_bu_objFunc = (target_bunch) => {
+
+                                                            // opacity_obj
+                                                            if ( c_p_l.opacity_obj !== undefined && c_p_l.opacity_obj[index] !== "" ){
+
+                                                                let el = c_p_l.opacity_obj[index]
+
+                                                                if ( el.indexOf(target_bunch) === -1 )
+                                                                    el = target_bunch + " " + el.replace(",", `, ${target_bunch}`);
+
+                                                                gsap.set( el,
+                                                                    { opacity: 0 }
+                                                                )
+
+                                                                sc_anim_tl
+                                                                    .to( el,
+                                                                        { opacity: 1, duration:( c_p_l.opacity_dur[index] !== "undef" ) ? c_p_l.opacity_dur[index] : "1", ease:( c_p_l.opacity_dur[index] !== "undef" ) ? "none" : "power3" },
+                                                                        ( c_p_l.opacity_dur[index] !== "undef" ) ? undefined : "<0.5"
+                                                                    )
+                                                            }
+
+                                                            // button_obj
+                                                            if ( c_p_l.button_obj !== undefined && c_p_l.button_obj[index] !== undefined && c_p_l.button_obj[index] !== "" ){
+
+                                                                let el = c_p_l.button_obj[index]
+
+                                                                if ( el.indexOf(target_bunch) === -1 )
+                                                                    el = target_bunch + " " + el.replace(",", `, ${target_bunch}`);
+
+                                                                gsap.set( el + " " + ".AppButton-bg",
+                                                                    { scaleX: 0, opacity: 0 }
+                                                                )
+                                                                gsap.set( el + " " + ".AppButton-label",
+                                                                    { scale: 1.2, opacity: 0 }
+                                                                )
+
+                                                                sc_anim_tl
+                                                                    .to( el + " " + ".AppButton-bg",
+                                                                        { scaleX: 1, opacity: 1, duration:0.5, ease:"power3" },
+                                                                        "<0.25"
+                                                                    )
+                                                                    .to( el + " " + ".AppButton-label",
+                                                                        { scale: 1, opacity: 1, duration:0.7, ease:"power3" },
+                                                                        "<0"
+                                                                    )
+                                                            }
+                                                        }
+
+                                                        // Top Text
+                                                        if ( c_p_l.head_obj !== undefined && c_p_l.head_obj[index] != "" && c_p_l.head_obj[index] != undefined ){
+                                                            anim_f( {
+                                                                el: c_p_l.head_obj[index],
+                                                                fn_c: opac_bu_objFunc,
+                                                                delay: "<0"
+                                                            })
+                                                        } else {
+
+                                                            opac_bu_objFunc(target_bunch);
+
+                                                        }
+                                                    }
+
+                                                }
+                                            )
+
+                                        });
+                                    }
+                                });
+
+                                // footer planet animation
+                                gsap.from( ".Footer-planetbg", {
+                                    y: "15%",
+                                    duration: 1.4,
+                                    ease: "power1",
+                                    scrollTrigger:{
+                                        trigger: ".Footer-wrapper",
+                                        scroller: "[data-scroll-container]",
+                                        start: "top bottom",
+                                        end: "top 30%"
+                                    }
+                                });
+
+                                // slider slidding animation
+                                if ( router.asPath === "/" ){
+                                    let s_ref_interv = setInterval(() => {
+
+                                        if ( s_ref.current === undefined ) return;
+
+                                        // footer planet animation
+                                        const w_s_tl =  gsap.timeline({
+                                            defaults : {
+                                                duration: 1,
+                                                ease: "sine",
+                                            },
+                                            scrollTrigger:{
+                                                trigger: ".Works-slider",
+                                                scroller: "[data-scroll-container]",
+                                                start: "top 67%",
+                                                end: "top 0%"
+                                            }
+                                        });
+
+                                        gsap.set(s_ref.current, {
+                                            currentX: (s_ref.current.slideWidth) * 1.3
+                                        })
+
+                                        w_s_tl
+                                            .from(".Works-slider", { opacity: 0, duration: 0.5 })
+                                            // .from(".Works-slideInner", { x: `${( 80 * 0.69 )}vw` }, "<0")
+                                            .to(s_ref.current, {
+                                                currentX: 0,
+                                                duration: 1.5,
+                                                ease: "circ",
+                                                onComplete: ()=>{
+                                                    s_ref.current.snappingState = 1
+                                                }
+                                            }, "<0")
+
+                                        clearInterval(s_ref_interv);
+                                    }, 0);
+                                }
+
+
+
+                            });
+                        }
+
+                    }, 1000);
+                }
+
+                // Contact Page Header Change
+                if ( true ){
+                    if ( router.asPath === "/contact" ){
+                        document.querySelector(".Header").style.setProperty("display", "none");
+                    }
+                    else{
+                        document.querySelector(".Header").style.removeProperty("display");
+                        setHeaderVisibilityState(executed.current);
+                    }
+                }
+
+                // on scroll triggers
+                if ( true ){
+                    scrollTrigger();
+                }
+
+                // colorFill Animation
+                if ( true && document.body.clientWidth >= 1023 ){
+                    trackMouse();
+
+                    var colorFillsFiltered = [... document.querySelectorAll(".colorFill")];
+
+                    if ( executed.current >= 1 ){
+
+                        var unWantedEl = [... document.querySelectorAll(".Header .colorFill")];
+
+                        for (let i = 0; i < unWantedEl.length; i++){
+                            let index = colorFillsFiltered.indexOf(unWantedEl[i])
+                            if ( index > -1 ){
+                                colorFillsFiltered.splice(index, 1);
+                            }
+                        }
+
+                    }
+
+                    colorFiller(colorFillsFiltered);
+                }
+
+                // Event Listeners destroyer
+                if ( true && windowListeners.current.listeners != undefined && executed.current > 1 ){
+                    windowListeners.current.listeners.forEach(listener => {
+                        window.removeEventListener("resize", listener);
+                    });
+                }
+
+                // Desk or Mob
+                if ( true ){
+
+                    let onlyDesk = document.querySelectorAll(".onlyDesk");
+                    let onlyMob = document.querySelectorAll(".onlyMob");
+
+                    if ( window.innerWidth <= 1023 ) {
+                        onlyDesk.forEach(element => {
+                            element.style.setProperty("display", "none");
+                        });
+                    } else {
+                        onlyMob.forEach(element => {
+                            element.style.setProperty("display", "none");
+                        });
+                    }
+
+                }
+
+            }
+
+            // Handling on page change
+            if (true){
+                var menuButtonRef = document.querySelector(".MenuButton");
+                var menuContainerRef = document.querySelector(".Header .Menu")
+
+                gsap.set(menuContainerRef, {display:"none"});
+                (document.body || window).style.removeProperty("overflow-y");
+                menuButtonRef.classList.remove("menu-open")
+
+                menuState.current = false;
+            }
+
+            executed.current += 1;
+        }
+
+
+    }, [router])
+
+    useEffect(() => {
+
+        // Reinitiating Events
+        if ( true ){
+            menuButton();
+            colorFiller(document.querySelectorAll(".Header .colorFill"));
+        }
+
+        // Route Labels
+        if ( true ){
+            if ( pageMicroHistory.current.currentPage !== "/" ){
+                document.querySelector(".Header .Header-route").style.removeProperty("display")
+            }
+            else
+                document.querySelector(".Header .Header-route").style.setProperty("display", "none")
+        }
+
+        // Desk or Mob
+        if ( true ){
+
+            let onlyDesk = document.querySelectorAll(".Header .onlyDesk");
+            let onlyMob = document.querySelectorAll(".Header .onlyMob");
+
+            if ( window.innerWidth <= 1023 ) {
+                onlyDesk.forEach(element => {
+                    element.style.setProperty("display", "none");
+                });
+            } else {
+                onlyMob.forEach(element => {
+                    element.style.setProperty("display", "none");
+                });
+            }
+
+        }
+
+    }, [headerVisibilityState]);
+
+
+    return (
+        <>
+            <div className={"Load-screen"}>
+                <div className="Load-text">
+                    {/* Loading... */}
+                    <lottie-player src="/assets/102854-snake-line-loading-animation.json"  background="transparent"  speed="1"  style={{width: "300px", height: "300px"}}  loop="true" autoplay></lottie-player>
+                    {/* <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_0fvcgy9k.json"  background="transparent"  speed="1"  style={{width: "400px", height: "400px"}}  loop autoplay></lottie-player> */}
+                </div>
+            </div>
+
+            <>
+                {/* Custom Cursor */}
+                <div className="mouseCursorContainer">
+                    <div className="mouseCursor" style={{transform:"translate3d(0px, 0px, 0px) scale(0.2))", borderColor: "rgb(85, 65, 248)", backgroundColor: "rgb(85, 65, 248)"}}>
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
+                            <g clipPath="url(#clip0_26_11)">
+                                <g clipPath="url(#clip1_26_11)">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M32.9892 0.00660713L20.594 33.4L16.659 29.465L25.1193 7.87653L3.42323 16.2293L-0.5 12.5L32.9892 0.00660713Z" fill="var(--cursorColor)" />
+                                </g>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_26_11">
+                                    <rect width="33" height="33" fill="white" />
+                                </clipPath>
+                                <clipPath id="clip1_26_11">
+                                    <rect width="30" height="32" fill="white" transform="translate(22.4 -10.6) rotate(45)" />
+                                </clipPath>
+                            </defs>
+                        </svg> */}
+                        {/* <img src="/assets/cursor.svg" alt="" /> */}
+
+                        <div className="mouseCursorContent">
+                            <div className="mouseCursorIconWrapper">
+                                {m_content_icon}
+                            </div>
+                            <div className="mouseCursorTextWrapper"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* Header */}
+                <header className="Header" key={headerVisibilityState}>
+                    <div className="Header-wrapper">
+                        <div className="Header-route onlyDesk" style={{"display":"none"}}>
+                            { pageMicroHistoryState.currentPage === "/" ? "" : (
+                                <div className="Route-label">
+                                    <div className="Routes">
+                                        <Link href={"/"}>
+                                            <span className="Routes-text">Home</span>
+                                        </Link>
+                                    </div>
+                                    <div className="Routes">
+                                        <Link href={pageMicroHistoryState.currentPage}>
+                                            <span className="Routes-text">{ pageMicroHistoryState.currentPage.replace("/", "") }</span>
+                                        </Link>
+                                    </div>
+                                </div>
+                            ) }
+                        </div>
+                        <Link href="/">
+                            <a href="/" className="Header-logoContainer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="372" height="38" viewBox="0 0 372 38" fill="none">
+                                    <g clipPath="url(#clip0_6_14)">
+                                        <path d="M26.6152 31.8H8.9092L6.35496 37.36H0L17.5936 0H17.941L35.5346 37.36H29.1695L26.6152 31.8ZM24.347 26.87L17.7775 12.56L11.2387 26.87H24.347Z" fill="white"/>
+                                        <path d="M70.7014 0.659985V38H70.4256L46.4974 13.54V37.41H40.6227V0.109985H40.9292L64.8063 24.53V0.659985H70.7014Z" fill="white"/>
+                                        <path d="M77.0462 19.1C77.0381 15.3506 78.1672 11.6833 80.2904 8.56247C82.4136 5.44168 85.4354 3.00789 88.9729 1.56941C92.5105 0.130932 96.4047 -0.247514 100.162 0.482015C103.92 1.21154 107.372 3.01622 110.08 5.66743C112.789 8.31865 114.633 11.6971 115.378 15.3748C116.124 19.0525 115.737 22.8641 114.267 26.3265C112.798 29.789 110.311 32.7466 107.122 34.8247C103.934 36.9028 100.187 38.0079 96.3563 38C91.2432 37.9737 86.3472 35.974 82.7316 32.4353C79.1161 28.8965 77.073 24.1045 77.0462 19.1V19.1ZM109.792 19.1C109.81 16.5002 109.039 13.9537 107.577 11.7831C106.115 9.6125 104.027 7.9156 101.579 6.90742C99.1307 5.89925 96.4316 5.6252 93.8239 6.11999C91.2162 6.61479 88.8173 7.85616 86.9312 9.68678C85.0451 11.5174 83.7566 13.8549 83.2292 16.4029C82.7018 18.951 82.9591 21.595 83.9686 23.9998C84.978 26.4045 86.6941 28.4619 88.8995 29.9111C91.1048 31.3602 93.7 32.136 96.3563 32.14C99.9039 32.1296 103.304 30.7504 105.82 28.3016C108.335 25.8529 109.762 22.5322 109.792 19.06V19.1Z" fill="white"/>
+                                        <path d="M143.64 6.45H133.618V37.36H127.712V6.45H117.7V0.75H143.64V6.45Z" fill="white"/>
+                                        <path d="M177.162 0.75V37.36H171.298V21.9H155.094V37.36H149.25V0.75H155.094V16.19H171.298V0.75H177.162Z" fill="white"/>
+                                        <path d="M191.17 6.41V15.79H205.361V21.51H191.17V31.64H207.578V37.36H185.305V0.75H207.578V6.41H191.17Z" fill="white"/>
+                                        <path d="M235.184 37.36L225.121 23.19H220.523V37.36H214.648V0.75H226.275C233.233 0.75 238.944 6 238.944 12.52C238.957 14.7643 238.249 16.9558 236.92 18.7844C235.591 20.6131 233.708 21.9864 231.537 22.71L242.428 37.36H235.184ZM226.388 18.42C228.054 18.4448 229.664 17.8312 230.874 16.7102C232.084 15.5892 232.799 14.0496 232.865 12.42C232.842 11.6132 232.655 10.8189 232.316 10.0831C231.977 9.34737 231.492 8.68465 230.89 8.13328C230.287 7.5819 229.579 7.15279 228.807 6.87074C228.034 6.58869 227.212 6.45928 226.388 6.49H220.492V18.49L226.388 18.42Z" fill="white"/>
+                                        <path d="M262.157 0.75H268.032V37.36H262.157V0.75Z" fill="white"/>
+                                        <path d="M306.111 19.1C306.111 30.35 298.703 37.36 286.831 37.36H276.175V0.750012H286.831C298.703 0.730012 306.111 7.77001 306.111 19.1ZM300.175 19.1C300.175 11.33 295.015 6.47001 286.801 6.47001H281.988V31.64H286.842C295.046 31.64 300.175 26.8 300.175 19.08V19.1Z" fill="white"/>
+                                        <path opacity="0.6" d="M344.026 34.75L345.385 31.8L354.243 12.56L363.07 31.8H363.091L365.645 37.36H372L354.406 0H354.059L336.465 37.36H342.82L344.026 34.75Z" fill="#BABCBE"/>
+                                        <path d="M318.31 31.64V21.51H335.791L338.488 15.79H318.31V6.41H342.902L345.569 0.75H312.435V37.36H328.322L331.02 31.64H318.31Z" fill="white"/>
+                                        <path d="M334.677 37.36H334.718V37.29L334.677 37.36Z" fill="white"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_6_14">
+                                            <rect width="372" height="38" fill="white"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </a>
+                        </Link>
+                        <button aria-label="open menu" className="MenuButton Header-button colorFill" style={{"--x":"30.2695px", "--y":"98.2717px", "--r":"0px", "--ease":"expo"}}>
+                            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="MenuButton-border" >
+                                <circle cx="50" cy="50" r="49" ></circle>
+                            </svg>
+                            <span className="MenuButton-bg" ></span>
+                            <div className="MenuButton-label" >
+                                <span data-v-2cdfcd8e="">Menu</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="MenuButton-cross" >
+                                <path d="M0 8.6h20v2.7H0V8.6z" ></path>
+                                <path d="M8.6 0h2.7v20H8.6V0z" ></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div className="Menu" style={{"background":"rgb(85, 65, 248)", "display":"none"}}>
+                        <div className="Menu-bg" style={{"display":"none"}}>
+                            <canvas></canvas>
+                        </div>
+                        <div className="Menu-wrapper">
+                            <nav className="Menu-nav">
+                                <NavItem
+                                    itemNum="01"
+                                    linkLabel="Home"
+                                    href="/"
+                                />
+
+                                <NavItem
+                                    itemNum="02"
+                                    linkLabel="About"
+                                    href="/about"
+                                />
+
+                                <NavItem
+                                    itemNum="03"
+                                    linkLabel="Work"
+                                    href="/work"
+                                />
+
+                                {/* Replaced Elements */}
+                                {/* <NavItem
+                                    itemNum="02"
+                                    linkLabel="Work"
+                                    href="/work"
+                                />
+                                <NavItem
+                                    itemNum="03"
+                                    linkLabel="Directors"
+                                    href="/directors"
+                                />
+                                <NavItem
+                                    itemNum="04"
+                                    linkLabel="Team"
+                                    href="/team"
+                                /> */}
+                            </nav>
+                            <div className="Menu-secondNav">
+                                <div className="Menu-quickAccess">
+                                    <div className="Menu-quickAccessItem">
+                                        <Link href={"/contact"}>
+                                            <a href="/contact" className="Menu-quickAccessItemLink">
+                                                Contact us
+                                            </a>
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div className="Menu-socials">
+                                    <div className="Menu-socialsItem">
+                                        <Link href={"/instagram"}>
+                                            <a href="/instagram" className="Menu-socialsItemLink">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="Menu-socialsItemIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                    <g clipPath="url(#clip0_1_2)">
+                                                        <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="white"/>
+                                                        <path d="M4.22 12C4.22 10.89 4.22 9.78 4.22 8.67C4.2732 7.66927 4.65316 6.71362 5.30162 5.94956C5.95008 5.1855 6.83124 4.65521 7.81 4.44C8.17158 4.36106 8.53998 4.31752 8.91 4.31H15.11C16.2062 4.30424 17.2693 4.68508 18.1124 5.38557C18.9556 6.08606 19.5248 7.06136 19.72 8.14C19.7681 8.42075 19.7915 8.70517 19.79 8.99V14.99C19.7966 15.6032 19.6819 16.2116 19.4524 16.7802C19.2229 17.3489 18.8832 17.8665 18.4529 18.3033C18.0226 18.7402 17.5101 19.0876 16.9449 19.3256C16.3798 19.5635 15.7732 19.6874 15.16 19.69C13.0533 19.69 10.9433 19.69 8.83 19.69C7.70452 19.6822 6.62009 19.2664 5.77786 18.5198C4.93563 17.7732 4.39278 16.7464 4.25 15.63C4.25 15.32 4.25 15.01 4.25 14.69V12H4.22ZM8.91 5.76C8.49168 5.75205 8.07594 5.82725 7.68691 5.98124C7.29789 6.13523 6.94331 6.36494 6.64376 6.65705C6.34421 6.94915 6.10566 7.29784 5.94193 7.68287C5.77821 8.0679 5.69257 8.48161 5.69 8.9C5.69 10.96 5.69 13.02 5.69 15.08C5.69252 15.9051 6.01868 16.6963 6.59837 17.2835C7.17806 17.8706 7.96499 18.2069 8.79 18.22C10.9367 18.22 13.0867 18.22 15.24 18.22C16.0598 18.2044 16.8413 17.8698 17.4183 17.2872C17.9953 16.7046 18.3223 15.9199 18.33 15.1C18.33 13.03 18.33 10.95 18.33 8.88C18.3206 8.07785 18.0045 7.30973 17.4466 6.73326C16.8888 6.1568 16.1314 5.81571 15.33 5.78C14.25 5.73 9.94 5.75 8.91 5.76Z" fill="#5542F7"/>
+                                                        <path d="M15.9 12C15.9119 12.7619 15.6969 13.5102 15.2822 14.1495C14.8676 14.7888 14.2721 15.2903 13.5716 15.5902C12.871 15.89 12.0971 15.9747 11.3483 15.8334C10.5995 15.6921 9.90969 15.3311 9.36664 14.7966C8.82359 14.262 8.45186 13.578 8.29877 12.8315C8.14567 12.085 8.21813 11.3099 8.50692 10.6047C8.79572 9.89951 9.28779 9.29621 9.92051 8.87155C10.5532 8.44689 11.298 8.22009 12.06 8.21999C13.0697 8.21465 14.0404 8.60928 14.76 9.31761C15.4796 10.0259 15.8894 10.9903 15.9 12V12ZM14.52 12C14.526 11.5118 14.3865 11.0329 14.1194 10.6242C13.8523 10.2155 13.4696 9.89552 13.0201 9.70501C12.5705 9.5145 12.0745 9.46207 11.595 9.55439C11.1156 9.64671 10.6745 9.8796 10.3278 10.2234C9.9812 10.5672 9.7447 11.0064 9.64845 11.4851C9.55221 11.9637 9.60057 12.4602 9.78739 12.9113C9.9742 13.3624 10.291 13.7477 10.6975 14.0181C11.104 14.2886 11.5818 14.4319 12.07 14.43C12.3904 14.4313 12.708 14.3695 13.0045 14.2481C13.301 14.1267 13.5708 13.9481 13.7983 13.7224C14.0258 13.4968 14.2066 13.2285 14.3304 12.933C14.4543 12.6374 14.5187 12.3204 14.52 12V12Z" fill="#5542F7"/>
+                                                        <path d="M15.21 7.99999C15.2579 7.79865 15.3723 7.61935 15.5347 7.49107C15.6971 7.36278 15.898 7.293 16.105 7.293C16.312 7.293 16.5129 7.36278 16.6753 7.49107C16.8377 7.61935 16.9521 7.79865 17 7.99999C16.9763 8.22616 16.8697 8.43556 16.7007 8.58776C16.5318 8.73997 16.3124 8.8242 16.085 8.8242C15.8576 8.8242 15.6382 8.73997 15.4693 8.58776C15.3003 8.43556 15.1937 8.22616 15.17 7.99999H15.21Z" fill="#5542F7"/>
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_1_2">
+                                                            <rect width="24" height="24" fill="white"/>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                                <span className="Menu-socialsItemLabel">
+                                                    Instagram
+                                                </span>
+                                            </a>
+                                        </Link>
+                                    </div>
+                                    <div className="Menu-socialsItem">
+                                        <Link href={"/vimeo"}>
+                                            <a href="/vimeo" className="Menu-socialsItemLink">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="Menu-socialsItemIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                    <g clipPath="url(#clip0_3_9)">
+                                                        <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="white"/>
+                                                        <path d="M17.14 6.10001C17.4676 6.05838 17.8003 6.08937 18.1146 6.19077C18.4288 6.29218 18.7169 6.46151 18.9584 6.68676C19.1999 6.912 19.3888 7.18763 19.5118 7.49409C19.6348 7.80056 19.6888 8.13033 19.67 8.46001C19.7488 9.47362 19.5408 10.4889 19.07 11.39C17.7164 14.2156 15.7525 16.7054 13.32 18.68C12.8316 19.0665 12.2598 19.3336 11.65 19.46C11.3684 19.5377 11.071 19.5379 10.7894 19.4604C10.5077 19.383 10.2522 19.2308 10.05 19.02C9.46635 18.4343 9.05175 17.7019 8.85 16.9C8.4 15.32 8 13.73 7.53 12.15C7.38173 11.5298 7.13168 10.9384 6.79 10.4C6.45 9.89001 6.23 9.84001 5.71 10.14C5.56595 10.209 5.43149 10.2964 5.31 10.4C5.03 10.65 4.85 10.61 4.63 10.3C4.2 9.69001 4.18 9.71001 4.75 9.21001C5.54 8.52001 6.29 7.77001 7.13 7.13001L7.7 6.73001C7.94135 6.52165 8.2327 6.37958 8.54549 6.31773C8.85829 6.25588 9.18178 6.27638 9.48427 6.37721C9.78676 6.47803 10.0578 6.65574 10.271 6.89289C10.4841 7.13005 10.6319 7.41851 10.7 7.73001C10.9476 8.64851 11.1248 9.58456 11.23 10.53C11.3809 11.4847 11.5879 12.4297 11.85 13.36C11.9473 13.7164 12.1027 14.0542 12.31 14.36C12.53 14.64 12.79 14.71 13.05 14.46C14.0567 13.5215 14.7865 12.3247 15.16 11C15.45 9.84001 14.84 9.31001 13.64 9.55001C13.47 9.55001 13.26 9.77001 13.13 9.61001C13 9.45001 13.19 9.26001 13.25 9.09001C13.467 8.38333 13.8641 7.74528 14.4024 7.23857C14.9407 6.73187 15.6015 6.37395 16.32 6.20001C16.5912 6.15133 16.865 6.11795 17.14 6.10001V6.10001Z" fill="#5542F7"/>
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_3_9">
+                                                        <rect width="24" height="24" fill="white"/>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                                <span className="Menu-socialsItemLabel">
+                                                    Vimeo
+                                                </span>
+                                            </a>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                            <Link href={"/"}>
+                                <a href="/" className="Menu-logoContainer onlyDesk">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="255" height="26" viewBox="0 0 255 26" fill="none">
+                                        <g clipPath="url(#clip0_12_104)">
+                                            <path d="M18.2104 21.7579H6.09577L4.34813 25.5621H0L12.0377 0H12.2754L24.3132 25.5621H19.958L18.2104 21.7579ZM16.6585 18.3847L12.1636 8.59368L7.68962 18.3847H16.6585Z" fill="white"/>
+                                            <path d="M48.3747 0.451572V26H48.1859L31.814 9.2642V25.5963H27.7945V0.0752563H28.0042L44.3411 16.7837V0.451572H48.3747Z" fill="white"/>
+                                            <path d="M52.7158 13.0684C52.7103 10.5031 53.4828 7.99381 54.9355 5.85853C56.3882 3.72325 58.4558 2.05803 60.8762 1.07381C63.2967 0.089585 65.9611 -0.169351 68.5321 0.3298C71.103 0.828951 73.4647 2.06373 75.3181 3.87772C77.1714 5.6917 78.433 8.00328 78.943 10.5196C79.453 13.036 79.1884 15.6438 78.1828 18.0129C77.1773 20.3819 75.4759 22.4056 73.2943 23.8274C71.1127 25.2493 68.549 26.0054 65.928 26C62.4296 25.982 59.0797 24.6138 56.6059 22.1926C54.1321 19.7713 52.7342 16.4925 52.7158 13.0684V13.0684ZM75.1206 13.0684C75.133 11.2896 74.6057 9.54725 73.6053 8.06211C72.605 6.57698 71.1767 5.41594 69.5015 4.72613C67.8263 4.03633 65.9795 3.84882 64.1953 4.18736C62.4111 4.52591 60.7697 5.37527 59.4792 6.6278C58.1887 7.88033 57.3072 9.47965 56.9463 11.2231C56.5855 12.9665 56.7615 14.7755 57.4522 16.4209C58.1429 18.0663 59.3171 19.4739 60.826 20.4655C62.3349 21.457 64.1105 21.9878 65.928 21.9905C68.3553 21.9834 70.6819 21.0397 72.4028 19.3643C74.1238 17.6888 75.1003 15.4168 75.1206 13.041V13.0684Z" fill="white"/>
+                                            <path d="M98.2803 4.41315H91.4226V25.5621H87.382V4.41315H80.5313V0.513153H98.2803V4.41315Z" fill="white"/>
+                                            <path d="M121.216 0.513153V25.5621H117.204V14.9842H106.117V25.5621H102.118V0.513153H106.117V11.0774H117.204V0.513153H121.216Z" fill="white"/>
+                                            <path d="M130.8 4.38578V10.8037H140.51V14.7174H130.8V21.6484H142.027V25.5621H126.788V0.513153H142.027V4.38578H130.8Z" fill="white"/>
+                                            <path d="M160.916 25.5621L154.03 15.8668H150.884V25.5621H146.865V0.513153H154.82C159.581 0.513153 163.488 4.10526 163.488 8.56631C163.497 10.1019 163.013 11.6013 162.103 12.8525C161.194 14.1037 159.905 15.0433 158.42 15.5384L165.872 25.5621H160.916ZM154.897 12.6032C156.037 12.6201 157.138 12.2003 157.966 11.4333C158.794 10.6663 159.283 9.61286 159.329 8.49789C159.313 7.94584 159.185 7.40241 158.953 6.89899C158.721 6.39556 158.389 5.94213 157.977 5.56487C157.565 5.18761 157.081 4.89401 156.552 4.70103C156.023 4.50804 155.461 4.4195 154.897 4.44052H150.863V12.651L154.897 12.6032Z" fill="white"/>
+                                            <path d="M179.371 0.513153H183.39V25.5621H179.371V0.513153Z" fill="white"/>
+                                            <path d="M209.444 13.0684C209.444 20.7658 204.376 25.5621 196.253 25.5621H188.962V0.513152H196.253C204.376 0.499467 209.444 5.31631 209.444 13.0684ZM205.383 13.0684C205.383 7.7521 201.852 4.42684 196.232 4.42684H192.939V21.6484H196.26C201.873 21.6484 205.383 18.3368 205.383 13.0547V13.0684Z" fill="white"/>
+                                            <path opacity="0.6" d="M235.386 23.7763L236.316 21.7579L242.377 8.59368L248.417 21.7579H248.431L250.178 25.5621H254.526L242.489 0H242.251L230.213 25.5621H234.561L235.386 23.7763Z" fill="#BABCBE"/>
+                                            <path d="M217.791 21.6484V14.7174H229.752L231.597 10.8037H217.791V4.38578H234.617L236.442 0.513153H213.771V25.5621H224.642L226.487 21.6484H217.791Z" fill="white"/>
+                                            <path d="M228.99 25.5621H229.018V25.5142L228.99 25.5621Z" fill="white"/>
+                                        </g>
+                                            <defs>
+                                                <clipPath id="clip0_12_104">
+                                                    <rect width="254.526" height="26" fill="white"/>
+                                                </clipPath>
+                                            </defs>
+                                    </svg>
+                                </a>
+                            </Link>
+
+                        </div>
+                    </div>
+                </header>
+
+                {/* Content */}
+                <Component {...pageProps}
+                    windowListeners={windowListeners.current}
+                    locomotiveScrollInstance={locomotiveScrollInstance}
+                    cursor_events_listen={m_cursor_eventListeners}
+                    m_cursor_states={m_cursor_states}
+                    s_trigger_anim={s_trigger_anim}
+                    s_ref={s_ref}
+                />
+            </>
+        </>
+    );
+}
+
+export default MyApp;
