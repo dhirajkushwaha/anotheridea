@@ -1085,7 +1085,7 @@ function MyApp({ Component, pageProps }) {
                                     href="/"
                                 />
 
-                                {/* <NavItem
+                                <NavItem
                                     itemNum="02"
                                     linkLabel="About"
                                     href="/about"
@@ -1095,10 +1095,11 @@ function MyApp({ Component, pageProps }) {
                                     itemNum="03"
                                     linkLabel="Work"
                                     href="/work"
-                                /> */}
+                                />
+                                
 
                                 {/* Replaced Elements */}
-                                <NavItem
+                                {/* <NavItem
                                     itemNum="02"
                                     linkLabel="Work"
                                     href="/work"
@@ -1112,7 +1113,7 @@ function MyApp({ Component, pageProps }) {
                                     itemNum="04"
                                     linkLabel="Team"
                                     href="/team"
-                                />
+                                /> */}
                             </nav>
                             <div className="Menu-secondNav">
                                 <div className="Menu-quickAccess">
