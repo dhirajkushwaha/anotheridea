@@ -452,6 +452,274 @@ function MyApp({ Component, pageProps }) {
 
     }
 
+    const p_scroll_trigger = ()=>{
+
+        // classes
+        var split_t_anim_cl = {
+        //  "<route>": {main_target:"<root_class_cont or just el>", head_obj:"<main_heading>", opacity_obj:"<>", lower_part:"<>", button:"<button_root_class>"}
+            "/" : {main_target:[".ideasTitle", ".footerLearnMore", ".ideasBehind-wrapper", ".Works-slider", ".ideasImageCarousel", ".footerTrustedBy"],
+                    head_obj:[".ideasTitle > h1", ".footerLearnMore > h4, .footerLearnMore > h1", "", "", "", "" ],
+                    opacity_obj:["", " > p", ".ideasBehind-item", "", ".swiper", "h2, .trustersLoop"],
+                    // slide_obj:["", "", "", ".Works-wrapper", "", ""],
+                    opacity_dur:["undef", "undef", "0.5", "0.5", "0.5", "0.5"],
+                    button_obj:["", ".AppButton", "", "", "", ""],
+                    anim_trig:["", ".footerLearnMore > h4", ".ideasBehind-item:nth-child(1)", ".Works-wrapper", ".swiper", "h2"]},
+
+            "/work" : {main_target:[".readyToMake"],
+                        head_obj:[".readyToMake-text"],
+                        button_obj:[".AppButton"]},
+
+            "/directors" : {main_target:[], head_obj:[]},
+
+            "/team" : {main_target:[], head_obj:[]},
+
+            "/contact" : {main_target:[], head_obj:[]},
+
+            "/about" : {main_target:[".readyToMake", ".Label", ".footerTrustedBy"],
+                        head_obj:[".readyToMake-text", ".Label-header > h2", ""],
+                        opacity_obj:["", ".Label-tags, .Label-title > h4", "h2, .trustersLoop" ],
+                        opacity_dur:["undef", "undef", "0.5"],
+                        button_obj:[".AppButton", "", ""],
+                        anim_trig:["", ".Label-header", "h2"]
+                    },
+        }
+
+        import("splitting").then((Splitting) => {
+
+            // animtating
+            if ( Splitting === undefined ) return;
+            if ( split_t_anim_cl[router.asPath] !== undefined ){
+                let c_p_l = split_t_anim_cl[router.asPath]
+                c_p_l.main_target.forEach( (target_bunch, index) => {
+
+                    let target_bunch_copy = target_bunch
+                    // let tar  = target_bunch
+
+                    document.querySelectorAll(target_bunch).forEach(
+                        (cur_target, m_ind)=>{
+
+                            if ( document.querySelectorAll(c_p_l.main_target[index]).length > 1 ){
+                                target_bunch = `${target_bunch_copy}:nth-child(${m_ind+1})`
+                            }
+
+                            let start_el = c_p_l.main_target[index]
+
+                            // Defines what a object will be initial in default
+                            let default_from = {
+                                opacity: 0
+                            }
+
+                            let default_tl_to = {
+                                stagger:0.05
+                            }
+                            let tween_to = {
+                                opacity: 1,
+                                x: 0,
+                                y: 0,
+                                rotate: 0
+                            }
+
+                            if ( c_p_l.anim_trig !== undefined && c_p_l.anim_trig !== "" ){
+                                if ( c_p_l.anim_trig[index] !== "" )
+                                    if ( start_el.indexOf(target_bunch) === -1 )
+                                        start_el = target_bunch + " " + c_p_l.anim_trig[index]
+                            }
+
+                            // console.log(start_el)
+
+                            const sc_anim_tl = gsap.timeline({
+                                defaults:{
+                                    ease: "sine"
+                                },
+                                scrollTrigger:{
+                                    trigger: start_el,
+                                    scroller: "[data-scroll-container]",
+                                    start: "top bottom",
+                                    end: "top 30%",
+                                }
+                            });
+
+                            if ( c_p_l.main_target !== undefined ){
+
+                                //  For text having splitting thing
+                                let anim_f = ( { el, tween_p, delay, break_down=["chars", "char"], fn_c } )=>{
+
+                                    if ( el === "root_el" ) el = c_p_l.main_target[index];
+                                    else el = el;
+
+                                    if ( el.indexOf(target_bunch) === -1 )
+                                        el = target_bunch + " " + el.replace(",", `, ${target_bunch}`);
+
+                                    if ( el === undefined ) return;
+
+                                    // console.log(document.querySelector(el), el)
+
+                                    // Incase of Heading element if style not provided
+                                    if ( (["h1", "h2", "h3", "h4"].indexOf( document.querySelector(el).tagName.toLowerCase()) !== -1) ){
+                                        tween_p = (tween_p !== undefined) ? tween_p : {
+                                            x: cur_target.clientWidth*0.08
+                                        }
+                                    }
+
+                                    if ( c_p_l.main_target[index] == ".readyToMake" ){
+                                        default_tl_to = {...default_tl_to, ...{
+                                            duration: document.querySelector(el).clientWidth*0.001,
+                                            stagger: document.querySelector(el).clientWidth*0.0001*0.25
+                                        }}
+                                    }
+
+                                    // Spliting the text for our requirement.
+                                    Splitting.default({ target:el, by:break_down[0] });
+
+                                    let cur_tar_bunch = target_bunch
+
+                                    // Waiting until split text is done.
+                                    let tl_interv = setInterval(() => {
+
+                                        let cur_el = document.querySelectorAll((break_down[0] == "") ? el:(el.replace(",", " ."+break_down[1]+",")+" ."+break_down[1]));
+
+                                        if ( cur_el  === undefined ) return;
+
+                                        gsap
+                                            .set( cur_el , {...tween_p, ...default_from} );
+
+                                        sc_anim_tl
+                                            .to( cur_el, {...tween_to, ...default_tl_to}, delay );
+
+                                        fn_c(cur_tar_bunch)
+
+                                        clearInterval(tl_interv)
+                                    }, 0);
+
+                                }
+
+                                // opacity and button obj func
+                                let opac_bu_objFunc = (target_bunch) => {
+
+                                    // opacity_obj
+                                    if ( c_p_l.opacity_obj !== undefined && c_p_l.opacity_obj[index] !== "" ){
+
+                                        let el = c_p_l.opacity_obj[index]
+
+                                        if ( el.indexOf(target_bunch) === -1 )
+                                            el = target_bunch + " " + el.replace(",", `, ${target_bunch}`);
+
+                                        gsap.set( el,
+                                            { opacity: 0 }
+                                        )
+
+                                        sc_anim_tl
+                                            .to( el,
+                                                { opacity: 1, duration:( c_p_l.opacity_dur[index] !== "undef" ) ? c_p_l.opacity_dur[index] : "1", ease:( c_p_l.opacity_dur[index] !== "undef" ) ? "none" : "power3" },
+                                                ( c_p_l.opacity_dur[index] !== "undef" ) ? undefined : "<0.5"
+                                            )
+                                    }
+
+                                    // button_obj
+                                    if ( c_p_l.button_obj !== undefined && c_p_l.button_obj[index] !== undefined && c_p_l.button_obj[index] !== "" ){
+
+                                        let el = c_p_l.button_obj[index]
+
+                                        if ( el.indexOf(target_bunch) === -1 )
+                                            el = target_bunch + " " + el.replace(",", `, ${target_bunch}`);
+
+                                        gsap.set( el + " " + ".AppButton-bg",
+                                            { scaleX: 0, opacity: 0 }
+                                        )
+                                        gsap.set( el + " " + ".AppButton-label",
+                                            { scale: 1.2, opacity: 0 }
+                                        )
+
+                                        sc_anim_tl
+                                            .to( el + " " + ".AppButton-bg",
+                                                { scaleX: 1, opacity: 1, duration:0.5, ease:"power3" },
+                                                "<0.25"
+                                            )
+                                            .to( el + " " + ".AppButton-label",
+                                                { scale: 1, opacity: 1, duration:0.7, ease:"power3" },
+                                                "<0"
+                                            )
+                                    }
+                                }
+
+                                // Top Text
+                                if ( c_p_l.head_obj !== undefined && c_p_l.head_obj[index] != "" && c_p_l.head_obj[index] != undefined ){
+                                    anim_f( {
+                                        el: c_p_l.head_obj[index],
+                                        fn_c: opac_bu_objFunc,
+                                        delay: "<0"
+                                    })
+                                } else {
+
+                                    opac_bu_objFunc(target_bunch);
+
+                                }
+                            }
+
+                        }
+                    )
+
+                });
+            }
+        });
+
+        // footer planet animation
+        gsap.from( ".Footer-planetbg", {
+            y: "15%",
+            duration: 1.4,
+            ease: "power1",
+            scrollTrigger:{
+                trigger: ".Footer-wrapper",
+                scroller: "[data-scroll-container]",
+                start: "top bottom",
+                end: "top 30%"
+            }
+        });
+
+        // slider slidding animation
+        if ( router.asPath === "/" ){
+            let s_ref_interv = setInterval(() => {
+
+                if ( s_ref.current === undefined ) return;
+
+                // footer planet animation
+                const w_s_tl =  gsap.timeline({
+                    defaults : {
+                        duration: 1,
+                        ease: "sine",
+                    },
+                    scrollTrigger:{
+                        trigger: ".Works-slider",
+                        scroller: "[data-scroll-container]",
+                        start: "top 67%",
+                        end: "top 0%"
+                    }
+                });
+
+                gsap.set(s_ref.current, {
+                    currentX: (s_ref.current.slideWidth) * 1.3
+                })
+
+                w_s_tl
+                    .from(".Works-slider", { opacity: 0, duration: 0.5 })
+                    // .from(".Works-slideInner", { x: `${( 80 * 0.69 )}vw` }, "<0")
+                    .to(s_ref.current, {
+                        currentX: 0,
+                        duration: 1.5,
+                        ease: "circ",
+                        onComplete: ()=>{
+                            s_ref.current.snappingState = 1
+                        }
+                    }, "<0")
+
+                clearInterval(s_ref_interv);
+            }, 0);
+        }
+
+
+
+    }
+
     const s_trigger_anim = ( callBack ) =>{
         let inter_ref = setInterval(() => {
 
@@ -470,6 +738,7 @@ function MyApp({ Component, pageProps }) {
             });
 
             if ( callBack !== undefined ) callBack();
+            p_scroll_trigger()
 
             if ( locomotiveScrollInstance.current !== undefined ) clearInterval(inter_ref);
 
@@ -578,273 +847,7 @@ function MyApp({ Component, pageProps }) {
                         // Onscroll Animation
                         if ( true ){
                             // Making web gsap scroll trigger compatible
-                            s_trigger_anim(()=>{
-
-                                // classes
-                                var split_t_anim_cl = {
-                                //  "<route>": {main_target:"<root_class_cont or just el>", head_obj:"<main_heading>", opacity_obj:"<>", lower_part:"<>", button:"<button_root_class>"}
-                                    "/" : {main_target:[".ideasTitle", ".footerLearnMore", ".ideasBehind-wrapper", ".Works-slider", ".ideasImageCarousel", ".footerTrustedBy"],
-                                            head_obj:[".ideasTitle > h1", ".footerLearnMore > h4, .footerLearnMore > h1", "", "", "", "" ],
-                                            opacity_obj:["", " > p", ".ideasBehind-item", "", ".swiper", "h2, .trustersLoop"],
-                                            // slide_obj:["", "", "", ".Works-wrapper", "", ""],
-                                            opacity_dur:["undef", "undef", "0.5", "0.5", "0.5", "0.5"],
-                                            button_obj:["", ".AppButton", "", "", "", ""],
-                                            anim_trig:["", ".footerLearnMore > h4", ".ideasBehind-item:nth-child(1)", ".Works-wrapper", ".swiper", "h2"]},
-
-                                    "/work" : {main_target:[".readyToMake"],
-                                                head_obj:[".readyToMake-text"],
-                                                button_obj:[".AppButton"]},
-
-                                    "/directors" : {main_target:[], head_obj:[]},
-
-                                    "/team" : {main_target:[], head_obj:[]},
-
-                                    "/contact" : {main_target:[], head_obj:[]},
-
-                                    "/about" : {main_target:[".readyToMake", ".Label", ".footerTrustedBy"],
-                                                head_obj:[".readyToMake-text", ".Label-header > h2", ""],
-                                                opacity_obj:["", ".Label-tags, .Label-title > h4", "h2, .trustersLoop" ],
-                                                opacity_dur:["undef", "undef", "0.5"],
-                                                button_obj:[".AppButton", "", ""],
-                                                anim_trig:["", ".Label-header", "h2"]
-                                            },
-                                }
-
-                                import("splitting").then((Splitting) => {
-
-                                    // animtating
-                                    if ( Splitting === undefined ) return;
-                                    if ( split_t_anim_cl[router.asPath] !== undefined ){
-                                        let c_p_l = split_t_anim_cl[router.asPath]
-                                        c_p_l.main_target.forEach( (target_bunch, index) => {
-
-                                            let target_bunch_copy = target_bunch
-                                            // let tar  = target_bunch
-
-                                            document.querySelectorAll(target_bunch).forEach(
-                                                (cur_target, m_ind)=>{
-
-                                                    if ( document.querySelectorAll(c_p_l.main_target[index]).length > 1 ){
-                                                        target_bunch = `${target_bunch_copy}:nth-child(${m_ind+1})`
-                                                    }
-
-                                                    let start_el = c_p_l.main_target[index]
-
-                                                    // Defines what a object will be initial in default
-                                                    let default_from = {
-                                                        opacity: 0
-                                                    }
-
-                                                    let default_tl_to = {
-                                                        stagger:0.05
-                                                    }
-                                                    let tween_to = {
-                                                        opacity: 1,
-                                                        x: 0,
-                                                        y: 0,
-                                                        rotate: 0
-                                                    }
-
-                                                    if ( c_p_l.anim_trig !== undefined && c_p_l.anim_trig !== "" ){
-                                                        if ( c_p_l.anim_trig[index] !== "" )
-                                                            if ( start_el.indexOf(target_bunch) === -1 )
-                                                                start_el = target_bunch + " " + c_p_l.anim_trig[index]
-                                                    }
-
-                                                    // console.log(start_el)
-
-                                                    const sc_anim_tl = gsap.timeline({
-                                                        defaults:{
-                                                            ease: "sine"
-                                                        },
-                                                        scrollTrigger:{
-                                                            trigger: start_el,
-                                                            scroller: "[data-scroll-container]",
-                                                            start: "top bottom",
-                                                            end: "top 30%",
-                                                        }
-                                                    });
-
-                                                    if ( c_p_l.main_target !== undefined ){
-
-                                                        //  For text having splitting thing
-                                                        let anim_f = ( { el, tween_p, delay, break_down=["chars", "char"], fn_c } )=>{
-
-                                                            if ( el === "root_el" ) el = c_p_l.main_target[index];
-                                                            else el = el;
-
-                                                            if ( el.indexOf(target_bunch) === -1 )
-                                                                el = target_bunch + " " + el.replace(",", `, ${target_bunch}`);
-
-                                                            if ( el === undefined ) return;
-
-                                                            // console.log(document.querySelector(el), el)
-
-                                                            // Incase of Heading element if style not provided
-                                                            if ( (["h1", "h2", "h3", "h4"].indexOf( document.querySelector(el).tagName.toLowerCase()) !== -1) ){
-                                                                tween_p = (tween_p !== undefined) ? tween_p : {
-                                                                    x: cur_target.clientWidth*0.08
-                                                                }
-                                                            }
-
-                                                            if ( c_p_l.main_target[index] == ".readyToMake" ){
-                                                                default_tl_to = {...default_tl_to, ...{
-                                                                    duration: document.querySelector(el).clientWidth*0.001,
-                                                                    stagger: document.querySelector(el).clientWidth*0.0001*0.25
-                                                                }}
-                                                            }
-
-                                                            // Spliting the text for our requirement.
-                                                            Splitting.default({ target:el, by:break_down[0] });
-
-                                                            let cur_tar_bunch = target_bunch
-
-                                                            // Waiting until split text is done.
-                                                            let tl_interv = setInterval(() => {
-
-                                                                let cur_el = document.querySelectorAll((break_down[0] == "") ? el:(el.replace(",", " ."+break_down[1]+",")+" ."+break_down[1]));
-
-                                                                if ( cur_el  === undefined ) return;
-
-                                                                gsap
-                                                                    .set( cur_el , {...tween_p, ...default_from} );
-
-                                                                sc_anim_tl
-                                                                    .to( cur_el, {...tween_to, ...default_tl_to}, delay );
-
-                                                                fn_c(cur_tar_bunch)
-
-                                                                clearInterval(tl_interv)
-                                                            }, 0);
-
-                                                        }
-
-                                                        // opacity and button obj func
-                                                        let opac_bu_objFunc = (target_bunch) => {
-
-                                                            // opacity_obj
-                                                            if ( c_p_l.opacity_obj !== undefined && c_p_l.opacity_obj[index] !== "" ){
-
-                                                                let el = c_p_l.opacity_obj[index]
-
-                                                                if ( el.indexOf(target_bunch) === -1 )
-                                                                    el = target_bunch + " " + el.replace(",", `, ${target_bunch}`);
-
-                                                                gsap.set( el,
-                                                                    { opacity: 0 }
-                                                                )
-
-                                                                sc_anim_tl
-                                                                    .to( el,
-                                                                        { opacity: 1, duration:( c_p_l.opacity_dur[index] !== "undef" ) ? c_p_l.opacity_dur[index] : "1", ease:( c_p_l.opacity_dur[index] !== "undef" ) ? "none" : "power3" },
-                                                                        ( c_p_l.opacity_dur[index] !== "undef" ) ? undefined : "<0.5"
-                                                                    )
-                                                            }
-
-                                                            // button_obj
-                                                            if ( c_p_l.button_obj !== undefined && c_p_l.button_obj[index] !== undefined && c_p_l.button_obj[index] !== "" ){
-
-                                                                let el = c_p_l.button_obj[index]
-
-                                                                if ( el.indexOf(target_bunch) === -1 )
-                                                                    el = target_bunch + " " + el.replace(",", `, ${target_bunch}`);
-
-                                                                gsap.set( el + " " + ".AppButton-bg",
-                                                                    { scaleX: 0, opacity: 0 }
-                                                                )
-                                                                gsap.set( el + " " + ".AppButton-label",
-                                                                    { scale: 1.2, opacity: 0 }
-                                                                )
-
-                                                                sc_anim_tl
-                                                                    .to( el + " " + ".AppButton-bg",
-                                                                        { scaleX: 1, opacity: 1, duration:0.5, ease:"power3" },
-                                                                        "<0.25"
-                                                                    )
-                                                                    .to( el + " " + ".AppButton-label",
-                                                                        { scale: 1, opacity: 1, duration:0.7, ease:"power3" },
-                                                                        "<0"
-                                                                    )
-                                                            }
-                                                        }
-
-                                                        // Top Text
-                                                        if ( c_p_l.head_obj !== undefined && c_p_l.head_obj[index] != "" && c_p_l.head_obj[index] != undefined ){
-                                                            anim_f( {
-                                                                el: c_p_l.head_obj[index],
-                                                                fn_c: opac_bu_objFunc,
-                                                                delay: "<0"
-                                                            })
-                                                        } else {
-
-                                                            opac_bu_objFunc(target_bunch);
-
-                                                        }
-                                                    }
-
-                                                }
-                                            )
-
-                                        });
-                                    }
-                                });
-
-                                // footer planet animation
-                                gsap.from( ".Footer-planetbg", {
-                                    y: "15%",
-                                    duration: 1.4,
-                                    ease: "power1",
-                                    scrollTrigger:{
-                                        trigger: ".Footer-wrapper",
-                                        scroller: "[data-scroll-container]",
-                                        start: "top bottom",
-                                        end: "top 30%"
-                                    }
-                                });
-
-                                // slider slidding animation
-                                if ( router.asPath === "/" ){
-                                    let s_ref_interv = setInterval(() => {
-
-                                        if ( s_ref.current === undefined ) return;
-
-                                        // footer planet animation
-                                        const w_s_tl =  gsap.timeline({
-                                            defaults : {
-                                                duration: 1,
-                                                ease: "sine",
-                                            },
-                                            scrollTrigger:{
-                                                trigger: ".Works-slider",
-                                                scroller: "[data-scroll-container]",
-                                                start: "top 67%",
-                                                end: "top 0%"
-                                            }
-                                        });
-
-                                        gsap.set(s_ref.current, {
-                                            currentX: (s_ref.current.slideWidth) * 1.3
-                                        })
-
-                                        w_s_tl
-                                            .from(".Works-slider", { opacity: 0, duration: 0.5 })
-                                            // .from(".Works-slideInner", { x: `${( 80 * 0.69 )}vw` }, "<0")
-                                            .to(s_ref.current, {
-                                                currentX: 0,
-                                                duration: 1.5,
-                                                ease: "circ",
-                                                onComplete: ()=>{
-                                                    s_ref.current.snappingState = 1
-                                                }
-                                            }, "<0")
-
-                                        clearInterval(s_ref_interv);
-                                    }, 0);
-                                }
-
-
-
-                            });
+                            s_trigger_anim(()=>{});
                         }
 
                     }, 1000);
@@ -1082,7 +1085,7 @@ function MyApp({ Component, pageProps }) {
                                     href="/"
                                 />
 
-                                <NavItem
+                                {/* <NavItem
                                     itemNum="02"
                                     linkLabel="About"
                                     href="/about"
@@ -1092,10 +1095,10 @@ function MyApp({ Component, pageProps }) {
                                     itemNum="03"
                                     linkLabel="Work"
                                     href="/work"
-                                />
+                                /> */}
 
                                 {/* Replaced Elements */}
-                                {/* <NavItem
+                                <NavItem
                                     itemNum="02"
                                     linkLabel="Work"
                                     href="/work"
@@ -1109,7 +1112,7 @@ function MyApp({ Component, pageProps }) {
                                     itemNum="04"
                                     linkLabel="Team"
                                     href="/team"
-                                /> */}
+                                />
                             </nav>
                             <div className="Menu-secondNav">
                                 <div className="Menu-quickAccess">
