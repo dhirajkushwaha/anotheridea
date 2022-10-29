@@ -1482,7 +1482,10 @@ footer {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	align-items: flex-start;
+	/* align-items: flex-start; */
+
+	/* change  footer */
+	align-items: center;
 
 	position: relative;
 	z-index: 20;
@@ -1495,6 +1498,9 @@ footer {
 	margin: 0px;
 
     font-weight: 500;
+
+	/* change  footer */
+    text-align: center;
 }
 
 .footerTable {
@@ -1584,6 +1590,9 @@ footer {
 		display: flex;
 		width: 88vw;
 		padding: calc(11vw * 0.69) calc(12vw * 0.69) calc(10vw * 0.69);
+
+		/* change  footer */
+		justify-content: center;
 	}
 
 	.AppButton:hover strong {

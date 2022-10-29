@@ -15,7 +15,7 @@ export default function Footer(){
                         boldLabel="&nbsp;TALK"
                     />
                 </div>
-                <div className="footerRow">
+                {/* <div className="footerRow">
                     <h2>Places we&#39;ve <br/> shot at :</h2>
                     <div className="footerTable">
                         <Link href="">
@@ -40,7 +40,7 @@ export default function Footer(){
                             <span> Manila, Philippines </span>
                         </Link>
                     </div>
-                </div>
+                </div> */}
                 <div className="Footer-planetbg">
                     <video loop={"loop"} muted={true} preload={"auto"} playsInline={true} autoPlay={true} className="Video Footer-planetbgVideo gifLike in-view">
                         <source src="https://www.mediakeys-experience.com/_nuxt/videos/planet.d4ca9e7.webm" data-src="https://www.mediakeys-experience.com/_nuxt/videos/planet.d4ca9e7.webm" type="video/webm" />
