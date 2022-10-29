@@ -58,6 +58,8 @@ function MyApp({ Component, pageProps }) {
     const menuState = useRef(false);
     const visitedUrl = useRef([]);
 
+    const prevCursor = useRef("default-state");
+
     const [m_content_icon, setm_content_icon] = useState("");
 
     const locomotiveScrollInstance = useRef();
@@ -272,13 +274,16 @@ function MyApp({ Component, pageProps }) {
                         </svg>)
                 }})
                 .fromTo(".mouseCursorIconWrapper", { x: -document.querySelector(".mouseCursor").clientWidth/2, y: document.querySelector(".mouseCursor").clientWidth/2, opacity:0 }, { duration:0.5, x: 0, y: 0, opacity:1, ease:"back" });
-        }
+
+            prevCursor.current = "link";
+            }
         else if ( state == "link-end"){
             c_tl
                 // .set(m_cursor_scale, { current:1 });
                 .to(".mouseCursor", { scale:0.2, onComplete: ()=>{
                     setm_content_icon("")
                 }});
+            prevCursor.current = "default-state";
         }
         else if ( state == "move-slide" ){
             c_tl
@@ -318,6 +323,8 @@ function MyApp({ Component, pageProps }) {
                     }, 0);
 
             }});
+
+            prevCursor.current = "move-slide";
         }
         else if ( state == "move-slide-click"){
             try {
@@ -354,12 +361,21 @@ function MyApp({ Component, pageProps }) {
                 .to(".mouseCursor", { scale:0.2, onComplete: ()=>{
                     setm_content_icon("")
                 }});
+            prevCursor.current = "default-state";
         }
 
         else if ( state == "color" ){
             options.color = ( options.color == "default" ) ? "rgb(85, 65, 248)" : options.color;
             c_tl
                 .to(".mouseCursor", { duration:0.5, backgroundColor:(options.color), borderColor:(options.color), ease:"sine" });
+        }
+
+        else if ( state == "default-state" ){
+            c_tl
+                .to(".mouseCursor", { scale:0.2, onComplete: ()=>{
+                    setm_content_icon("")
+                }});
+            prevCursor.current = "default-state";
         }
 
     }
@@ -392,20 +408,22 @@ function MyApp({ Component, pageProps }) {
                     document.querySelectorAll(cl).forEach(h_link => {
 
                         if ( el_h_event.current.indexOf(h_link) === -1 ){
-
+                            let prev_c = ""
                             h_link.addEventListener("mouseenter", (e)=>{
                                 if ( cl === ".ideasBehind-item" ){
                                     m_cursor_states("color", { color: h_link.style.getPropertyValue("--ideasBehindColor")});
                                 }
+                                prev_c = prevCursor.current
                                 m_cursor_states("link");
                             });
                             h_link.addEventListener("mouseleave", (e)=>{
 
                                 if ( cl === ".ideasBehind-item" ){
-                                    m_cursor_states("color", { color: "default"});
+                                    m_cursor_states("color", { color: "default" });
                                 }
 
-                                m_cursor_states("link-end");
+                                // m_cursor_states("link-end");
+                                m_cursor_states(prev_c);
                             });
 
                             el_h_event.current.push(h_link);
@@ -434,12 +452,14 @@ function MyApp({ Component, pageProps }) {
             cl_h_slide[router.asPath].forEach(cl => {
                 document.querySelectorAll(cl).forEach(h_link => {
                     if ( el_h_event.current.indexOf(h_link) === -1 ){
+                        let prev_c = ""
 
-                        h_link.addEventListener("mouseover", (e)=>{
+                        h_link.addEventListener("mouseenter", (e)=>{
+                            prev_c = prevCursor.current
                             m_cursor_states("move-slide");
                         });
                         h_link.addEventListener("mouseleave", (e)=>{
-                            m_cursor_states("move-slide-end");
+                            m_cursor_states(prev_c);
                         });
 
                         el_h_event.current.push(h_link);
@@ -452,7 +472,9 @@ function MyApp({ Component, pageProps }) {
 
     }
 
-    const p_scroll_trigger = ()=>{
+    const p_scroll_trigger = (type)=>{
+
+
 
         // classes
         var split_t_anim_cl = {
@@ -664,17 +686,18 @@ function MyApp({ Component, pageProps }) {
         });
 
         // footer planet animation
-        gsap.from( ".Footer-planetbg", {
-            y: "15%",
+        gsap.fromTo( ".Footer-planetbg", {y:"15%"}, {
+            y: "0%",
             duration: 1.4,
             ease: "power1",
             scrollTrigger:{
                 trigger: ".Footer-wrapper",
                 scroller: "[data-scroll-container]",
                 start: "top bottom",
-                end: "top 30%"
+                end: "top 30%",
             }
         });
+
 
         // slider slidding animation
         if ( router.asPath === "/" ){

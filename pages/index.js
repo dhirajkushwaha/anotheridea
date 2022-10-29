@@ -386,6 +386,14 @@ function WorksSliderItem(props) {
 					<div href={"/works/"+props.label} className="Works-slideContent" style={{touchAction: "pan-y", transformStyle: "preserve-3d"}}>
 						<div className="Works-slideWrapTitle" style={{touchAction: "pan-y"}}>
 							<span data-label={ props.label } style={{touchAction: "pan-y"}} className="Works-slideTitle colorFill">{ props.label }</span>
+							<div className="Works-slideHover" style={{touchAction:"pan-y"}}>
+								<div className="Works-slideSubtitle" style={{touchAction:"pan-y", opacity: 0}}>
+									<span style={{touchAction:"pan-y"}}>
+										Computer Scientist
+									</span>
+								</div>
+								<div className="Works-slideOffice" style={{touchAction:"pan-y", opacity: 0}}> IIT Bombay </div>
+							</div>
 						</div>
 					</div>
 					{/* </a> */}
@@ -540,16 +548,53 @@ export default function Home(props) {
 				// Border
 				if ( window.innerWidth >= 1024 ){
 
-					let m_h_border_cl = [".Works-slideContent", ".Works-slideImageInnerImg"]
+					// let m_h_border_cl = [".Works-slideContent", ".Works-slideImageInnerImg"]
+					let m_h_border_cl = [".Works-slideContent"]
+
+					gsap.set(document.querySelectorAll(`${m_h_border_cl[0]} .Works-slideSubtitle, ${m_h_border_cl[0]} .Works-slideOffice`), {opacity:0, y:`${2*0.69}vw`});
 
 					// Border
 					m_h_border_cl.forEach(cl => {
 						document.querySelectorAll(cl).forEach(slideText => {
-							slideText.addEventListener("mouseover", ()=>{
-								slideText.parentElement.querySelector(".AppImage ").style.setProperty("border", "2px solid #5541f8");
+
+
+							let work_slideimg_arr = ([... document.querySelectorAll(".Works-slideImage")]);
+
+							let lower_txt_tl = gsap.timeline({
+								defaults:{
+
+								}
+							});
+
+							slideText.addEventListener("mouseenter", ()=>{
+								// slideText.parentElement.querySelector(".AppImage ").style.setProperty("border", "2px solid #5541f8");
+
+								lower_txt_tl
+									.to(slideText.querySelectorAll(`.Works-slideSubtitle, .Works-slideOffice`), {duration:0.3, opacity:1, stagger:0.1, y:`${0}vw`});
+
+								// ([... work_slideimg_arr]).splice(work_slideimg_arr.indexOf(slideText.parentElement.querySelector(".Works-slideImage")), 1);
+
+								let t_work_s_arr = ([... work_slideimg_arr]);
+								t_work_s_arr.splice(work_slideimg_arr.indexOf(slideText.parentElement.querySelector(".Works-slideImage")), 1);
+
+								gsap
+									.to(t_work_s_arr, {duration:0.5, opacity:0.3});
+
+
 							})
 							slideText.addEventListener("mouseleave", ()=>{
-								slideText.parentElement.querySelector(".AppImage ").style.removeProperty("border");
+								// slideText.parentElement.querySelector(".AppImage ").style.removeProperty("border");
+
+								lower_txt_tl
+									.to(slideText.querySelectorAll(`.Works-slideSubtitle, .Works-slideOffice`), {duration:0.2, opacity:0, y:`${2*0.69}vw`,
+									onComplete:()=>{
+										lower_txt_tl.clear();
+										lower_txt_tl.eventCallback("onComplete", null);
+									}});
+
+								gsap
+									.to(work_slideimg_arr, {duration:0.5, opacity:1});
+
 							})
 						});
 					});

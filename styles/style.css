@@ -1135,6 +1135,29 @@ section.homeHeadSection {
     pointer-events: none;
 }
 
+.Works-slideHover{
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+	
+    margin-top: 0.5vw;
+}
+
+.Works-slideSubtitle{
+    text-transform: uppercase;
+    font-weight: 700;
+
+	font-size: calc(12/19.2 * 1vw);
+    line-height: calc(14/19.2 * 1vw);
+}
+
+.Works-slideOffice{
+    font-size: calc(1.4vw * 0.69);
+    line-height: calc(2vw * 0.69);
+    color: #b5b5b5;
+    font-weight: 500;
+}
 
 /* Bullet marks */
 .SliderBullets-list{
