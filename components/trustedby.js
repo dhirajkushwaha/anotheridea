@@ -41,7 +41,8 @@ export default function Trustedby() {
     return (
         <>
             <div className="footerTrustedBy">
-                <h2>TRUSTED BY</h2>
+                {/* <h2>TRUSTED BY</h2> */}
+                <h2>Trusted by</h2>
                 <div className="trustersLoop">
                     <div className="trusterSlideWrapper">
                         <div className="trusterSlider">

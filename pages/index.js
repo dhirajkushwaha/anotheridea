@@ -586,7 +586,8 @@ export default function Home(props) {
 
 			<section className="ideasInMotion">
 				<div className="ideasTitle">
-					<h1>IDEAS IN MOTION</h1>
+					{/* <h1>IDEAS IN MOTION </h1> */}
+					<h1>Ideas in motion </h1>
 				</div>
 
 				<div className="Works-slider">
@@ -736,8 +737,10 @@ export default function Home(props) {
 
 			<section className="bottomSection">
 				<div className="footerLearnMore">
-					<h4>WE ARE</h4>
-					<h1>ANOTHER IDEA</h1>
+					{/* <h4>WE ARE</h4> */}
+					<h4>We are</h4>
+					{/* <h1>ANOTHER IDEA</h1> */}
+					<h1>Another Idea</h1>
 					<p className="onlyDesk">
 						A full-service production house based in Mumbai, India.
 						<br />
