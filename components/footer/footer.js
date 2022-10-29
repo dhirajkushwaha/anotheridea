@@ -13,6 +13,7 @@ export default function Footer(){
                         href="/contact"
                         label="LET&#39;S"
                         boldLabel="&nbsp;TALK"
+                        marginTop="11vw"
                     />
                 </div>
                 {/* <div className="footerRow">

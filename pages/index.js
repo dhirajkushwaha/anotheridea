@@ -587,7 +587,7 @@ export default function Home(props) {
 			<section className="ideasInMotion">
 				<div className="ideasTitle">
 					{/* <h1>IDEAS IN MOTION </h1> */}
-					<h1>Ideas in motion </h1>
+					<h1>Ideas in <span> Motion </span> </h1>
 				</div>
 
 				<div className="Works-slider">

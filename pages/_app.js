@@ -247,7 +247,7 @@ function MyApp({ Component, pageProps }) {
 
             element.addEventListener("mouseenter", (e)=>{
                 max_radius = element.clientWidth*1.1;
-                gsap.to(e.target, { duration: 0.7, "--r":max_radius+"px", ease: easeValueIn})
+                gsap.to(e.target, { duration: 0.7, "--r":`${max_radius}px`, ease: easeValueIn})
             })
 
             element.addEventListener("mouseleave", (e)=>{
