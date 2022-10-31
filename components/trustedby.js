@@ -32,6 +32,8 @@ export default function Trustedby() {
                                                     <img
                                                         src={`/assets/truster/logo (${(layer_n-1)*7 + num}).png`}
                                                         alt=""
+
+                                                        key={(layer_n-1)*7 + num}
                                                     />
                                                 </div>)
 
@@ -41,7 +43,7 @@ export default function Trustedby() {
 
                     oneLayer_logos.push([... oneLayer_logos])
 
-                    t_logos.push([<div className="trusterSlider"> {oneLayer_logos} </div> ]);
+                    t_logos.push([<div className="trusterSlider" key={layer_n}> {oneLayer_logos} </div> ]);
 
                 }
 
