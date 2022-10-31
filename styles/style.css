@@ -1140,7 +1140,7 @@ section.homeHeadSection {
     left: 0;
     top: 100%;
     width: 100%;
-	
+
     margin-top: 0.5vw;
 }
 
@@ -1450,7 +1450,7 @@ h4 {
 	margin-right: calc(1vw * 2.5*16/19.2);
 	width: calc( 1vw * 280/19.2 );
 	height: 7.5vw;
-	background: white;
+	background: rgb(255, 255, 255, 0.1);
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
