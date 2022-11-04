@@ -734,48 +734,50 @@ export default function Home(props) {
 				</div>
 				<div className="ideasBehind-wrapper">
 					<Ideasbehindtextitem
-						label="ITEM NO 1"
+						label="Commercials"
 						href="/"
 						color="#af37d9"
 						// color="#FF9933"
-						slidemag="23vw"
+						slidemag="10vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
-						label="Television Commercials"
-						label_left={"Television \n Commercials"}
-						label_right={"Television \n Commercials"}
+						label="Promo Production"
+						label_left={"Promo \n Production"}
+						label_right={"Promo \n Production"}
 						href="/"
 						color="#de477e"
 						// color="#FF9933"
-						slidemag="8vw"
+						slidemag="12vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
-						label="Production"
-						label_left="Direction"
-						label_right="Production"
+						label="Post Production"
+						label_left={"Post \n Production"}
+						label_right={"Post \n Production"}
 						href="/"
 						color="#f2ad45"
 						// color="#fff"
 						skill="Bringing ideas to focus"
-						slidemag="14vw"
+						slidemag="10vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
-						label="POST production"
-						label_left={"POST \n production"}
-						label_right={"POST \n production"}
+						label="Print Production"
+						label_left={"Print \n Production"}
+						label_right={"Print \n Production"}
 						href="/"
 						color="#3ab8c9"
 						// color="#138808"
 						skill="Lorem Ipsum"
-						slidemag="14vw"
+						slidemag="13vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
-						label="One more"
+						label="Animation"
+						label_left={"Animation"}
+						label_right={"Animation"}
 						href="/"
 						color="#3b33b3"
 						// color="#138808"
 						skill="Lorem Ipsum"
-						slidemag="20vw"
+						slidemag="18vw"
 					></Ideasbehindtextitem>
 				</div>
 			</section>
