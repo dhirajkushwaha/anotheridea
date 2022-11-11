@@ -1457,7 +1457,9 @@ h4 {
 }
 
 .trusterSliderItem img {
-	width: 100px;
+	width: 70%;
+	height: 70%;
+	object-fit: contain;
 }
 
 .trusterSliderItemDummy {
@@ -1467,7 +1469,7 @@ h4 {
 .trusterSlider {
 	display: flex;
 	flex-direction: row;
-	margin-bottom: 2.5rem;
+	margin-bottom: calc(1vw * 2.5*16/19.2);
 
 	left: 0px;
 	top: 0px;
@@ -1576,7 +1578,7 @@ footer {
 }
 
 .Footer-planetbgVideo {
-	mix-blend-mode: normal;
+	mix-blend-mode: screen;
 }
 
 .Video {
@@ -1716,9 +1718,15 @@ footer {
 	}
 
 	.trusterSliderItem {
-		width: calc( 1vw * 280/var(--vw-size-px) );
-		height: calc( 1vw * 144/var(--vw-size-px) );
+		width: calc( 1vw * 180/var(--vw-size-px) );
+		height: calc( 1vw * (180/1.94)/var(--vw-size-px) );
+
+		background: rgb(255, 255, 255, 0);
 	}
+
+	/* .trusterSliderItem img{
+		width: calc(7vw * 2.667);
+	} */
 
 
 	/* App button */
@@ -1982,6 +1990,12 @@ footer {
 	line-height: calc(3.6vw * 0.69);
 }
 
+.app-title--regular{
+	font-weight: 400;
+    font-size: calc(5vw * 0.69);
+    line-height: calc(6.2vw * 0.69);
+}
+
 .WorksListItem-title {
 	font-weight: 500;
 	opacity: 0;
@@ -2095,6 +2109,12 @@ footer {
 	.app-title--small {
 		font-size: calc(4.5vw * 0.69);
 		line-height: calc(5vw * 0.69);
+	}
+
+	.app-title--regular{
+		font-weight: 400;
+		font-size: calc(12vw * 0.69);
+		line-height: calc(12.2vw * 0.69);
 	}
 
 	.WorksListItem-title {
@@ -2820,5 +2840,310 @@ button.FormButton .AppButton-label{
 	.AboutCarousel-section{
 		/* margin-bottom: calc((40 * 16)/19.2 * 1vw); */
 		margin-bottom: 33vw;
+	}
+}
+
+
+
+/* Vision Section */
+
+.Vision {
+    position: relative;
+    margin: calc(6vw * 0.69) auto;
+}
+
+.Vision-title{
+	margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 2;
+    margin-bottom: calc(5vw * 0.69);
+}
+
+.Vision-title .HomeTitle-title {
+    display: block;
+}
+
+.HomeTitle-surtitle{
+	font-weight: 500;
+}
+
+.Vision-wrapper{
+	margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.Vision-item{
+    position: relative;
+}
+
+.Vision-item:first-child{
+    margin-top: calc(15vw * 0.69);
+}
+
+.Vision-itemHead{
+	padding-bottom: calc(6vw * 0.69);
+    position: relative;
+    transition: transform .3s cubic-bezier(.165,.84,.44,1) 0s;
+}
+
+.Vision-itemTitle{
+    text-transform: uppercase;
+    font-weight: 500;
+    position: relative;
+    display: inline-block;
+    color: #fff;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #fff;
+    transition: color .5s cubic-bezier(.455,.03,.515,.955);
+}
+
+.Vision-item.active .Vision-itemTitle {
+    color: transparent;
+}
+
+.Vision-itemSubtitle {
+    font-size: calc(3.2vw * 0.69);
+    line-height: calc(3.8vw * 0.69);;
+    margin-bottom: calc(1.2vw * 0.69);;
+    margin-top: calc(-1.2vw * 0.69);;
+}
+
+.Vision-itemSubtitle strong {
+    font-weight: 700;
+    font-style: italic;
+}
+
+.Vision-item.active .Vision-itemHead::after {
+    transform: scaleX(1);
+    transition: transform .7s cubic-bezier(.165,.84,.44,1) .3s;
+}
+
+.Vision-itemKeyFigures {
+    text-transform: uppercase;
+}
+
+.Vision-bg {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    margin-left: -50vw;
+    margin-top: -50vh;
+    left: 50%;
+    top: 50vh;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Vision-bgAnimatedLogo{
+	position: absolute;
+    width: 40vw;
+    height: 40vw;
+    left: 50%;
+    top: 50%;
+    margin-left: -20vw;
+    margin-top: -20vw;
+    background: #050505;
+}
+
+.Video.gifLike {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
+.Vision-bgAnimatedLogoVideo {
+    mix-blend-mode: screen;
+}
+
+.Video {
+    width: 100%;
+    height: 100%;
+}
+
+.Vision-bgCircle {
+    flex: none;
+    width: 70vw;
+    height: 70vw;
+    border: 1px solid #fff;
+    border-radius: 100%;
+    opacity: .1;
+}
+
+.Vision-bgItems {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    overflow: hidden;
+    border-radius: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.Vision-bgItem {
+    width: 60vw;
+    height: 60vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -30vw;
+    margin-left: -30vw;
+    opacity: 0;
+    overflow: hidden;
+    border-radius: 100%;
+}
+
+.Vision-bgItemImage, .Vision-bgItemWrapImage {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.AppImage-overlay {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: #050505;
+    opacity: 0;
+    z-index: 10;
+}
+
+.AppImage-overlay, .AppImage-overlay:after {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.AppImage-overlay:after {
+    content: "";
+    display: block;
+    background: #5541f8;
+    left: 100%;
+}
+
+.AppImage-overlay:after {
+    content: "";
+    display: block;
+    background: #5541f8;
+    left: 100%;
+}
+
+/* cross bg  */
+
+.Vision-bgCross{
+	position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.BackgroundCross{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.ackgroundCross-wrapper,
+.BackgroundCross-inner {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    pointer-events: none;
+}
+
+.BackgroundCross-inner {
+    top: calc(-10vw * 0.69);
+    height: calc(100% + -10vw * 0.69);
+    background-image: url("https://www.mediakeys-experience.com/_nuxt/img/bg-cross.e364cb3.png");
+    background-size: 100% auto;
+    background-repeat: repeat;
+    opacity: 0;
+}
+
+@media only screen and (min-width: 1024px){
+
+	.Vision {
+		margin: calc(22vw * 0.69) auto calc(20vw * 0.69);
+	}
+
+	.Vision-title{
+		width: calc(112vw * 0.69);
+		margin-bottom: calc(10vw * 0.69);
+	}
+
+	.HomeTitle-surtitle{
+		margin-left: calc(12vw * 0.69);
+	}
+
+	.Vision-title .HomeTitle-title--l2 {
+		margin-left: calc(24vw * 0.69);
+	}
+
+	.Vision-wrapper{
+		width: calc(92vw * 0.69);
+    	height: auto;
+	}
+
+	.Vision-item:nth-child(2) {
+		margin-top: -6rem;
+		text-align: right;
+	}
+
+	.Vision-item:first-child .Vision-itemHead::after {
+		left: 0;
+		transform-origin: 0 50%;
+	}
+
+	.Vision-bgItem {
+		width: 60vh;
+		height: 60vh;
+		margin-top: -30vh;
+		margin-left: -30vh;
+	}
+}
+
+@media only screen and (max-width: 1023px){
+	.Vision-title {
+		width: calc(33.33333vw * 2.667);
+	}
+
+	.HomeTitle-surtitle{
+		margin-left: calc(4.16667vw * 2.667);
+	}
+
+	.Vision-title .HomeTitle-title--l2 {
+		margin-left: calc(6.25vw * 2.667);
+	}
+
+	.Vision-wrapper{
+		width: calc(33.3333vw * 2.667);
+    	height: auto;
 	}
 }

@@ -17,6 +17,7 @@ import { useRouter } from "next/router"
 // Gsap
 import { gsap } from "gsap/dist/gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { CustomEase } from "gsap/dist/CustomEase";
 
 
 // Splitingjs
@@ -49,6 +50,7 @@ function NavItem(props){
 // Main component
 function MyApp({ Component, pageProps }) {
     gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(CustomEase);
 
     const router = useRouter();
 
@@ -701,6 +703,8 @@ function MyApp({ Component, pageProps }) {
 
         // slider slidding animation
         if ( router.asPath === "/" ){
+
+            // For the works slider animation.
             let s_ref_interv = setInterval(() => {
 
                 if ( s_ref.current === undefined ) return;
@@ -719,6 +723,7 @@ function MyApp({ Component, pageProps }) {
                     }
                 });
 
+                // Changing the slider magnatude of slide
                 gsap.set(s_ref.current, {
                     currentX: (s_ref.current.slideWidth) * 1.3
                 })
@@ -735,8 +740,252 @@ function MyApp({ Component, pageProps }) {
                         }
                     }, "<0")
 
+
+                // Animating the texts.
+                let scrollTrig_el = document.querySelector(".Vision");
+                let page_scroller = document.querySelector("[data-scroll-container]");
+
+                // 0.65 from top touch top of B-Text then triggers and ends with starting of other.
+
+                // let visioniItemUpEndSL_tl = gsap.timeline({
+                //     defaults:{
+                //         ease: CustomEase.create("custom", "M0,0 C0.266,0.412 0.359,0.581 0.52,0.742 0.616,0.838 0.73,0.97 1,1 ")
+                //     },
+                //     scrollTrigger:{
+                //         trigger: ".Vision-item:first-child",
+                //         scroller: page_scroller,
+                //         start: "top top-=5%",
+                //         end: "top top-=10%",
+                //         scrub: true,
+                //         markers: true
+                //     }
+                // });
+
+                // let visioniItemLowEndFL_tl = gsap.timeline({
+                //     defaults:{
+                //         ease: CustomEase.create("custom", "M0,0 C0.266,0.412 0.359,0.581 0.52,0.742 0.616,0.838 0.73,0.97 1,1 ")
+                //     },
+                //     scrollTrigger:{
+                //         trigger: ".Vision-item:first-child",
+                //         scroller: page_scroller,
+                //         start: "top top+=60%",
+                //         end: "top top+=55%",
+                //         scrub: true,
+                //         markers: true
+                //     }
+                // });
+
+                // visioniItemLowEndFL_tl
+                //     .fromTo(".Vision-bgItem:first-child", {}, {
+                //         onStart: ()=>{
+                //             gsap.to(".Vision-bgItem:first-child", {scale: "0.6", opacity:"0"});
+                //         }
+                //      })
+
+
+                let visioniItem1_tl = gsap.timeline({
+                    defaults:{
+                        ease: CustomEase.create("custom", "M0,0 C0.266,0.412 0.359,0.581 0.52,0.742 0.616,0.838 0.73,0.97 1,1 ")
+                    },
+                    scrollTrigger:{
+                        trigger: ".Vision-item:first-child",
+                        scroller: page_scroller,
+                        start: "top top+=55%",
+                        end: "top top-=5%",
+                        scrub: 1,
+                        markers: true
+                    }
+                });
+
+                let prev_pl = [false, false]
+
+                visioniItem1_tl
+                    .fromTo(".Vision-bgItem:first-child", {"--val":0}, {
+                        "--val":100,
+                        onUpdate: ()=> {
+
+                            // console.log(document.querySelector(".Vision-bgItem:first-child").style.getPropertyValue("--val"))
+
+                            let an_prog_val = document.querySelector(".Vision-bgItem:first-child").style.getPropertyValue("--val")
+
+                            if ( an_prog_val <= 20 ){
+
+                                gsap.to(".Vision-bgItem:first-child", {scale: 0.6, opacity:0});
+                                document.querySelector(".Vision-item:first-child").classList.remove("active");
+
+                                prev_pl[0] = false;
+
+                            } else {
+
+                                if ( prev_pl[0] ) return;
+                                gsap.to(".Vision-bgItem:nth-child(2)", {scale: 0.6, opacity:0});
+                                gsap.fromTo(".Vision-bgItem:first-child", {scale: 1.4, opacity:0}, {scale: 1, opacity:1, delay:"0.5"});
+                                gsap.fromTo(".Vision-bgItem:first-child .Vision-bgItemWrapImage", {scale: 1}, {scale: 1.4, delay:"0.5"});
+
+                                document.querySelector(".Vision-item:first-child").classList.add("active");
+                                document.querySelector(".Vision-item:nth-child(2)").classList.remove("active");
+
+                                prev_pl[0] = true;
+                                prev_pl[1] = false;
+
+                            }
+
+
+
+                        }
+
+                    }, 0)
+                    .fromTo(".Vision-bgItem:nth-child(2)", {"--val":0}, {
+                        "--val":100,
+                        onUpdate: ()=> {
+
+                            let an_prog_val = document.querySelector(".Vision-bgItem:nth-child(2)").style.getPropertyValue("--val")
+
+                            if ( an_prog_val >= 98 ){
+
+                                gsap.to(".Vision-bgItem:nth-child(2)", {scale: 0.6, opacity:0});
+                                document.querySelector(".Vision-item:nth-child(2)").classList.remove("active");
+
+                                prev_pl[1] = false;
+
+                            } else {
+
+                                if ( prev_pl[1] ) return;
+
+                                gsap.to(".Vision-bgItem:first-child", {scale: 0.6, opacity:0});
+                                gsap.fromTo(".Vision-bgItem:nth-child(2)", {scale: 1.4, opacity:0}, {scale: 1, opacity:1, delay:"0.5"});
+                                gsap.fromTo(".Vision-bgItem:nth-child(2) .Vision-bgItemWrapImage", {scale: 1}, {scale: 1.4, delay:"0.5"});
+
+                                document.querySelector(".Vision-item:first-child").classList.remove("active");
+                                document.querySelector(".Vision-item:nth-child(2)").classList.add("active");
+
+                                prev_pl[1] = true;
+                                prev_pl[0] = false;
+
+                            }
+
+                        }
+                    }, 0.5)
+
+
+                // gsap.to(".Vision-bgItem:first-child", {scale: 0.6, opacity:0});
+                gsap.to(".Vision-bgItem:nth-child(2)", {scale: 0.6, opacity:0, delay:"0.51"});
+                document.querySelector(".Vision-item:first-child").classList.remove("active");
+                document.querySelector(".Vision-item:nth-child(2)").classList.remove("active");
+
+
+                // Second Move (BG Circle and Animated Logo)
+                {let sec_tl = gsap.timeline({
+                    defaults:{
+                        // ease: CustomEase.create("custom", "M0,0 C0.11,0.494 0.248,0.632 0.248,0.632 0.248,0.632 0.504,1 1,1 ")
+                        // CustomEase.create("custom", "M0,0 C0.266,0.412 0.359,0.581 0.52,0.742 0.616,0.838 0.73,0.97 1,1 "
+                        ease: "sine"
+                    },
+                    scrollTrigger:{
+                        trigger: ".Vision",
+                        scroller: page_scroller,
+                        start: "top top",
+                        end: "top top-=30%",
+                        // start: "top top",
+                        // end: "top top-=20%",
+                        scrub: true,
+                        // markers: true
+                    }
+                });
+
+                sec_tl
+                    .fromTo(".Vision-bgAnimatedLogoVideo", {scale:"1"}, {scale:"0"})
+                    .fromTo(".Vision-bgCircle", {scale:"1"}, {scale:"0.8"}, "<0");
+                }
+
+                // First animation
+                {let init_tl = gsap.timeline({
+                        defaults:{
+
+                        },
+                        scrollTrigger:{
+                            trigger: ".Vision-bg",
+                            scroller: page_scroller,
+                            start: "top+=20% top+=20%",
+                            end: "top+=20% top",
+                            // start: "top top",
+                            // end: "top top-=20%",
+                            scrub: true,
+                            // markers: true
+                        }
+                    })
+
+                    init_tl
+                        .fromTo(".Vision-bgAnimatedLogoVideo",
+                            {scale:"0.0146"},
+                            {scale:"1"},
+                        )
+                        .fromTo(".Vision-bg",
+                        {
+                            opacity: 0,
+                            // transform: "translate(0px, calc(-30vw * 0.69))"
+                        },
+                        {
+                            opacity: 0.7,
+                            // transform: `translate(0px, calc(-29vw * 0.69))`,
+                        }, "<0")
+                        .fromTo(".Vision-bgCircle", { scale: 2, opacity: 0 }, { scale: 1, opacity: 0.07 }, "<0")
+                        // .fromTo(".BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.8744, opacity: 0.3 }, "<0");
+                        .fromTo(".BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.3 }, "<0");
+
+
+                        // Through out the scroll
+                        gsap.set(".Vision-bg", {transform:"translate3d(0px, calc(-30vw * 0.69), 0px)"});
+                        gsap.fromTo(".Vision-bg",
+                            {
+                                opacity: 0.7,
+                            },
+                            {
+                                opacity: 1,
+                                scrollTrigger:{
+                                    trigger: ".Vision-bg",
+                                    scroller: page_scroller,
+                                    start: "top top",
+                                    end: "bottom top",
+                                    // start: "top top-=20%",
+                                    // end: "bottom top-=20%",
+                                    scrub: true,
+                                    pin: true,
+
+                                    // markers: true
+                                }
+                            }
+                        );
+
+                        gsap.set(".BackgroundCross-inner", {transform:"translate3d(0px, calc(-14vw*0.69), 0px)"});
+                        gsap.fromTo(".BackgroundCross-inner",
+                            {
+                                opacity: 0.3,
+                                scale: 0.95
+                            },
+                            {
+                                opacity: 1,
+                                scale: 0.8744,
+                                scrollTrigger:{
+                                    trigger: ".BackgroundCross-inner",
+                                    scroller: page_scroller,
+                                    start: "top top",
+                                    end: "bottom top",
+                                    scrub: true,
+                                    pin: true,
+                                }
+                            }
+                        );
+                }
+
+
+
                 clearInterval(s_ref_interv);
             }, 0);
+
+
+
+
         }
 
 
@@ -748,6 +997,7 @@ function MyApp({ Component, pageProps }) {
 
             if ( locomotiveScrollInstance.current === undefined ) return;
 
+            // Setting up Scroll Trigger with locomotive
             locomotiveScrollInstance.current.on("scroll", ScrollTrigger.update);
             ScrollTrigger.scrollerProxy("[data-scroll-container]", {
                 scrollTop(value) {
@@ -762,6 +1012,10 @@ function MyApp({ Component, pageProps }) {
 
             if ( callBack !== undefined ) callBack();
             p_scroll_trigger()
+
+            // ScrollTrigger.addEventListener("refresh", () => locomotiveScrollInstance.current.update()); //locomotive-scroll
+
+            // ScrollTrigger.refresh();
 
             if ( locomotiveScrollInstance.current !== undefined ) clearInterval(inter_ref);
 
