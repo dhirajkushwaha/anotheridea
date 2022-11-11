@@ -696,39 +696,39 @@ export default function Home(props) {
 
 					{/* BG Cross Marks */}
 					<div className="Vision-bgCross">
-						<div class="BackgroundCross in-view">
-							<div class="BackgroundCross-wrapper">
-								{/* <div class="BackgroundCross-inner" style={{"opacity": 0, "transform": "translate3d(0px, -318.188px, 0px)"}}></div> */}
-								<div class="BackgroundCross-inner" style={{"opacity": 0, "transform": "translate3d(0px, 0px, 0px)"}}></div>
+						<div className="BackgroundCross in-view">
+							<div className="BackgroundCross-wrapper">
+								{/* <div className="BackgroundCross-inner" style={{"opacity": 0, "transform": "translate3d(0px, -318.188px, 0px)"}}></div> */}
+								<div className="BackgroundCross-inner" style={{"opacity": 0, "transform": "translate3d(0px, 0px, 0px)"}}></div>
 							</div>
 						</div>
 					</div>
 
-					<div class="Vision-bg" style={{"opacity": 1, "transform": "translate3d(0px, 0px, 0px)"}}>
-						<div class="Vision-bgAnimatedLogo">
+					<div className="Vision-bg" style={{"opacity": 1, "transform": "translate3d(0px, 0px, 0px)"}}>
+						<div className="Vision-bgAnimatedLogo">
 							<video loop={"loop"} muted={"muted"} preload={"auto"} playsInline={"true"} autoPlay
-								class="Video Vision-bgAnimatedLogoVideo gifLike in-view"
+								className="Video Vision-bgAnimatedLogoVideo gifLike in-view"
 								style={{"transform": "translate3d(0px, 0px, 0px)"}}>
 								<source src="https://www.mediakeys-experience.com/_nuxt/videos/black-balls.4cc7be5.mp4"
 										data-src="https://www.mediakeys-experience.com/_nuxt/videos/black-balls.4cc7be5.mp4"
 										type="video/mp4" />
 							</video>
 						</div>
-						<div class="Vision-bgCircle" style={{
+						<div className="Vision-bgCircle" style={{
 						"opacity": 0,
 						"transform": "translate3d(0px, 0px, 0px) scale(2, 2)"
 						}}></div>
-						<div class="Vision-bgItems" style={{"transform": "translate3d(0px, 0px, 0px)"}}>
-							<div class="Vision-bgItem" style={{"transform": "translate3d(0px, 0px, 0px) scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
-								<div class="Vision-bgItemWrapImage" style={{"transform": "translate3d(0px, 0px, 0px)"}}>
-									<div class="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
-										<div class="AppImage-overlay" ></div>
-										<div class="AppImage-placeholder"  style={{"background-color": "rgb(68, 68, 151)"}}>
+						<div className="Vision-bgItems" style={{"transform": "translate3d(0px, 0px, 0px)"}}>
+							<div className="Vision-bgItem" style={{"transform": "translate3d(0px, 0px, 0px) scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
+								<div className="Vision-bgItemWrapImage" style={{"transform": "translate3d(0px, 0px, 0px)"}}>
+									<div className="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
+										<div className="AppImage-overlay" ></div>
+										<div className="AppImage-placeholder"  style={{"background-color": "rgb(68, 68, 151)"}}>
 										</div>
 										<picture >
 											<source
 												data-srcset="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360 360w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800 800w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
-												sizes="(min-width: 768px) 50vw, 100vw"  srcset="
+												sizes="(min-width: 768px) 50vw, 100vw"  srcSet="
 												https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360   360w,
 												https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800   800w,
 												https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w,
@@ -736,22 +736,22 @@ export default function Home(props) {
 											/>
 											<img draggable="false"
 												data-src="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
-												alt="Think" class="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
+												alt="Think" className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
 												src="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
 											/>
 										</picture>
 									</div>
 								</div>
 							</div>
-							<div class="Vision-bgItem" style={{"transform": "translate3d(0px, 0px, 0px) scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
-								<div class="Vision-bgItemWrapImage" style={{"transform": "translate3d(0px, 0px, 0px)"}}>
-									<div class="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
-										<div class="AppImage-overlay" ></div>
-										<div class="AppImage-placeholder" ></div>
+							<div className="Vision-bgItem" style={{"transform": "translate3d(0px, 0px, 0px) scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
+								<div className="Vision-bgItemWrapImage" style={{"transform": "translate3d(0px, 0px, 0px)"}}>
+									<div className="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
+										<div className="AppImage-overlay" ></div>
+										<div className="AppImage-placeholder" ></div>
 										<picture >
 											<source
 												data-srcset="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360 360w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800 800w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
-												sizes="(min-width: 768px) 50vw, 100vw"  srcset="
+												sizes="(min-width: 768px) 50vw, 100vw"  srcSet="
 													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360   360w,
 													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800   800w,
 													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w,
@@ -759,7 +759,7 @@ export default function Home(props) {
 												" />
 											<img draggable="false"
 												data-src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
-												alt="make" class="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
+												alt="make" className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
 												src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800" />
 										</picture>
 									</div>
@@ -770,46 +770,46 @@ export default function Home(props) {
 
 
 
-					<h2 class="SplitText-component HomeTitle Vision-title">
-						<span class="HomeTitle-surtitle app-title--small">Nous associons</span>
-						<span class="HomeTitle-title HomeTitle-title--l1 app-title--regular">stratégie &amp;</span>
-						<span class="HomeTitle-title HomeTitle-title--l2 app-title--regular">exécution</span>
+					<h2 className="SplitText-component HomeTitle Vision-title">
+						<span className="HomeTitle-surtitle app-title--small">Nous associons</span>
+						<span className="HomeTitle-title HomeTitle-title--l1 app-title--regular">stratégie &amp;</span>
+						<span className="HomeTitle-title HomeTitle-title--l2 app-title--regular">exécution</span>
 					</h2>
 
-					<div class="Vision-wrapper">
+					<div className="Vision-wrapper">
 						{/* Towards Left */}
-						<div class="Vision-item">
-							<div class="Vision-itemInner">
-								<div class="Vision-itemHead">
-									<h2 data-label="Think" class="Vision-itemTitle app-title--regular" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+						<div className="Vision-item">
+							<div className="Vision-itemInner">
+								<div className="Vision-itemHead">
+									<h2 data-label="Think" className="Vision-itemTitle app-title--regular" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
 										Think
 									</h2>
-									<div class="Vision-itemSubtitle app-text--large" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+									<div className="Vision-itemSubtitle app-text--large" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
 										<p><strong>Stratégie</strong> et vision</p>
 									</div>
-									<div class="Vision-itemKeyFigures app-text--small" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+									<div className="Vision-itemKeyFigures app-text--small" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
 										+ 60 consultants en stratégie
 									</div>
 								</div>
-								<div class="Vision-itemSkills"></div>
+								<div className="Vision-itemSkills"></div>
 							</div>
 						</div>
 
 						{/* Towards right */}
-						<div class="Vision-item">
-							<div class="Vision-itemInner">
-								<div class="Vision-itemHead">
-									<h2 data-label="make" class="Vision-itemTitle app-title--regular" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+						<div className="Vision-item">
+							<div className="Vision-itemInner">
+								<div className="Vision-itemHead">
+									<h2 data-label="make" className="Vision-itemTitle app-title--regular" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
 										make
 									</h2>
-									<div class="Vision-itemSubtitle app-text--large" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+									<div className="Vision-itemSubtitle app-text--large" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
 										<p><strong>Production </strong>et exécution</p>
 									</div>
-									<div class="Vision-itemKeyFigures app-text--small" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+									<div className="Vision-itemKeyFigures app-text--small" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
 										+220 experts opérationnels
 									</div>
 								</div>
-								<div class="Vision-itemSkills"></div>
+								<div className="Vision-itemSkills"></div>
 							</div>
 						</div>
 
