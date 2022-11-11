@@ -793,7 +793,7 @@ function MyApp({ Component, pageProps }) {
                         start: "top top+=55%",
                         end: "top top-=5%",
                         scrub: 1,
-                        markers: true
+                        // markers: true
                     }
                 });
 
