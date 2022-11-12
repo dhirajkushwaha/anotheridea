@@ -92,21 +92,6 @@ export default function Directors(){
                         <div className="OnBoard-listItem OtherDirectors-List">
                             <h3 className="OtherDirectors-title u-textUppercase">Other Directors</h3>
                             <div className="OtherDirectors-ListItems">
-                                {/* <OtherDirectorItem
-                                    imgSrc = "./assets/profile_01.png"
-                                    name = "Jeet L."
-                                    about = "Sample Text"
-                                />
-                                <OtherDirectorItem
-                                    imgSrc = "./assets/profile_02.png"
-                                    name = "Prosit Roy"
-                                    about = "Sample Text"
-                                />
-                                <OtherDirectorItem
-                                    imgSrc = "./assets/profile_01.png"
-                                    name = "John D."
-                                    about = "Sample Text"
-                                /> */}
                                 <OtherDirectorItem
                                     imgSrc = {profiles[0][0]}
                                     name = {profiles[0][1]}
