@@ -61,7 +61,7 @@ export default function Directors(){
                         <OnBoardItem
                             imgSrc = "./assets/profile_01.png"
                             name = "JEET"
-                            about = {<>One that brings words to life.<br/>Our resident magician.<br/><br/>The sheer ease with which Jeet can tell a story off-screen translates directly to his work on screen with an innate ability to bring out the desired emotion impactfully.<br/><br/>An ad film director who's worked on over 150 commercials in the last seven years and earned all his tricks on-set, somewhere between reel life and real life<br/><br/>Jeet is a dire cinema addict obsessed with doing justice to every script.</>}
+                            about = {<>One that brings words to life.<br/>Our resident magician.<br/><br/>The sheer ease with which Jeet can tell a story off-screen translates directly to his work on screen with an innate ability to bring out the desired emotion impactfully.<br/><br/>An ad film director who&apos;s worked on over 150 commercials in the last seven years and earned all his tricks on-set, somewhere between reel life and real life<br/><br/>Jeet is a dire cinema addict obsessed with doing justice to every script.</>}
                         />
                         <OnBoardItem
                             imgSrc = "./assets/profile_02.png"
@@ -71,7 +71,7 @@ export default function Directors(){
                         <OnBoardItem
                             imgSrc = "./assets/profile_02.png"
                             name = "PROSIT"
-                            about = {<>The king of nuances and backstories.<br/><br/>One of the main reasons Prosit's work is identifiable as his own is due to his ability to get to the root of every story, deep-diving into cultures and making the characters memorable and relatable.<br/><br/>He internalizes the script and beautifully decodes it on screen. Whether it is Patal Lok or a Pampers advertisement, Prosit has the expertise to evoke emotion from all audiences.<br/><br/>He's the most incredible support system for a team but an even better Director.</>}
+                            about = {<>The king of nuances and backstories.<br/><br/>One of the main reasons Prosit&apos;s work is identifiable as his own is due to his ability to get to the root of every story, deep-diving into cultures and making the characters memorable and relatable.<br/><br/>He internalizes the script and beautifully decodes it on screen. Whether it is Patal Lok or a Pampers advertisement, Prosit has the expertise to evoke emotion from all audiences.<br/><br/>He&apos;s the most incredible support system for a team but an even better Director.</>}
                         />
                         <div className="OnBoard-listItem OtherDirectors-List">
                             <h3 className="OtherDirectors-title u-textUppercase">Other Directors</h3>
