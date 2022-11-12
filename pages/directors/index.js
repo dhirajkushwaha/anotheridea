@@ -39,6 +39,20 @@ function OtherDirectorItem(props){
 
 export default function Directors(){
 
+
+    const profiles = [
+                        ["./assets/team_profiles/srushti_iyer.JPG", "Shruti Iyer"],
+                        ["./assets/team_profiles/nidhi_gandhi.jpg", "Nidhi Gandhi"],
+                        ["./assets/team_profiles/natasha_agarwal_jagtap.jpg", "Natasha Agarwal Jagtap"],
+                        ["./assets/team_profiles/nadeem_shaikh_.jpg", "Nadeem Shaikh"],
+                        ["./assets/team_profiles/manish_chougule.jpg", "Manish Chougule"],
+                        ["./assets/team_profiles/ishaandeep_awasty.JPEG", "Ishaandeep Awasty"],
+                        ["./assets/team_profiles/inigo_nadar.jpg", "Inigo Nadar"],
+                        ["./assets/team_profiles/gaurav_gandhi.jpg", "Gaurav Gandhi"],
+                        ["./assets/team_profiles/anindita_mukherjee.jpg", "Anindita Mukherjee"],
+                        ["./assets/team_profiles/a_aakash_rao.jpg", "A Aakash Rao"],
+                    ]
+
     // const executed = useRef(0);
 
     // useEffect(() => {
@@ -73,10 +87,12 @@ export default function Directors(){
                             name = "PROSIT"
                             about = {<>The king of nuances and backstories.<br/><br/>One of the main reasons Prosit&apos;s work is identifiable as his own is due to his ability to get to the root of every story, deep-diving into cultures and making the characters memorable and relatable.<br/><br/>He internalizes the script and beautifully decodes it on screen. Whether it is Patal Lok or a Pampers advertisement, Prosit has the expertise to evoke emotion from all audiences.<br/><br/>He&apos;s the most incredible support system for a team but an even better Director.</>}
                         />
+
+                        {/* Other Directors */}
                         <div className="OnBoard-listItem OtherDirectors-List">
                             <h3 className="OtherDirectors-title u-textUppercase">Other Directors</h3>
                             <div className="OtherDirectors-ListItems">
-                                <OtherDirectorItem
+                                {/* <OtherDirectorItem
                                     imgSrc = "./assets/profile_01.png"
                                     name = "Jeet L."
                                     about = "Sample Text"
@@ -89,6 +105,56 @@ export default function Directors(){
                                 <OtherDirectorItem
                                     imgSrc = "./assets/profile_01.png"
                                     name = "John D."
+                                    about = "Sample Text"
+                                /> */}
+                                <OtherDirectorItem
+                                    imgSrc = {profiles[0][0]}
+                                    name = {profiles[0][1]}
+                                    about = "Sample Text"
+                                />
+                                <OtherDirectorItem
+                                    imgSrc = {profiles[1][0]}
+                                    name = {profiles[1][1]}
+                                    about = "Sample Text"
+                                />
+                                <OtherDirectorItem
+                                    imgSrc = {profiles[2][0]}
+                                    name = {profiles[2][1]}
+                                    about = "Sample Text"
+                                />
+                                <OtherDirectorItem
+                                    imgSrc = {profiles[3][0]}
+                                    name = {profiles[3][1]}
+                                    about = "Sample Text"
+                                />
+                                <OtherDirectorItem
+                                    imgSrc = {profiles[4][0]}
+                                    name = {profiles[4][1]}
+                                    about = "Sample Text"
+                                />
+                                <OtherDirectorItem
+                                    imgSrc = {profiles[5][0]}
+                                    name = {profiles[5][1]}
+                                    about = "Sample Text"
+                                />
+                                <OtherDirectorItem
+                                    imgSrc = {profiles[6][0]}
+                                    name = {profiles[6][1]}
+                                    about = "Sample Text"
+                                />
+                                <OtherDirectorItem
+                                    imgSrc = {profiles[7][0]}
+                                    name = {profiles[7][1]}
+                                    about = "Sample Text"
+                                />
+                                <OtherDirectorItem
+                                    imgSrc = {profiles[8][0]}
+                                    name = {profiles[8][1]}
+                                    about = "Sample Text"
+                                />
+                                <OtherDirectorItem
+                                    imgSrc = {profiles[9][0]}
+                                    name = {profiles[9][1]}
                                     about = "Sample Text"
                                 />
                             </div>

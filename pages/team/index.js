@@ -43,6 +43,8 @@ export default function Directors(){
                 </div>
                 <div className="OnBoard-wrapper">
                     <div className="OnBoard-listItems">
+
+                        {/* Other Directors */}
                         <div className="OnBoard-listItem OtherDirectors-List">
                             <h3 className="OtherDirectors-title u-textUppercase">Other Directors</h3>
                             <div className="OtherDirectors-ListItems">
@@ -63,6 +65,8 @@ export default function Directors(){
                                 />
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </section>
