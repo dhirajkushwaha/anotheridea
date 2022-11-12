@@ -699,12 +699,12 @@ export default function Home(props) {
 						<div className="BackgroundCross in-view">
 							<div className="BackgroundCross-wrapper">
 								{/* <div className="BackgroundCross-inner" style={{"opacity": 0, "transform": "translate3d(0px, -318.188px, 0px)"}}></div> */}
-								<div className="BackgroundCross-inner" style={{"opacity": 0, "transform": "translate3d(0px, 0px, 0px)"}}></div>
+								<div className="BackgroundCross-inner" style={{"opacity": 0}}></div>
 							</div>
 						</div>
 					</div>
 
-					<div className="Vision-bg" style={{"opacity": 1, "transform": "translate3d(0px, 0px, 0px)"}}>
+					<div className="Vision-bg" style={{"opacity": 1}}>
 						<div className="Vision-bgAnimatedLogo">
 							<video loop={"loop"} muted={"muted"} preload={"auto"} playsInline={"true"} autoPlay
 								className="Video Vision-bgAnimatedLogoVideo gifLike in-view"
@@ -718,9 +718,9 @@ export default function Home(props) {
 						"opacity": 0,
 						"transform": "translate3d(0px, 0px, 0px) scale(2, 2)"
 						}}></div>
-						<div className="Vision-bgItems" style={{"transform": "translate3d(0px, 0px, 0px)"}}>
-							<div className="Vision-bgItem" style={{"transform": "translate3d(0px, 0px, 0px) scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
-								<div className="Vision-bgItemWrapImage" style={{"transform": "translate3d(0px, 0px, 0px)"}}>
+						<div className="Vision-bgItems" >
+							<div className="Vision-bgItem" style={{"transform": "scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
+								<div className="Vision-bgItemWrapImage" >
 									<div className="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
 										<div className="AppImage-overlay" ></div>
 										<div className="AppImage-placeholder"  style={{"background-color": "rgb(68, 68, 151)"}}>
@@ -743,8 +743,8 @@ export default function Home(props) {
 									</div>
 								</div>
 							</div>
-							<div className="Vision-bgItem" style={{"transform": "translate3d(0px, 0px, 0px) scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
-								<div className="Vision-bgItemWrapImage" style={{"transform": "translate3d(0px, 0px, 0px)"}}>
+							<div className="Vision-bgItem" style={{"transform": "scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
+								<div className="Vision-bgItemWrapImage">
 									<div className="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
 										<div className="AppImage-overlay" ></div>
 										<div className="AppImage-placeholder" ></div>
@@ -781,13 +781,13 @@ export default function Home(props) {
 						<div className="Vision-item">
 							<div className="Vision-itemInner">
 								<div className="Vision-itemHead">
-									<h2 data-label="Think" className="Vision-itemTitle app-title--regular" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+									<h2 data-label="Think" className="Vision-itemTitle app-title--regular">
 										Think
 									</h2>
-									<div className="Vision-itemSubtitle app-text--large" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+									<div className="Vision-itemSubtitle app-text--large">
 										<p><strong>Stratégie</strong> et vision</p>
 									</div>
-									<div className="Vision-itemKeyFigures app-text--small" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+									<div className="Vision-itemKeyFigures app-text--small">
 										+ 60 consultants en stratégie
 									</div>
 								</div>
@@ -799,13 +799,13 @@ export default function Home(props) {
 						<div className="Vision-item">
 							<div className="Vision-itemInner">
 								<div className="Vision-itemHead">
-									<h2 data-label="make" className="Vision-itemTitle app-title--regular" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+									<h2 data-label="make" className="Vision-itemTitle app-title--regular">
 										make
 									</h2>
-									<div className="Vision-itemSubtitle app-text--large" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+									<div className="Vision-itemSubtitle app-text--large">
 										<p><strong>Production </strong>et exécution</p>
 									</div>
-									<div className="Vision-itemKeyFigures app-text--small" style={{"transform": "translate3d(0px, 0px, 0px)", "opacity": "1"}}>
+									<div className="Vision-itemKeyFigures app-text--small">
 										+220 experts opérationnels
 									</div>
 								</div>
@@ -816,7 +816,7 @@ export default function Home(props) {
 					</div>
 				</div>
 
-				<div className="ideasImageCarousel">
+				{/* <div className="ideasImageCarousel">
 					<Swiper
 						pagination={true}
 						touchStartPreventDefault="false"
@@ -856,53 +856,48 @@ export default function Home(props) {
 							</picture>
 						</SwiperSlide>
 					</Swiper>
-				</div>
+				</div> */}
+
 				<div className="ideasBehind-wrapper">
 					<Ideasbehindtextitem
-						label="Commercials"
+						label="Advertisements"
 						href="/"
 						color="#af37d9"
-						// color="#FF9933"
-						slidemag="10vw"
+						skill=""
+						slidemag="2vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
-						label="Promo Production"
-						label_left={"Promo \n Production"}
-						label_right={"Promo \n Production"}
+						label="Promos"
 						href="/"
 						color="#de477e"
-						// color="#FF9933"
-						slidemag="12vw"
+						skill=""
+						slidemag="24vw"
+					></Ideasbehindtextitem>
+					<Ideasbehindtextitem
+						label="Print Ads"
+						href="/"
+						color="#f2ad45"
+						// skill="Bringing ideas to focus"
+						skill=""
+						slidemag="20vw"
+					></Ideasbehindtextitem>
+					<Ideasbehindtextitem
+						label="Animation"
+						href="/"
+						color="#3ab8c9"
+						// skill="Lorem Ipsum"
+						skill=""
+						slidemag="18vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Post Production"
 						label_left={"Post \n Production"}
 						label_right={"Post \n Production"}
 						href="/"
-						color="#f2ad45"
-						// color="#fff"
-						skill="Bringing ideas to focus"
-						slidemag="10vw"
-					></Ideasbehindtextitem>
-					<Ideasbehindtextitem
-						label="Print Production"
-						label_left={"Print \n Production"}
-						label_right={"Print \n Production"}
-						href="/"
-						color="#3ab8c9"
-						// color="#138808"
-						skill="Lorem Ipsum"
-						slidemag="13vw"
-					></Ideasbehindtextitem>
-					<Ideasbehindtextitem
-						label="Animation"
-						label_left={"Animation"}
-						label_right={"Animation"}
-						href="/"
 						color="#3b33b3"
-						// color="#138808"
-						skill="Lorem Ipsum"
-						slidemag="18vw"
+						// skill="Lorem Ipsum"
+						skill=""
+						slidemag="14vw"
 					></Ideasbehindtextitem>
 				</div>
 

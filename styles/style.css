@@ -909,7 +909,7 @@ section.homeHeadSection {
 
 	font-weight: 500;
 	color: white;
-    width: min-content;
+    /* width: min-content; */
 }
 
 .ideasBehind-item:first-child .ideasBehind-itemLabel, .ideasBehind-item:last-child .ideasBehind-itemLabel {
@@ -961,7 +961,7 @@ section.homeHeadSection {
 	text-align: right;
 }
 
-.ideasBehind-item:nth-child(2) .ideasBehind-labelWrapper:after,
+/* .ideasBehind-item:nth-child(2) .ideasBehind-labelWrapper:after,
 .ideasBehind-item:nth-child(2) .ideasBehind-labelWrapper::before {
 	content: "Television \A Commercials";
 }
@@ -969,6 +969,11 @@ section.homeHeadSection {
 .ideasBehind-item:nth-child(4) .ideasBehind-labelWrapper:after,
 .ideasBehind-item:nth-child(4) .ideasBehind-labelWrapper::before {
 	content: "POST \A production";
+} */
+
+.ideasBehind-item:nth-child(5) .ideasBehind-labelWrapper:after,
+.ideasBehind-item:nth-child(5) .ideasBehind-labelWrapper::before {
+	content: "Post \A production";
 }
 
 .ideasBehind-itemLabel::after {
@@ -1992,8 +1997,8 @@ footer {
 
 .app-title--regular{
 	font-weight: 400;
-    font-size: calc(5vw * 0.69);
-    line-height: calc(6.2vw * 0.69);
+    font-size: calc(5vw * 2.667);
+    line-height: calc(6.2vw * 2.667);
 }
 
 .WorksListItem-title {
@@ -2884,7 +2889,7 @@ button.FormButton .AppButton-label{
 }
 
 .Vision-itemHead{
-	padding-bottom: calc(6vw * 0.69);
+	padding-bottom: calc(6vw * 2.667);
     position: relative;
     transition: transform .3s cubic-bezier(.165,.84,.44,1) 0s;
 }
@@ -2914,6 +2919,17 @@ button.FormButton .AppButton-label{
 .Vision-itemSubtitle strong {
     font-weight: 700;
     font-style: italic;
+}
+
+.Vision-itemHead:after {
+    content: "";
+    display: block;
+    width: calc(4vw * 0.69);
+    height: 1px;
+    background: #fff;
+    position: absolute;
+    bottom: 0;
+    transform: scaleX(0);
 }
 
 .Vision-item.active .Vision-itemHead::after {
@@ -3015,7 +3031,7 @@ button.FormButton .AppButton-label{
     height: 100%;
 }
 
-.AppImage-overlay {
+.Vision .AppImage-overlay {
     bottom: 0;
     left: 0;
     right: 0;
@@ -3025,21 +3041,21 @@ button.FormButton .AppButton-label{
     z-index: 10;
 }
 
-.AppImage-overlay, .AppImage-overlay:after {
+.Vision .AppImage-overlay, .AppImage-overlay:after {
     position: absolute;
     top: 0;
     width: 100%;
     height: 100%;
 }
 
-.AppImage-overlay:after {
+.Vision .AppImage-overlay:after {
     content: "";
     display: block;
     background: #5541f8;
     left: 100%;
 }
 
-.AppImage-overlay:after {
+.Vision .AppImage-overlay:after {
     content: "";
     display: block;
     background: #5541f8;
@@ -3087,6 +3103,12 @@ button.FormButton .AppButton-label{
     opacity: 0;
 }
 
+.Vision-itemSkills {
+    padding-top: calc(4.5vw * 2.667);
+    width: 100%;
+    pointer-events: none;
+}
+
 @media only screen and (min-width: 1024px){
 
 	.Vision {
@@ -3112,7 +3134,7 @@ button.FormButton .AppButton-label{
 	}
 
 	.Vision-item:nth-child(2) {
-		margin-top: -6rem;
+		margin-top: calc(-6vw * 0.69);
 		text-align: right;
 	}
 
@@ -3121,11 +3143,24 @@ button.FormButton .AppButton-label{
 		transform-origin: 0 50%;
 	}
 
+	.Vision-item:nth-child(2) .Vision-itemHead::after {
+		right: 0;
+		transform-origin: 100% 50%;
+	}
+
 	.Vision-bgItem {
 		width: 60vh;
 		height: 60vh;
 		margin-top: -30vh;
 		margin-left: -30vh;
+	}
+
+	.Vision-itemSkills {
+		padding-top: calc(4.5vw * 0.69);
+	}
+
+	.Vision-itemHead {
+		padding-bottom: calc(6vw * 0.69);
 	}
 }
 
@@ -3145,5 +3180,46 @@ button.FormButton .AppButton-label{
 	.Vision-wrapper{
 		width: calc(33.3333vw * 2.667);
     	height: auto;
+	}
+
+	.Vision-item{
+		width: 100%;
+		text-align: center;
+	}
+
+	.Vision-itemHead::after {
+		left: 50%;
+		margin-left: calc(-2vw * 2.667);
+	}
+
+	.Vision-itemHead:after {
+		width: calc(4vw * 2.667);
+	}
+
+	.Vision-itemSubtitle {
+		font-size: calc(3.2vw * 2.667);
+		line-height: calc(3.8vw * 2.667);;
+		margin-bottom: calc(1.2vw * 2.667);;
+		margin-top: calc(-1.2vw * 2.667);;
+	}
+
+	.Vision-item:first-child {
+		margin-top: calc(15vw * 2.667);
+	}
+
+	.Vision-item:nth-child(2) {
+		margin-top: calc(2vw * 2.667);
+	}
+
+	.Vision {
+		margin: calc(6vw * 2.667) auto;
+	}
+
+	.Vision-bg {
+		position: fixed;
+	}
+
+	.BackgroundCross {
+		display: none;
 	}
 }
