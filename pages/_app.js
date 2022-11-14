@@ -102,7 +102,7 @@ function MyApp({ Component, pageProps }) {
 
     const scrollTrigger = () => {
         var scroller = document.querySelector("[data-scroll-container]");
-        var scrollMag, prevScrollMag, headerTrigDist;
+        var scrollMag, prevScrollMag, headerTrigDist; // header animation
 
         headerTrigDist = document.querySelector(".Header").clientHeight*1.2;
 
@@ -134,10 +134,15 @@ function MyApp({ Component, pageProps }) {
         if ( document.body.clientWidth > 1023 ){
             var styleEventListener = new MutationObserver((mutations) => {
                 mutations.forEach((MutationRecord) => {
+
+                    // header animation
                     scrollMag = scroller.style.getPropertyValue("transform").split("(")[1].split(")")[0].split(",")[13]*(-1);
 
                     scrollMagSet(scrollMag, prevScrollMag);
                     prevScrollMag = scrollMag;
+
+                    // works list popup
+                    gsap.set(".List-popup", {y:scrollMag})
                 })
             })
 
@@ -1141,7 +1146,7 @@ function MyApp({ Component, pageProps }) {
                     }
                 }
 
-                // on scroll triggers
+                // on scroll triggers header changes
                 if ( true ){
                     scrollTrigger();
                 }
@@ -1265,23 +1270,6 @@ function MyApp({ Component, pageProps }) {
                 {/* Custom Cursor */}
                 <div className="mouseCursorContainer">
                     <div className="mouseCursor" style={{transform:"translate3d(0px, 0px, 0px) scale(0.2))", borderColor: "rgb(85, 65, 248)", backgroundColor: "rgb(85, 65, 248)"}}>
-                        {/* <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
-                            <g clipPath="url(#clip0_26_11)">
-                                <g clipPath="url(#clip1_26_11)">
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M32.9892 0.00660713L20.594 33.4L16.659 29.465L25.1193 7.87653L3.42323 16.2293L-0.5 12.5L32.9892 0.00660713Z" fill="var(--cursorColor)" />
-                                </g>
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_26_11">
-                                    <rect width="33" height="33" fill="white" />
-                                </clipPath>
-                                <clipPath id="clip1_26_11">
-                                    <rect width="30" height="32" fill="white" transform="translate(22.4 -10.6) rotate(45)" />
-                                </clipPath>
-                            </defs>
-                        </svg> */}
-                        {/* <img src="/assets/cursor.svg" alt="" /> */}
-
                         <div className="mouseCursorContent">
                             <div className="mouseCursorIconWrapper">
                                 {m_content_icon}

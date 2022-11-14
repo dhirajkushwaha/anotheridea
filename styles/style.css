@@ -3223,3 +3223,102 @@ button.FormButton .AppButton-label{
 		display: none;
 	}
 }
+
+
+
+/* Works List Popup */
+
+
+.List-popup{
+	position: fixed;
+	left: 0;
+	top: 0;
+
+	display: flex;
+	justify-content: center;
+
+	z-index: 999999;
+
+	width: 100vw;
+	height: 100vh;
+
+	opacity: 1;
+
+	background: rgba(0, 0, 0, 0.66);
+	transition: opacity .5s ease;
+
+	backface-visibility: hidden;
+}
+
+
+.popup-hidden{
+	/* display: none; */
+	visibility: hidden;
+	z-index: -1000;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity .5s ease;
+}
+
+
+.Popup-frame{
+	display: flex;
+	flex-direction: column;
+
+	height: 100%;
+	width: min-content;
+
+    justify-content: center;
+    align-items: flex-end;
+
+	cursor: pointer;
+}
+
+.Popup-cross{
+	/* height: 30px;
+	width: 30px; */
+	height: fit-content;
+	width: fit-content;
+
+	padding: 0.5vw 1vw;
+
+	margin-right: 2vw;
+
+	background: #5541f8;
+
+	border: solid #5541f8 2px;
+
+	box-sizing: border-box;
+
+	border-radius: 1.2vw;
+
+	margin-bottom: 0.5vw;
+
+	font-size: calc(18/19.2 * 1vw);
+	letter-spacing: calc(1/19.2 * 1vw);
+
+    display: flex;
+    align-items: center;
+	transition: background 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.Popup-cross img{
+	margin-left: calc(5/19.2 * 1vw);
+}
+
+.Popup-video{
+	height: min-content;
+	width: min-content;
+
+    border-radius: 2vw;
+	overflow: hidden;
+}
+
+.Popup-video iframe {
+	width: calc(1140/19.2 * 1vw);
+    height: calc((1140 / 1.77)/19.2 * 1vw);
+}
+
+.Popup-cross:hover{
+	background: #5641f800;
+}

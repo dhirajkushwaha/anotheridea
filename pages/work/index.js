@@ -22,11 +22,44 @@ function WorksListItem(props){
 
     if ( props.href === undefined ) props.href = "/"
     const rootElRef = useRef();
+    const executed = useRef(0);
+
+    const cl_name = `.list-${props.index}`
+
+
+
+    useEffect(() => {
+		if (typeof window === "undefined") { return; }
+        if ( !executed.current){
+
+            // adding the popup
+            document.querySelector(cl_name).addEventListener("click", (e)=>{
+                document.querySelector(cl_name+" .List-popup").classList.remove("popup-hidden");
+                e.preventDefault();
+            })
+            // removing the popup
+            document.querySelector(cl_name+" .Popup-cross").addEventListener("click", (e)=>{
+                document.querySelector(cl_name+" .List-popup").classList.add("popup-hidden");
+                e.cancelBubble = true;
+            })
+            // removing the popup
+            document.querySelector(cl_name+" .List-popup").addEventListener("click", (e)=>{
+                document.querySelector(cl_name+" .List-popup").classList.add("popup-hidden");
+                e.cancelBubble = true;
+            })
+
+
+            executed.current += 1;
+        }
+    }, [])
+
+
 
     return(
-        <div className="List-item"  ref={rootElRef} >
-            <Link href={props.href}>
-                <a href={props.href} className="WorksListItem in-view" >
+        <div className={`List-item list-${props.index}`} ref={rootElRef} >
+            {/* <Link href={props.href}> */}
+                {/* <a href={props.href} className="WorksListItem in-view" > */}
+                <div className="WorksListItem in-view" >
                     {/* <Curtains>
                         <BasicPlane> */}
                             <div className="AppImage fit-contain fit-cover loaded plane WorksListItem-thumbnail">
@@ -43,17 +76,27 @@ function WorksListItem(props){
                         <span className="WorksListIem-detail u-textUppercase app-text--small">Director:</span>
                         <span className="WorksListIem-detail u-textUppercase app-text--small">{ props.dirLabel }</span>
                     </div>
-                </a>
-            </Link>
+                </div>
+                {/* </a> */}
+            {/* </Link> */}
+
+            <div className="List-popup popup-hidden">
+                <div className="Popup-frame">
+                    <div className="Popup-cross">close <img src="https://img.icons8.com/ios-filled/18/FFFFFF/delete-sign--v2.png"/> </div>
+                    <div className="Popup-video">
+                        <iframe src={props.videoSrc} width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
 
 function WorksList(props){
 
-    const worksDetailsList = [["/", "/assets/ola_scooter.png", "Ola Scooter", "Ola Scooter", "automobile"],
-                              ["/", "/assets/jiomart_work.png", "Harr Ghar Annapurna", "Jio Mart", "food"],
-                              ["/", "/assets/pampers_work.png", "#Ittakes2", "Pampers", ""]
+    const worksDetailsList = [["/", "/assets/ola_scooter.png", "Ola Scooter", "Ola Scooter", "automobile", "https://player.vimeo.com/video/754220291?h=f2c9e7e7ca"],
+                              ["/", "/assets/jiomart_work.png", "Harr Ghar Annapurna", "Jio Mart", "food", "https://player.vimeo.com/video/765214389?h=d898015521"],
+                              ["/", "/assets/pampers_work.png", "#Ittakes2", "Pampers", "", "https://player.vimeo.com/video/765214389?h=d898015521"]
                             ];
 
 
@@ -141,8 +184,11 @@ function WorksList(props){
                                 imgUrl={work[1]}
                                 label={work[2]}
                                 dirLabel={work[3]}
+                                videoSrc={work[5]}
+                                index={index}
                                 key={index}
                             />);
+
             });
         } else {
             worksDetailsList.forEach((work, index) => {
@@ -152,6 +198,8 @@ function WorksList(props){
                                     imgUrl={work[1]}
                                     label={work[2]}
                                     dirLabel={work[3]}
+                                    videoSrc={work[5]}
+                                    index={index}
                                     key={index}
                                 />);
                 }
