@@ -207,6 +207,14 @@
 	width: 100%;
 	z-index: 9999;
 	pointer-events: none;
+
+	opacity: 1;
+	transition: opacity 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+}
+
+.Header-under-element{
+	opacity: 0.6;
 }
 
 .Header-wrapper {

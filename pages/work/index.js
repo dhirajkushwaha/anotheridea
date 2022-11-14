@@ -35,18 +35,21 @@ function WorksListItem(props){
             // adding the popup
             document.querySelector(cl_name).addEventListener("click", (e)=>{
                 document.querySelector(cl_name+" .List-popup").classList.remove("popup-hidden");
+                document.querySelector(".Header").classList.add("Header-under-element");
                 e.preventDefault();
             })
-            // removing the popup
-            document.querySelector(cl_name+" .Popup-cross").addEventListener("click", (e)=>{
+
+            // popup remove fn
+            let popup_r_fn = (e)=>{
                 document.querySelector(cl_name+" .List-popup").classList.add("popup-hidden");
+                document.querySelector(".Header").classList.remove("Header-under-element");
                 e.cancelBubble = true;
-            })
+            }
+
             // removing the popup
-            document.querySelector(cl_name+" .List-popup").addEventListener("click", (e)=>{
-                document.querySelector(cl_name+" .List-popup").classList.add("popup-hidden");
-                e.cancelBubble = true;
-            })
+            document.querySelector(cl_name+" .Popup-cross").addEventListener("click", popup_r_fn)
+            // removing the popup
+            document.querySelector(cl_name+" .List-popup").addEventListener("click", popup_r_fn)
 
 
             executed.current += 1;
@@ -176,6 +179,11 @@ function WorksList(props){
     const createWorksComponent = (filter) => {
         setWorksList([]);
         let localWorksList = [];
+
+        // let page_el = document.querySelector(".Work-page");
+        // let scroll_mag = page_el.style.getPropertyValue("transform").split("(")[1].split(")")[0].split(",")[13]*(-1);
+
+        // page_el.style.setProperty("transform", `transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${parseInt(scroll_mag)+1}, 0, 1);`)
 
         if (filter == "all"){
             worksDetailsList.forEach((work, index) => {
