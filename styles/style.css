@@ -519,6 +519,8 @@
 	height: 100%;
 }
 
+
+
 .Menu-wrapper {
 	margin-left: auto;
 	margin-right: auto;
@@ -640,7 +642,8 @@
 	}
 
 	.Menu-navItemNum {
-		margin-right: calc( 1vw * 3.5*16/19.2 );
+		/* margin-right: calc( 1vw * 3.5*16/19.2 ); */
+		margin-right: calc( 1vw * 3.5*8/19.2 );
 		bottom: 2.3vh;
 
 
@@ -864,7 +867,8 @@ section.homeHeadSection {
 }
 
 .ideasTitle {
-	display: flex;
+	display: none;
+	/* display: flex; */
 	padding: 4rem 0;
 	justify-content: center;
 
@@ -929,8 +933,10 @@ section.homeHeadSection {
 	display: inline-block;
     /* font-size: calc(9vw * 0.69);
     line-height: calc(9vw * 0.69); */
-    font-size: calc(14.2vw * 0.69);
-    line-height: calc(14.2vw * 0.69);
+    /* font-size: calc(14.2vw * 0.69);
+    line-height: calc(14.2vw * 0.69); */
+    font-size: calc(14vw * 0.69);
+    line-height: calc(14vw * 0.69);
 	text-transform: uppercase;
 	font-weight: 500;
 }
@@ -979,10 +985,10 @@ section.homeHeadSection {
 	content: "POST \A production";
 } */
 
-.ideasBehind-item:nth-child(5) .ideasBehind-labelWrapper:after,
+/* .ideasBehind-item:nth-child(5) .ideasBehind-labelWrapper:after,
 .ideasBehind-item:nth-child(5) .ideasBehind-labelWrapper::before {
 	content: "Post \A production";
-}
+} */
 
 .ideasBehind-itemLabel::after {
 	content: attr(data-label);
@@ -1452,6 +1458,9 @@ h4 {
 	margin: 3vw 0;
 
 	font-weight: 500;
+
+	/* Change */
+	text-transform: uppercase;
 }
 
 .trusterSliderItem {
@@ -1461,6 +1470,7 @@ h4 {
 	user-select: none;
 
 	margin-right: calc(1vw * 2.5*16/19.2);
+
 	width: calc( 1vw * 280/19.2 );
 	height: 7.5vw;
 	/* background: rgb(255, 255, 255, 0.1); */
@@ -1474,6 +1484,10 @@ h4 {
 	width: 70%;
 	height: 70%;
 	object-fit: contain;
+
+	filter: grayscale(1);
+	filter: gray;
+
 }
 
 .trusterSliderItemDummy {
@@ -1483,7 +1497,9 @@ h4 {
 .trusterSlider {
 	display: flex;
 	flex-direction: row;
-	margin-bottom: calc(1vw * 2.5*16/19.2);
+	/* margin-bottom: calc(1vw * 2.5*16/19.2); */
+	/* change to fit */
+	margin-bottom: calc(1vw * 2.5*8/19.2);
 
 	left: 0px;
 	top: 0px;
@@ -2285,6 +2301,10 @@ img.OtherDirectors-Image {
 	aspect-ratio: 1;
 	object-fit: cover;
 	border-radius: 50%;
+
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+	filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
 }
 
 .OnBoardDirector-Name,

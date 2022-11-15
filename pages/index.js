@@ -816,48 +816,6 @@ export default function Home(props) {
 					</div>
 				</div>
 
-				{/* <div className="ideasImageCarousel">
-					<Swiper
-						pagination={true}
-						touchStartPreventDefault="false"
-						modules={[Pagination]}
-						className="mySwiper"
-					>
-						<SwiperSlide>
-							<picture>
-								<img
-									src="https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
-									alt=""
-								/>
-							</picture>
-						</SwiperSlide>
-						<SwiperSlide>
-							<picture>
-								<img
-									src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-									alt=""
-								/>
-							</picture>
-						</SwiperSlide>
-						<SwiperSlide>
-							<picture>
-								<img
-									src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-									alt=""
-								/>
-							</picture>
-						</SwiperSlide>
-						<SwiperSlide>
-							<picture>
-								<img
-									src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-									alt=""
-								/>
-							</picture>
-						</SwiperSlide>
-					</Swiper>
-				</div> */}
-
 				<div className="ideasBehind-wrapper">
 					<Ideasbehindtextitem
 						label="Advertisements"
@@ -897,7 +855,7 @@ export default function Home(props) {
 						color="#3b33b3"
 						// skill="Lorem Ipsum"
 						skill=""
-						slidemag="14vw"
+						slidemag="0.7vw"
 					></Ideasbehindtextitem>
 				</div>
 

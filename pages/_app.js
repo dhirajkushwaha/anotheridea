@@ -100,6 +100,7 @@ function MyApp({ Component, pageProps }) {
 
     }
 
+    // for Header
     const scrollTrigger = () => {
         var scroller = document.querySelector("[data-scroll-container]");
         var scrollMag, prevScrollMag, headerTrigDist; // header animation
@@ -159,6 +160,7 @@ function MyApp({ Component, pageProps }) {
         }
     }
 
+    // button animation
     const menuButton = () => {
         var menuButtonRef = document.querySelector(".Header .MenuButton");
         var menuContainerRef = document.querySelector(".Header .Menu")
@@ -412,13 +414,26 @@ function MyApp({ Component, pageProps }) {
 
                     if ( document.querySelectorAll(cl) == undefined ) return;
 
-                    document.querySelectorAll(cl).forEach(h_link => {
+                    document.querySelectorAll(cl).forEach((h_link, index) => {
 
                         if ( el_h_event.current.indexOf(h_link) === -1 ){
                             let prev_c = ""
                             h_link.addEventListener("mouseenter", (e)=>{
                                 if ( cl === ".ideasBehind-item" ){
                                     m_cursor_states("color", { color: h_link.style.getPropertyValue("--ideasBehindColor")});
+                                }
+                                if ( cl === ".Menu-navItemLink" ){
+
+                                    let menu_bgcolors = ["rgb(85, 65, 248)", "rgb(175, 55, 217)", "rgb(222, 71, 126)", "rgb(242, 173, 69)"];
+
+                                    gsap.to(".Menu", {background:menu_bgcolors[index]});
+                                    gsap.to(".Menu-navItemLinkInnerHover", {color:menu_bgcolors[index]});
+
+                                    gsap.to("#__next > header > div.Menu > div.Menu-wrapper > div > div.Menu-socials > div:nth-child(2) > a > svg > g > path:nth-child(2)", {fill:menu_bgcolors[index]});
+                                    gsap.to("#__next > header > div.Menu > div.Menu-wrapper > div > div.Menu-socials > div:nth-child(1) > a > svg > g > path:nth-child(2)", {fill:menu_bgcolors[index]});
+                                    gsap.to("#__next > header > div.Menu > div.Menu-wrapper > div > div.Menu-socials > div:nth-child(1) > a > svg > g > path:nth-child(3)", {fill:menu_bgcolors[index]});
+                                    gsap.to("#__next > header > div.Menu > div.Menu-wrapper > div > div.Menu-socials > div:nth-child(1) > a > svg > g > path:nth-child(4)", {fill:menu_bgcolors[index]});
+
                                 }
                                 prev_c = prevCursor.current
                                 m_cursor_states("link");
