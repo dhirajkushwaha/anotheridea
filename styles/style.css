@@ -215,6 +215,7 @@
 
 .Header-under-element{
 	opacity: 0.6;
+	filter: blur(5px);
 }
 
 .Header-wrapper {
@@ -1466,13 +1467,20 @@ h4 {
 .trusterSliderItem {
 	height: fit-content;
 
-	pointer-events: none;
-	user-select: none;
+	/* cursor: pointer; */
+	/* pointer-events: none;
+	user-select: none; */
 
-	margin-right: calc(1vw * 2.5*16/19.2);
+	/* margin-right: calc(1vw * 2.5*16/19.2); */
 
-	width: calc( 1vw * 280/19.2 );
-	height: 7.5vw;
+	/* width: calc( 1vw * 280/19.2 );
+	height: 7.5vw; */
+
+	/* Stopped State */
+	width: calc( 1vw * 270/19.2 );
+    height: calc( 1vw * 160/19.2 );
+	/*  */
+
 	/* background: rgb(255, 255, 255, 0.1); */
 	background: rgb(255, 255, 255, 0);
 	display: inline-flex;
@@ -1481,14 +1489,27 @@ h4 {
 }
 
 .trusterSliderItem img {
-	width: 70%;
-	height: 70%;
+
+	/* width: 70%;
+	height: 70%; */
+
+	/* Stopped State */
+    width: 60%;
+    height: 60%;
+	/*  */
+
 	object-fit: contain;
 
 	filter: grayscale(1);
 	filter: gray;
 
+	/* transition: filter 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); */
 }
+
+/* .trusterSliderItem:hover img{
+	filter: grayscale(0);
+	filter: none;
+} */
 
 .trusterSliderItemDummy {
 	position: absolute;
@@ -1499,7 +1520,9 @@ h4 {
 	flex-direction: row;
 	/* margin-bottom: calc(1vw * 2.5*16/19.2); */
 	/* change to fit */
-	margin-bottom: calc(1vw * 2.5*8/19.2);
+
+
+	/* margin-bottom: calc(1vw * 2.5*8/19.2); */
 
 	left: 0px;
 	top: 0px;
@@ -1511,6 +1534,10 @@ h4 {
 	flex-direction: column;
 	/* max-width: 1920px; */
     margin: 0 auto;
+
+	/* Stopped State */
+    align-items: center;
+	/*  */
 }
 
 .trustersLoop {
@@ -3274,6 +3301,9 @@ button.FormButton .AppButton-label{
 	opacity: 1;
 
 	background: rgba(0, 0, 0, 0.66);
+
+	backdrop-filter: blur(5px);
+
 	transition: opacity .5s ease;
 
 	backface-visibility: hidden;
@@ -3350,4 +3380,34 @@ button.FormButton .AppButton-label{
 
 .Popup-cross:hover{
 	background: #5641f800;
+}
+
+@media only screen and (max-width:1023px){
+
+	.Popup-cross img{
+		margin-left: calc(5/var(--vw-size-px) * 1vw);
+		width: calc(14/var(--vw-size-px) * 1vw);
+
+	}
+
+	.Popup-video{
+		border-radius: calc(1vw * 1 * 2.677/0.69);
+	}
+
+	.Popup-video iframe{
+		width: calc(85 * 1vw);
+		height: calc((85/1.77) * 1vw);
+	}
+
+	.Popup-cross{
+		font-size: calc(14/var(--vw-size-px) * 1vw);
+
+		padding: calc(1vw * 0.5 * 2.677/0.69) calc(1vw * 2.677/0.69);
+
+		margin-right: calc(1vw * 1 * 2.677/0.69);
+
+		border-radius: calc(1vw * 1.2 * 2.677/0.69);
+
+		margin-bottom: calc(1vw * 0.5 * 2.677/0.69);
+	}
 }

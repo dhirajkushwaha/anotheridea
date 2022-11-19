@@ -6,6 +6,8 @@ export default function Document() {
       <Head>
             {/* Javascript */}
             <script async src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <script async src="https://player.vimeo.com/api/player.js"></script>
+
 
             {/* Favicon */}
             <link rel="shortcut icon" href="http://www.anotherideaproductions.com/assets/img/favicon.png" type="image/x-icon" />
@@ -17,6 +19,7 @@ export default function Document() {
 
             {/* Preload */}
             <link rel='prefetch' href='/assets/102854-snake-line-loading-animation.json' />
+
 
       </Head>
       <body>

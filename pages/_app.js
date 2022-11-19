@@ -156,6 +156,8 @@ function MyApp({ Component, pageProps }) {
 
                 scrollMagSet(scrollMag, prevScrollMag);
                 prevScrollMag = scrollMag;
+                
+                gsap.set(".List-popup", {y:scrollMag})
             })
         }
     }

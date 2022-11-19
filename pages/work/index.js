@@ -26,17 +26,20 @@ function WorksListItem(props){
 
     const cl_name = `.list-${props.index}`
 
-
-
     useEffect(() => {
 		if (typeof window === "undefined") { return; }
         if ( !executed.current){
+
+            let iframe = document.querySelector(cl_name+' iframe');
+            let player = new Vimeo.Player(iframe);
 
             // adding the popup
             document.querySelector(cl_name).addEventListener("click", (e)=>{
                 document.querySelector(cl_name+" .List-popup").classList.remove("popup-hidden");
                 document.querySelector(".Header").classList.add("Header-under-element");
                 e.preventDefault();
+
+                player.play();
             })
 
             // popup remove fn
@@ -44,7 +47,13 @@ function WorksListItem(props){
                 document.querySelector(cl_name+" .List-popup").classList.add("popup-hidden");
                 document.querySelector(".Header").classList.remove("Header-under-element");
                 e.cancelBubble = true;
+
+                player.pause();
             }
+
+            // player.on('ended', function() {
+            //     popup_r_fn();
+            // });
 
             // removing the popup
             document.querySelector(cl_name+" .Popup-cross").addEventListener("click", popup_r_fn)
@@ -97,9 +106,9 @@ function WorksListItem(props){
 
 function WorksList(props){
 
-    const worksDetailsList = [["/", "/assets/ola_scooter.png", "Ola Scooter", "Ola Scooter", "automobile", "https://player.vimeo.com/video/754220291?h=f2c9e7e7ca"],
-                              ["/", "/assets/jiomart_work.png", "Harr Ghar Annapurna", "Jio Mart", "food", "https://player.vimeo.com/video/765214389?h=d898015521"],
-                              ["/", "/assets/pampers_work.png", "#Ittakes2", "Pampers", "", "https://player.vimeo.com/video/765214389?h=d898015521"]
+    const worksDetailsList = [["/", "/assets/ola_scooter.png", "Ola Scooter", "Ola Scooter", "automobile", "https://player.vimeo.com/video/754220291?h=f2c9e7e7ca&amp;quality=240p&amp;"],
+                              ["/", "/assets/jiomart_work.png", "Harr Ghar Annapurna", "Jio Mart", "food", "https://player.vimeo.com/video/765214389?h=d898015521&amp;quality=240p&amp;"],
+                              ["/", "/assets/pampers_work.png", "#Ittakes2", "Pampers", "", "https://player.vimeo.com/video/765214389?h=d898015521&amp;quality=240p&amp;"]
                             ];
 
 
@@ -179,11 +188,6 @@ function WorksList(props){
     const createWorksComponent = (filter) => {
         setWorksList([]);
         let localWorksList = [];
-
-        // let page_el = document.querySelector(".Work-page");
-        // let scroll_mag = page_el.style.getPropertyValue("transform").split("(")[1].split(")")[0].split(",")[13]*(-1);
-
-        // page_el.style.setProperty("transform", `transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${parseInt(scroll_mag)+1}, 0, 1);`)
 
         if (filter == "all"){
             worksDetailsList.forEach((work, index) => {

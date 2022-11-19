@@ -41,7 +41,8 @@ export default function Trustedby() {
 
                     }
 
-                    oneLayer_logos.push([... oneLayer_logos])
+                    // Animation state
+                    // oneLayer_logos.push([... oneLayer_logos])
 
                     t_logos.push([<div className="trusterSlider" key={layer_n}> {oneLayer_logos} </div> ]);
 
@@ -58,20 +59,23 @@ export default function Trustedby() {
 
         //  Trusters Logo Making them flow
         if (true) {
-            document.querySelectorAll(".trusterSlider").forEach((slider) => {
-                let xOffset = 0;
-                let isMouseIn = false;
-                const slides = slider;
 
-                setInterval(translate, 0);
+            // Animation state
+            // document.querySelectorAll(".trusterSlider").forEach((slider) => {
 
-                function translate() {
-                    let offsetIncrementor = isMouseIn ? 0.05 : 0.5;
-                    if (xOffset >= (( window.innerWidth >= 1024 ) ? (window.innerWidth/100)*((280+40)/19.2) : 280+40) * 7) xOffset = 0;
-                    else xOffset = xOffset + offsetIncrementor;
-                    slides.style.transform = "translateX(-" + xOffset + "px)";
-                }
-            });
+            //     let xOffset = 0;
+            //     let isMouseIn = false;
+            //     const slides = slider;
+
+            //     setInterval(translate, 0);
+
+            //     function translate() {
+            //         let offsetIncrementor = isMouseIn ? 0.05 : 0.5;
+            //         if (xOffset >= (( window.innerWidth >= 1024 ) ? (window.innerWidth/100)*((280+40)/19.2) : 280+40) * 7) xOffset = 0;
+            //         else xOffset = xOffset + offsetIncrementor;
+            //         slides.style.transform = "translateX(-" + xOffset + "px)";
+            //     }
+            // });
         }
 
 
