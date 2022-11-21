@@ -16,6 +16,9 @@ import { gsap } from "gsap/dist/gsap";
 import Footer from "../../components/footer/footer"
 import ReadyToMake from "../../components/readytomake.js";
 
+// vimeo
+import Player from '@vimeo/player';
+
 
 // Fragmented Components
 function WorksListItem(props){
@@ -31,7 +34,7 @@ function WorksListItem(props){
         if ( !executed.current){
 
             let iframe = document.querySelector(cl_name+' iframe');
-            let player = new Vimeo.Player(iframe);
+            let player = new Player(iframe);
 
             // adding the popup
             document.querySelector(cl_name).addEventListener("click", (e)=>{
@@ -39,7 +42,7 @@ function WorksListItem(props){
                 document.querySelector(".Header").classList.add("Header-under-element");
                 e.preventDefault();
 
-                player.play();
+                // player.play();
             })
 
             // popup remove fn
@@ -106,9 +109,53 @@ function WorksListItem(props){
 
 function WorksList(props){
 
-    const worksDetailsList = [["/", "/assets/ola_scooter.png", "Ola Scooter", "Ola Scooter", "automobile", "https://player.vimeo.com/video/754220291?h=f2c9e7e7ca&amp;quality=240p&amp;"],
-                              ["/", "/assets/jiomart_work.png", "Harr Ghar Annapurna", "Jio Mart", "food", "https://player.vimeo.com/video/765214389?h=d898015521&amp;quality=240p&amp;"],
-                              ["/", "/assets/pampers_work.png", "#Ittakes2", "Pampers", "", "https://player.vimeo.com/video/765214389?h=d898015521&amp;quality=240p&amp;"]
+    const worksDetailsList = [
+                                ["/", "/assets/works_thumbnail/Amazon-Prime-Day.jpg", "Amazon Prime Day - Mauka Badi Tarakki Ka", "Vikrant Yadav", "", "https://player.vimeo.com/video/748676041?h=f88346ac9f&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/OLA-Electric-MoveOS3-.jpg", "Ola Electric - MoveOS3 - Proximity", "Ken Rolston", "", "https://player.vimeo.com/video/765214457?h=b5716ad29c&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/TATA YODHA 2_0-04.jpg", "TATA YODHA 2.0 | Cement | Jahan Zameen Hai, Wahan Raaste Hain", "Lloyd Baptista", "", "https://player.vimeo.com/video/757567353?h=48603657bf&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Amazon Rakhi.jpg", "Amazon - Rakhi", "Prosit Roy", "", "https://player.vimeo.com/video/674290692?h=6042c3a705&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Minnal Murali Promo-Khali.jpg", "Minnal Murali Promo - Khali", "Vasan Bala", "", "https://player.vimeo.com/video/674292817?h=8b0a629b30&amp;quality=240p"],
+
+                                ["/", "/assets/works_thumbnail/Sensodyne-0003.jpg", "Sensodyne Multi Care Thailand", "Cherine Khoury", "", "https://player.vimeo.com/video/770176075?h=1c32d68f28&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Amazon-Heroes-002.jpg", "Amazon Heroes", "Prosit Roy", "", "https://player.vimeo.com/video/674292092?h=e6360723d7&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Mi-TV.jpg", "Mi TV", "Adam Johnson", "", "https://player.vimeo.com/video/674301398?h=515f40e64f&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Myntra-Unskippable.jpg", "Myntra - Unskippable", "Sachin Kothre", "", "https://player.vimeo.com/video/674300863?h=29cd87ab5c&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Scram 411- Royal Enfield.jpg", "Scram 411 - Royal Enfield (Director's Cut)", "Lloyd Baptista", "", "https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"],
+
+                                ["/", "/assets/works_thumbnail/", "The Sleep Company", "", "", "https://player.vimeo.com/video/674831888?h=74c3bf7e11&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/MOTOROLLA.jpg", "MOTOROLLA - INK", "", "", "https://player.vimeo.com/video/746099784?h=ac5d0410ff&amp;quality=240p"],
+
+
+                                ["/", "/assets/works_thumbnail/OLA-Electric-MoveOS3-000.jpg", "Ola Electric - MoveOS3 - Party", "Ken Rolston", "", "https://player.vimeo.com/video/765214430?h=51f34f2e86&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Minnal-Murali-Promo--002.jpg", "Minnal Murali Promo - Yuvraj Singh", "Vasan Bala", "", "https://player.vimeo.com/video/674295179?h=a9531fbb58&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/TATA-YODHA-2_0-005.jpg", "Tata YODHA 2.0 | Water | Jahan Zameen Hai, Wahan Raaste Hain", "Lloyd Baptista", "", "https://player.vimeo.com/video/757724269?h=2e1be31da2&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/JioMart-FPVS-soap.jpg", "JioMart FPVS - Soap", "Vibhu Puri", "", "https://player.vimeo.com/video/754205045?h=4c0fe88ff1&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/OLA-Electric-MoveOS3-0007.jpg", "Ola Electric", "Jeet Lotia", "", "https://player.vimeo.com/video/754220291?h=f2c9e7e7ca&amp;quality=240p"],
+
+                                ["/", "/assets/works_thumbnail/Sensodyne-002.jpg", "Sensodyne Multi Care Thailand", "Cherine Khoury", "", "https://player.vimeo.com/video/770176203?h=4b256b6d9a&amp;quality=240p"],
+
+                                ["/", "/assets/works_thumbnail/GOA-TOURISAM--1.jpg", "Goa Tourism - TVC", "", "", "https://player.vimeo.com/video/674301748?h=76d37c804d&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/", "Bajaj Allianz - Father's Day (Lockdown Film)", "", "", "https://player.vimeo.com/video/674306213?h=e692543fcc&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Reliance-Smart-tyohar.jpg", "Reliance Smart Tyohaar hai Bada Manao", "", "", "https://player.vimeo.com/video/674314923?h=35de1ffe29&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Platinum-day-of-love.jpg", "Platinum Day of Love", "", "", "https://player.vimeo.com/video/674314252?h=f8aeae0703&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/ISHQ-FM.jpg", "ISHQ FM - PMSing", "", "", "https://player.vimeo.com/video/674304657?h=6e22cf2c2c&amp;quality=240p"],
+
+                                ["/", "/assets/works_thumbnail/JioMart--FVPS-02.jpg", "JioMart FPVS - Birthday", "", "", "https://player.vimeo.com/video/750972931?h=9afe4cd65d&amp;quality=240p"],
+
+
+                                ["/", "/assets/works_thumbnail/OLA-Electric-MoveOS3-003.jpg", "Ola Electric - MoveOS3 - Vintage", "Ken Rolston", "", "https://player.vimeo.com/video/765214361?h=51f34f2e86&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/TATA-YODHA-2_0--002.jpg", "Tata YODHA 2.0 | Milk | Jahan Zameen Hai, Wahan Raaste Hain", "Lloyd Baptista", "", "https://player.vimeo.com/video/757722678?h=2e1be31da2&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Sensodyne--01.jpg", "Sensodyne Deep Clean Philippines", "Cherine Khoury", "", "https://player.vimeo.com/video/770175299?h=4b256b6d9a&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/OLA-Electric-MoveOS3-002.jpg", "Ola Electric - MoveOS3 - Bolt", "Ken Rolston", "", "https://player.vimeo.com/video/765214389?h=4c0fe88ff1&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Minnal-Murali-Promo-02.jpg", "Minnal Murali Promo", "Vasan Bala", "", "https://player.vimeo.com/video/674296676?h=f2c9e7e7ca&amp;quality=240p"],
+
+                                ["/", "/assets/works_thumbnail/TATA-YODHA-2_0-004.jpg", "Tata YODHA 2.0 | Fruit | Jahan Zameen Hai, Wahan Raaste Hain", "Lloyd Baptista", "", "https://player.vimeo.com/video/757718298?h=a9531fbb58&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Sensodyne--02.jpg", "Sensodyne Fresh Mint Indonesia", "Cherine Khoury", "", "https://player.vimeo.com/video/770175081?h=a9531fbb58&amp;quality=240p"],
+
+                                ["/", "/assets/works_thumbnail/Glucond-Mango-DCUT.jpg", "GLUCOND MANGO DCUT", "", "", "https://player.vimeo.com/video/674323442?h=76d37c804d&amp;quality=240p"],
+
+
+
                             ];
 
 

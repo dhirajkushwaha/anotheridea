@@ -737,8 +737,55 @@ export default function Home(props) {
 											<img draggable="false"
 												data-src="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
 												alt="Think" className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
-												src="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
+												// src="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
+												src="/assets/works_thumbnail/TATA YODHA 2.0-04.png"
 											/>
+										</picture>
+									</div>
+								</div>
+							</div>
+							<div className="Vision-bgItem" style={{"transform": "scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
+								<div className="Vision-bgItemWrapImage">
+									<div className="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
+										<div className="AppImage-overlay" ></div>
+										<div className="AppImage-placeholder" ></div>
+										<picture >
+											<source
+												data-srcset="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360 360w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800 800w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
+												sizes="(min-width: 768px) 50vw, 100vw"  srcSet="
+													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360   360w,
+													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800   800w,
+													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w,
+													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w
+												" />
+											<img draggable="false"
+												data-src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
+												alt="make" className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
+												src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800" />
+										</picture>
+									</div>
+								</div>
+							</div>
+							<div className="Vision-bgItem" style={{"transform": "scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
+								<div className="Vision-bgItemWrapImage">
+									<div className="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
+										<div className="AppImage-overlay" ></div>
+										<div className="AppImage-placeholder" ></div>
+										<picture >
+											<source
+												data-srcset="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360 360w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800 800w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
+												sizes="(min-width: 768px) 50vw, 100vw"
+												srcSet="
+													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360   360w,
+													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800   800w,
+													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w,
+													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w
+												"
+												/>
+											<img draggable="false"
+												data-src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
+												alt="make" className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
+												src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800" />
 										</picture>
 									</div>
 								</div>
@@ -782,14 +829,15 @@ export default function Home(props) {
 							<div className="Vision-itemInner">
 								<div className="Vision-itemHead">
 									<h2 data-label="Think" className="Vision-itemTitle app-title--regular">
-										Think
+										Visual
 									</h2>
 									<div className="Vision-itemSubtitle app-text--large">
-										<p><strong>Stratégie</strong> et vision</p>
+										{/* <p><strong>Stratégie</strong> et vision</p> */}
+										<p>Storytelling</p>
 									</div>
-									<div className="Vision-itemKeyFigures app-text--small">
+									{/* <div className="Vision-itemKeyFigures app-text--small">
 										+ 60 consultants en stratégie
-									</div>
+									</div> */}
 								</div>
 								<div className="Vision-itemSkills"></div>
 							</div>
@@ -799,15 +847,46 @@ export default function Home(props) {
 						<div className="Vision-item">
 							<div className="Vision-itemInner">
 								<div className="Vision-itemHead">
+									<div className="Vision-itemSubtitle app-text--large">
+										<p>A piece of</p>
+									</div>
 									<h2 data-label="make" className="Vision-itemTitle app-title--regular">
-										make
+										Art
+									</h2>
+								</div>
+								<div className="Vision-itemSkills"></div>
+							</div>
+						</div>
+
+						{/* Towards Left */}
+						<div className="Vision-item">
+							<div className="Vision-itemInner">
+								<div className="Vision-itemHead">
+									<h2 data-label="Think" className="Vision-itemTitle app-title--regular">
+										Dynamism
 									</h2>
 									<div className="Vision-itemSubtitle app-text--large">
-										<p><strong>Production </strong>et exécution</p>
+										{/* <p><strong>Stratégie</strong> et vision</p> */}
+										<p>that transcends</p>
 									</div>
-									<div className="Vision-itemKeyFigures app-text--small">
-										+220 experts opérationnels
+									{/* <div className="Vision-itemKeyFigures app-text--small">
+										+ 60 consultants en stratégie
+									</div> */}
+								</div>
+								<div className="Vision-itemSkills"></div>
+							</div>
+						</div>
+
+						{/* Towards right */}
+						<div className="Vision-item">
+							<div className="Vision-itemInner">
+								<div className="Vision-itemHead">
+									<div className="Vision-itemSubtitle app-text--large">
+										<p>Producers of</p>
 									</div>
+									<h2 data-label="make" className="Vision-itemTitle app-title--regular">
+										Excellence
+									</h2>
 								</div>
 								<div className="Vision-itemSkills"></div>
 							</div>
@@ -837,7 +916,7 @@ export default function Home(props) {
 						color="#f2ad45"
 						// skill="Bringing ideas to focus"
 						skill=""
-						slidemag="20vw"
+						slidemag="7vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Animation"
@@ -845,7 +924,7 @@ export default function Home(props) {
 						color="#3ab8c9"
 						// skill="Lorem Ipsum"
 						skill=""
-						slidemag="18vw"
+						slidemag="16vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Post Production"

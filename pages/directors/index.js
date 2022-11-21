@@ -89,7 +89,7 @@ export default function Directors(){
                         />
 
                         {/* Other Directors */}
-                        <div className="OnBoard-listItem OtherDirectors-List">
+                        {/* <div className="OnBoard-listItem OtherDirectors-List">
                             <h3 className="OtherDirectors-title u-textUppercase">Other Directors</h3>
                             <div className="OtherDirectors-ListItems">
                                 <OtherDirectorItem
@@ -143,7 +143,8 @@ export default function Directors(){
                                     about = "Sample Text"
                                 />
                             </div>
-                        </div>
+                        </div> */}
+                        
                     </div>
                 </div>
             </section>

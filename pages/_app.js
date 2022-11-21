@@ -143,6 +143,7 @@ function MyApp({ Component, pageProps }) {
                     prevScrollMag = scrollMag;
 
                     // works list popup
+                    if ( router.asPath !== "/work" ) return;
                     gsap.set(".List-popup", {y:scrollMag})
                 })
             })
@@ -156,8 +157,26 @@ function MyApp({ Component, pageProps }) {
 
                 scrollMagSet(scrollMag, prevScrollMag);
                 prevScrollMag = scrollMag;
-                
-                gsap.set(".List-popup", {y:scrollMag})
+
+                if ( router.asPath == "/work" ) { gsap.set(".List-popup", {y:scrollMag}) }
+                if ( router.asPath == "/" ) {
+                    let vision_bg_pos = scrollMag;
+                    let vision_height = document.querySelector(".Vision").getBoundingClientRect().height
+                    let vision_pos = document.querySelector(".Vision").getBoundingClientRect().y + vision_bg_pos - vision_height/2
+
+                    console.log(vision_pos+vision_height-document.body.clientHeight, vision_bg_pos)
+
+                    if ( vision_bg_pos < vision_pos ){
+                        vision_bg_pos = vision_pos
+                    } else if ( vision_bg_pos > vision_pos+vision_height-window.clientHeight ){
+                        vision_bg_pos = vision_pos+window.clientHeight
+                    }
+
+                    gsap.set(".Vision-bg", {y:vision_bg_pos})
+
+                }
+
+
             })
         }
     }
@@ -503,7 +522,7 @@ function MyApp({ Component, pageProps }) {
         //  "<route>": {main_target:"<root_class_cont or just el>", head_obj:"<main_heading>", opacity_obj:"<>", lower_part:"<>", button:"<button_root_class>"}
             "/" : {main_target: [".ideasTitle", ".footerLearnMore", ".ideasBehind-wrapper", ".Works-slider", ".ideasImageCarousel", ".footerTrustedBy", ".Vision-title",        ".Vision-title",        ".Vision-title"],
                     head_obj:   [".ideasTitle > h1", ".footerLearnMore > h4, .footerLearnMore > h1", "", "", "", "",                                    ".HomeTitle-surtitle",  ".HomeTitle-title--l1", ".HomeTitle-title--l2" ],
-                    opacity_obj:["", " > p", ".ideasBehind-item", "", ".swiper", "h2, .trustersLoop", "", "", ""],
+                    opacity_obj:["", " > p", ".ideasBehind-item", "", ".swiper", "h2, .trusterSlider", "", "", ""],
                     // slide_obj:["", "", "", ".Works-wrapper", "", ""],
                     opacity_dur:["undef", "undef", "0.5", "0.5", "0.5", "0.5", "", "", ""],
                     button_obj: ["", ".AppButton", "", "", "", "", "", "", ""],
@@ -528,6 +547,7 @@ function MyApp({ Component, pageProps }) {
                     },
         }
 
+        // on view animation of split-texts, opacity and translation
         import("splitting").then((Splitting) => {
 
             // animtating
@@ -569,7 +589,9 @@ function MyApp({ Component, pageProps }) {
                                         start_el = target_bunch + " " + c_p_l.anim_trig[index]
                             }
 
-                            // console.log(start_el)
+
+                            let limit = 100 // (>= 1024)
+                            if (document.body.clientWidth <= 1023) { limit = 50 }
 
                             const sc_anim_tl = gsap.timeline({
                                 defaults:{
@@ -578,8 +600,8 @@ function MyApp({ Component, pageProps }) {
                                 scrollTrigger:{
                                     trigger: start_el,
                                     scroller: "[data-scroll-container]",
-                                    start: "top bottom",
-                                    end: "top 30%",
+                                    start: "top top+=start%".replace("start", limit),
+                                    end: "top top",
                                 }
                             });
 
@@ -657,7 +679,7 @@ function MyApp({ Component, pageProps }) {
 
                                         sc_anim_tl
                                             .to( el,
-                                                { opacity: 1, duration:( c_p_l.opacity_dur[index] !== "undef" ) ? c_p_l.opacity_dur[index] : "1", ease:( c_p_l.opacity_dur[index] !== "undef" ) ? "none" : "power3" },
+                                                { stagger: 0.05, opacity: 1, duration:( c_p_l.opacity_dur[index] !== "undef" ) ? c_p_l.opacity_dur[index] : "1", ease:( c_p_l.opacity_dur[index] !== "undef" ) ? "none" : "power3" },
                                                 ( c_p_l.opacity_dur[index] !== "undef" ) ? undefined : "<0.5"
                                             )
                                     }
@@ -724,167 +746,209 @@ function MyApp({ Component, pageProps }) {
         });
 
 
-        // slider slidding animation
+        // only home page animations
         if ( router.asPath === "/" ){
 
-            // For the works slider animation.
-            let s_ref_interv = setInterval(() => {
+            {// works slider section
+                let s_ref_interv = setInterval(() => {
 
-                if ( s_ref.current === undefined ) return;
+                    if ( s_ref.current === undefined ) return;
 
-                // footer planet animation
-                const w_s_tl =  gsap.timeline({
-                    defaults : {
-                        duration: 1,
-                        ease: "sine",
-                    },
-                    scrollTrigger:{
-                        trigger: ".Works-slider",
-                        scroller: "[data-scroll-container]",
-                        start: "top 67%",
-                        end: "top 0%"
-                    }
-                });
-
-                // Changing the slider magnatude of slide
-                gsap.set(s_ref.current, {
-                    currentX: (s_ref.current.slideWidth) * 1.3
-                })
-
-                w_s_tl
-                    .from(".Works-slider", { opacity: 0, duration: 0.5 })
-                    // .from(".Works-slideInner", { x: `${( 80 * 0.69 )}vw` }, "<0")
-                    .to(s_ref.current, {
-                        currentX: 0,
-                        duration: 1.5,
-                        ease: "circ",
-                        onComplete: ()=>{
-                            s_ref.current.snappingState = 1
+                    // footer planet animation
+                    const w_s_tl =  gsap.timeline({
+                        defaults : {
+                            duration: 1,
+                            ease: "sine",
+                        },
+                        scrollTrigger:{
+                            trigger: ".Works-slider",
+                            scroller: "[data-scroll-container]",
+                            start: "top 67%",
+                            end: "top 0%"
                         }
-                    }, "<0")
+                    });
+
+                    // Changing the slider magnatude of slide
+                    gsap.set(s_ref.current, {
+                        currentX: (s_ref.current.slideWidth) * 1.3
+                    })
+
+                    w_s_tl
+                        .from(".Works-slider", { opacity: 0, duration: 0.5 })
+                        // .from(".Works-slideInner", { x: `${( 80 * 0.69 )}vw` }, "<0")
+                        .to(s_ref.current, {
+                            currentX: 0,
+                            duration: 1.5,
+                            ease: "circ",
+                            onComplete: ()=>{
+                                s_ref.current.snappingState = 1
+                            }
+                        }, "<0")
 
 
 
 
 
 
-                clearInterval(s_ref_interv);
-            }, 0);
+                    clearInterval(s_ref_interv);
+                }, 0);
+            }
 
-            {// Vision Items
+            {// animation of vision sections
 
-                // Animating the texts.
+                // reference to be used in scroll trigger attributes
                 let page_scroller = document.querySelector("[data-scroll-container]");
 
-                {let visioniItem_tl = gsap.timeline({
-                    defaults:{
-                        ease: CustomEase.create("custom", "M0,0 C0.266,0.412 0.359,0.581 0.52,0.742 0.616,0.838 0.73,0.97 1,1 ")
-                    },
-                    scrollTrigger:{
-                        trigger: ".Vision-item:first-child",
-                        scroller: page_scroller,
-                        start: "top top+=55%",
-                        end: "top top-=30%",
-                        scrub: 1,
-                        // markers: true
+                {// image poping animation
+
+                    // checks if last time an element was played or not, to avoid infinite plays
+                    let prev_pl_state = [false, false, false, false]
+
+                    let scroll_vec = +1;
+                    let prev_prog = 0;
+
+                    // image animating function
+                    const anim_img = (img_index_N, range_N)=> {
+
+                        if ( router.asPath !== "/" ) return;
+
+                        let this_index = img_index_N // index in natural number
+                        let index_by_array = this_index-1
+
+                        let prev_class = undefined, next_class = undefined;
+
+                        if ( img_index_N != range_N[0] ) { prev_class = ".Vision-item:nth-child("+(this_index-1)+")"} // avoid first image
+                        let this_class = ".Vision-item:nth-child("+this_index+")"
+                        if ( img_index_N != range_N[range_N.length-1] ) { next_class = ".Vision-item:nth-child("+(this_index+1)+")"} // avoid last image
+
+                        try { // as to counter any senseless error
+
+                            let an_prog_val = document.querySelector(this_class.replace("-item", "-bgItem")).style.getPropertyValue("--val") // being set while animation playes through
+
+                            if ( an_prog_val <= 20 || (an_prog_val >= 100 && img_index_N == range_N[range_N.length-1]) ){ // in the initial range the image this make it remain invisible or // when animation is fully completed the
+
+                                // putting current img to zero state
+                                gsap.to(this_class.replace("-item", "-bgItem"), {scale: 0.6, opacity:0});
+                                document.querySelector(this_class).classList.remove("active");
+
+                                prev_pl_state[index_by_array] = false;
+
+                            } else { // playes for once when entering the range
+
+                                if ( prev_pl_state[index_by_array] ) return; // doesn't playes if already played and has not yet changed image.
+
+                                gsap.to(
+                                    `${ ( prev_class != undefined ) ? prev_class.replace("-item", "-bgItem") : "" } ${ ( prev_class != undefined && next_class != undefined) ? ", " : "" } ${ ( next_class != undefined ) ? next_class.replace("-item", "-bgItem") : "" }`,
+                                    { // setting the previous element to invisible state, then
+                                        scale: 0.6,
+                                        opacity:0,
+                                        duration: ( (img_index_N == range_N[0] && !prev_pl_state[index_by_array+1] && scroll_vec == +1) || (img_index_N == range_N[range_N.length-1] && !prev_pl_state[index_by_array-1] && scroll_vec == -1) ) ? 0 : 0.5, // as to avoid too much delay while the first scroll happens into the animation
+                                        onComplete: ()=> { // setting up the current image as the visible
+
+                                            // to be made fluent
+                                            gsap.fromTo(this_class.replace("-item", "-bgItem"), {scale: 1.4, opacity:0}, {scale: 1, opacity:1}); // scale in
+                                            gsap.fromTo(this_class.replace("-item", "-bgItem")+" .Vision-bgItemWrapImage", {scale: 1}, {scale: 1.4}); // scale out
+
+                                            // swaping the ending dash
+                                            if ( prev_class != undefined ) { document.querySelector(prev_class).classList.remove("active"); }
+                                            document.querySelector(this_class).classList.add("active");
+                                            if ( next_class != undefined ) { document.querySelector(next_class).classList.remove("active"); }
+
+                                        }
+                                });
+
+                                if ( prev_class != undefined ) { prev_pl_state[index_by_array-1] = false; }
+                                prev_pl_state[index_by_array] = true;
+                                if ( next_class != undefined ) { prev_pl_state[index_by_array+1] = false; }
+
+
+                            }
+
+                        } catch (error) {}
+
                     }
-                });
 
-                let prev_pl = [false, false]
+                    // let limits = [55, 115] // (>= 1024)
+                    let limits = [55, 85] // (>= 1024)
 
-                visioniItem_tl
-                    .fromTo(".Vision-bgItem:first-child", {"--val":0}, {
-                        "--val":100,
-                        onUpdate: ()=> {
+                    if (document.body.clientWidth <= 1023) { limits = [55, 65] }
 
-                            if ( router.asPath !== "/" ) return;
+                    let visionItem_tl = gsap.timeline({
+                        defaults:{
+                            duration: 0.25
+                        },
+                        scrollTrigger:{
+                            trigger: ".Vision-item:first-child",
+                            markers: true,
+                            scroller: page_scroller,
+                            start: "top top+=up%".replace("up", limits[0]), // It is (limits[0] + limits[1])% of scrubbing area with
+                            end: "top top-=low%".replace("low", limits[1]), // 0, 0.25, 0.5, 0.75 triggering spots of four animations in (limits[0] + limits[1])% of screen
+                            scrub: 1, // To give a lag of 1 second.
+                            onUpdate : self => {
+                                scroll_vec = (self.progress.toFixed(3) - prev_prog) // measuring the change
+                                scroll_vec = scroll_vec/Math.sign(scroll_vec)*scroll_vec  // getting the direction
+                                prev_prog = scroll_vec + prev_prog // remembering what was the progress
+                            }
+                        }
+                    });
 
-                            try {
 
-                                let an_prog_val = document.querySelector(".Vision-bgItem:first-child").style.getPropertyValue("--val")
-                                if ( an_prog_val <= 20 ){
-                                    gsap.to(".Vision-bgItem:first-child", {scale: 0.6, opacity:0});
+
+                    // line bt line animation of each Image
+                    visionItem_tl
+                        .fromTo(".Vision-bgItem:first-child", {"--val":0}, {
+                            "--val":100,
+                            onUpdate: ()=> {
+                                anim_img(1, [1, 4])
+
+                            }
+
+                        }, 0)
+                        .fromTo(".Vision-bgItem:nth-child(2)", {"--val":0}, {
+                            "--val":100,
+                            onUpdate: ()=> {
+
+                                anim_img(2, [1, 4])
+
+                            }
+                        }, 0.25)
+                        .fromTo(".Vision-bgItem:nth-child(3)", {"--val":0}, {
+                            "--val":100,
+                            onUpdate: ()=> {
+
+                                anim_img(3, [1, 4])
+
+                            }
+                        }, 0.5)
+                        .fromTo(".Vision-bgItem:nth-child(4)", {"--val":0}, {
+                            "--val":100,
+                            onUpdate: ()=> {
+
+                                anim_img(4, [1, 4])
+
+                            }
+                        }, 0.75)
+
+                    // nullifyinh errors caused by code above
+                    let last_index = 4;
+                    gsap.to(".Vision-bgItem:nth-child(index)".replace("index", last_index),
+                        { // setting last element as not visible, as being made visible by above code
+                            scale: 0.6,
+                            opacity:0,
+                            onComplete:()=>{
+                                    gsap.to(".Vision-bgItem:nth-child(index)".replace("index", last_index), {scale: 0.6, opacity:0});
+
                                     document.querySelector(".Vision-item:first-child").classList.remove("active");
-
-                                    prev_pl[0] = false;
-                                } else {
-
-                                    if ( prev_pl[0] ) return;
-                                    gsap.to(".Vision-bgItem:nth-child(2)", {scale: 0.6, opacity:0, onComplete: ()=> {
-
-                                        gsap.fromTo(".Vision-bgItem:first-child", {scale: 1.4, opacity:0}, {scale: 1, opacity:1});
-                                        gsap.fromTo(".Vision-bgItem:first-child .Vision-bgItemWrapImage", {scale: 1}, {scale: 1.4});
-
-                                        document.querySelector(".Vision-item:first-child").classList.add("active");
-                                        document.querySelector(".Vision-item:nth-child(2)").classList.remove("active");
-
-                                    }});
-
-                                    prev_pl[0] = true;
-                                    prev_pl[1] = false;
-
-
+                                    document.querySelector(".Vision-item:nth-child(index)".replace("index", last_index)).classList.remove("active");
                                 }
-
-                            } catch (error) {}
-
-
-
                         }
+                    );
 
-                    }, 0)
-                    .fromTo(".Vision-bgItem:nth-child(2)", {"--val":0}, {
-                        "--val":100,
-                        onUpdate: ()=> {
-
-                            if ( router.asPath !== "/" ) return;
-
-                            try {
-
-                                let an_prog_val = document.querySelector(".Vision-bgItem:nth-child(2)").style.getPropertyValue("--val")
-
-                                if ( an_prog_val >= 98 ){
-
-                                    gsap.to(".Vision-bgItem:nth-child(2)", {scale: 0.6, opacity:0});
-                                    document.querySelector(".Vision-item:nth-child(2)").classList.remove("active");
-
-                                    prev_pl[1] = false;
-
-                                } else {
-
-                                    if ( prev_pl[1] ) return;
-
-                                    gsap.to(".Vision-bgItem:first-child", {scale: 0.6, opacity:0, onComplete: ()=>{
-                                        gsap.fromTo(".Vision-bgItem:nth-child(2)", {scale: 1.4, opacity:0}, {scale: 1, opacity:1});
-                                        gsap.fromTo(".Vision-bgItem:nth-child(2) .Vision-bgItemWrapImage", {scale: 1}, {scale: 1.4});
-
-                                        document.querySelector(".Vision-item:first-child").classList.remove("active");
-                                        document.querySelector(".Vision-item:nth-child(2)").classList.add("active");
-                                    }});
-
-                                    prev_pl[1] = true;
-                                    prev_pl[0] = false;
-                                }
-
-                            } catch (error) {}
-
-
-                        }
-                    }, 0.5)
-
-                    gsap.to(".Vision-bgItem:nth-child(2)", {scale: 0.6, opacity:0, onComplete:()=>{
-                        gsap.to(".Vision-bgItem:nth-child(2)", {scale: 0.6, opacity:0});
-
-                        document.querySelector(".Vision-item:first-child").classList.remove("active");
-                        document.querySelector(".Vision-item:nth-child(2)").classList.remove("active");
-                    }});
                 }
 
-                // Second Move (BG Circle and Animated Logo)
-                {let sec_tl = gsap.timeline({
+                {// (not in use) changes in the animation elements( circle ) on the mentioned position
+                    let sec_tl = gsap.timeline({
                     defaults:{
-                        // ease: CustomEase.create("custom", "M0,0 C0.11,0.494 0.248,0.632 0.248,0.632 0.248,0.632 0.504,1 1,1 ")
-                        // CustomEase.create("custom", "M0,0 C0.266,0.412 0.359,0.581 0.52,0.742 0.616,0.838 0.73,0.97 1,1 "
                         ease: "sine"
                     },
                     scrollTrigger:{
@@ -892,121 +956,114 @@ function MyApp({ Component, pageProps }) {
                         scroller: page_scroller,
                         start: "top top",
                         end: "top top-=30%",
-                        // start: "top top",
-                        // end: "top top-=20%",
-                        scrub: true,
-                        // markers: true
+                        // end: "top top-=30%",
+                        scrub: true
                     }
-                });
+                    });
 
-                sec_tl
-                    .fromTo(".Vision-bgAnimatedLogoVideo", {scale:"1"}, {scale:"0"})
-                    .fromTo(".Vision-bgCircle", {scale:"1"}, {scale:"0.8"}, "<0");
+                    // deprecated currently
+                    // sec_tl
+                    //     .fromTo(".Vision-bgAnimatedLogoVideo", {scale:"1"}, {scale:"0"})
+                    //     .fromTo(".Vision-bgCircle", {scale:"1"}, {scale:"0.8"}, "<0");
                 }
 
-                // First animation
-                {let init_tl = gsap.timeline({
+                {// initial motion into the animation
+                    let init_tl = gsap.timeline({
                         defaults:{
 
                         },
                         scrollTrigger:{
                             trigger: ".Vision-bg",
                             scroller: page_scroller,
-                            start: "top+=20% top+=20%",
-                            end: "top+=20% top",
-                            scrub: true
+                            start: "top top+=20%",
+                            end: "top top",
+                            scrub: true,
+                            // markers: true
                         }
                     })
 
                     init_tl
-                        .fromTo(".Vision-bgAnimatedLogoVideo",
-                            {scale:"0.0146"},
-                            {scale:"1"},
-                        )
-                        .fromTo(".Vision-bg",
-                        {
-                            opacity: 0,
-                            // transform: "translate(0px, calc(-30vw * 0.69))"
-                        },
-                        {
-                            opacity: 0.7,
-                            // transform: `translate(0px, calc(-29vw * 0.69))`,
-                        }, "<0")
+                        .fromTo(".Vision-bgAnimatedLogoVideo", {scale:"0.0146"}, {scale:"1"} ) // not visible currently( display: none )
+                        .fromTo(".Vision-bg", { opacity: 0.9 }, { opacity: 0.9 }, "<0")
                         .fromTo(".Vision-bgCircle", { scale: 2, opacity: 0 }, { scale: 1, opacity: 0.07 }, "<0")
-                        // .fromTo(".BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.8744, opacity: 0.3 }, "<0");
                         .fromTo(".BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.3 }, "<0");
 
+                    // forcing the values, as they get distrupted by above one
+                    gsap.set(".Vision-bgCircle", { scale: 2, opacity: 0 });
+                }
 
-                        // Through out the scroll
-                        if ( (document.body.clientWidth >= 1024) ) gsap.set(".Vision-bg", {transform:"translate3d(0px, calc(-30vw * 0.69), 0px)"});
-                        gsap.fromTo(".Vision-bg",
-                            {
-                                opacity: 0.7,
-                            },
-                            {
-                                opacity: 1,
-                                scrollTrigger:{
-                                    trigger: ".Vision-bg",
-                                    scroller: page_scroller,
-                                    start: "top top",
-                                    end: "bottom top",
-                                    scrub: true,
-                                    pin: (document.body.clientWidth >= 1024)
-                                }
-                            }
-                        );
+                {// while scrolling through the section
 
-                        gsap.set(".BackgroundCross-inner", {transform:"translate3d(0px, calc(-14vw*0.69), 0px)"});
-                        gsap.fromTo(".BackgroundCross-inner",
-                            {
-                                opacity: 0.3,
-                                scale: 0.95
-                            },
-                            {
-                                opacity: 1,
-                                scale: 0.8744,
-                                scrollTrigger:{
-                                    trigger: ".BackgroundCross-inner",
-                                    scroller: page_scroller,
-                                    start: "top top",
-                                    end: "bottom top",
-                                    scrub: true,
-                                    pin: (document.body.clientWidth >= 1024)
-                                }
+                let limits = [55, 115+11] // (>= 1024)
+                if (document.body.clientWidth <= 1023) { limits = [55, 65+11] }
+
+                if ( (document.body.clientWidth >= 1024) ) gsap.set(".Vision-bg", {transform:"translate3d(0px, calc(-57.6vh * 0.69), 0px)"});
+                gsap.fromTo(".Vision-bg",
+                    { opacity: 0.9, },
+                    {
+                        opacity: 1,
+                        scrollTrigger:{
+                            trigger: ".Vision-bg",
+                            scroller: page_scroller,
+                            start: "top top",
+                            end: "top top-=h%".replace("h", limits[1]),
+                            scrub: true,
+                            pin: (document.body.clientWidth >= 1024),
+                        }
+                    }
+                );
+
+                gsap.set(".BackgroundCross-inner", {transform:"translate3d(0px, calc(-14vw*0.69), 0px)"});
+                gsap.fromTo(".BackgroundCross-inner",
+                    {
+                        opacity: 0.3,
+                        scale: 0.95
+                    },
+                    {
+                        opacity: 1,
+                        scale: 0.8744,
+                        scrollTrigger:{
+                            trigger: ".BackgroundCross-inner",
+                            scroller: page_scroller,
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: true,
+                            pin: (document.body.clientWidth >= 1024)
+                        }
+                    }
+                );
+                }
+
+                {// texts poping animation on initial look
+                    [...document.querySelectorAll(".Vision-item")].forEach((el, index) => {
+
+                        // On Scroll Texts Animation
+                        let visionItem1Text_a = gsap.timeline({
+                            defaults: { duration:0.7, ease:"sine" },
+                            scrollTrigger: {
+                                trigger: el,
+                                scroller: "[data-scroll-container]",
+                                start: "top top+=50%",
+                                end: "top top+=40%",
                             }
-                        );
+                        });
+
+                        let index_condition = (((index+2)%2)?-1:1)
+
+                        gsap.set(el.querySelector(".Vision-itemTitle"), {x:`${index_condition*20*0.69}vw`, y:`${15*0.69}vw`, opacity:0})
+                        gsap.set(el.querySelector(".Vision-itemSubtitle"), {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`})
+                        gsap.set(el.querySelector(".Vision-itemKeyFigures"), {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`})
+
+                        visionItem1Text_a
+                            .fromTo(el.querySelector(".Vision-itemTitle"),      {x:`${index_condition*20*0.69}vw`, y:`${15*0.69}vw`, opacity:0}, {transform:"translate3d(0px, 0px, 0px)", opacity:1}, 0)
+                            .fromTo(el.querySelector(".Vision-itemSubtitle"),   {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`, opacity:0},  {transform:"translate3d(0px, 0px, 0px)", opacity:1}, "<0.3")
+                            .fromTo(el.querySelector(".Vision-itemKeyFigures"), {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`, opacity:0},  {transform:"translate3d(0px, 0px, 0px)", opacity:1}, "<0.3")
+
+                    });
                 }
             }
 
-            [...document.querySelectorAll(".Vision-item")].forEach((el, index) => {
-
-                // On Scroll Texts Animation
-                let visionItem1Text_a = gsap.timeline({
-                    defaults: { duration:0.7, ease:"sine" },
-                    scrollTrigger: {
-                        trigger: el,
-                        scroller: "[data-scroll-container]",
-                        start: "top top+=50%",
-                        end: "top top+=40%",
-                    }
-                });
-
-                gsap.set(el.querySelector(".Vision-itemTitle"), {x:`${((index)?-1:1)*20*0.69}vw`, y:`${15*0.69}vw`, opacity:0})
-                gsap.set(el.querySelector(".Vision-itemSubtitle"), {x:`${((index)?-1:1)*10*0.69}vw`, y:`${0*0.69}vw`})
-                gsap.set(el.querySelector(".Vision-itemKeyFigures"), {x:`${((index)?-1:1)*10*0.69}vw`, y:`${0*0.69}vw`})
-
-                visionItem1Text_a
-                    .fromTo(el.querySelector(".Vision-itemTitle"),      {x:`${((index)?-1:1)*20*0.69}vw`, y:`${15*0.69}vw`, opacity:0}, {transform:"translate3d(0px, 0px, 0px)", opacity:1}, 0)
-                    .fromTo(el.querySelector(".Vision-itemSubtitle"),   {x:`${((index)?-1:1)*10*0.69}vw`, y:`${0*0.69}vw`, opacity:0},  {transform:"translate3d(0px, 0px, 0px)", opacity:1}, "<0.3")
-                    .fromTo(el.querySelector(".Vision-itemKeyFigures"), {x:`${((index)?-1:1)*10*0.69}vw`, y:`${0*0.69}vw`, opacity:0},  {transform:"translate3d(0px, 0px, 0px)", opacity:1}, "<0.3")
-
-            });
-
-
         }
-
-
-
     }
 
     const s_trigger_anim = ( callBack ) =>{
@@ -1366,22 +1423,6 @@ function MyApp({ Component, pageProps }) {
                                     linkLabel="Home"
                                     href="/"
                                 />
-
-                                {/* Futile works */}
-                                {/* <NavItem
-                                    itemNum="02"
-                                    linkLabel="About"
-                                    href="/about"
-                                />
-
-                                <NavItem
-                                    itemNum="03"
-                                    linkLabel="Work"
-                                    href="/work"
-                                /> */}
-
-
-                                {/* Replaced Elements */}
                                 <NavItem
                                     itemNum="02"
                                     linkLabel="Work"
@@ -1410,8 +1451,8 @@ function MyApp({ Component, pageProps }) {
                                 </div>
                                 <div className="Menu-socials">
                                     <div className="Menu-socialsItem">
-                                        <Link href={"/instagram"}>
-                                            <a href="/instagram" className="Menu-socialsItemLink">
+                                        {/* <Link href={"https://www.instagram.com/anotheridea.productions/"}> */}
+                                            <a href="https://www.instagram.com/anotheridea.productions/" className="Menu-socialsItemLink" target={"_blank"}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="Menu-socialsItemIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <g clipPath="url(#clip0_1_2)">
                                                         <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="white"/>
@@ -1429,11 +1470,11 @@ function MyApp({ Component, pageProps }) {
                                                     Instagram
                                                 </span>
                                             </a>
-                                        </Link>
+                                        {/* </Link> */}
                                     </div>
                                     <div className="Menu-socialsItem">
-                                        <Link href={"/vimeo"}>
-                                            <a href="/vimeo" className="Menu-socialsItemLink">
+                                        {/* <Link href={"https://vimeo.com/anotherideaproductions"}> */}
+                                            <a href="https://vimeo.com/anotherideaproductions" className="Menu-socialsItemLink" target={"_blank"}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="Menu-socialsItemIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <g clipPath="url(#clip0_3_9)">
                                                         <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="white"/>
@@ -1449,7 +1490,7 @@ function MyApp({ Component, pageProps }) {
                                                     Vimeo
                                                 </span>
                                             </a>
-                                        </Link>
+                                        {/* </Link> */}
                                     </div>
                                 </div>
                             </div>
