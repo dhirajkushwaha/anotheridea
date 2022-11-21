@@ -1452,7 +1452,7 @@ function MyApp({ Component, pageProps }) {
                                 <div className="Menu-socials">
                                     <div className="Menu-socialsItem">
                                         {/* <Link href={"https://www.instagram.com/anotheridea.productions/"}> */}
-                                            <a href="https://www.instagram.com/anotheridea.productions/" className="Menu-socialsItemLink" target={"_blank"}>
+                                            <a href="https://www.instagram.com/anotheridea.productions/" className="Menu-socialsItemLink" target={"_blank"} rel="noreferrer">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="Menu-socialsItemIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <g clipPath="url(#clip0_1_2)">
                                                         <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="white"/>
@@ -1474,7 +1474,7 @@ function MyApp({ Component, pageProps }) {
                                     </div>
                                     <div className="Menu-socialsItem">
                                         {/* <Link href={"https://vimeo.com/anotherideaproductions"}> */}
-                                            <a href="https://vimeo.com/anotherideaproductions" className="Menu-socialsItemLink" target={"_blank"}>
+                                            <a href="https://vimeo.com/anotherideaproductions" className="Menu-socialsItemLink" target={"_blank"} rel="noreferrer">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="Menu-socialsItemIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <g clipPath="url(#clip0_3_9)">
                                                         <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="white"/>
