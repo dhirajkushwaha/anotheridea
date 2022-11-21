@@ -25,6 +25,9 @@ import "splitting/dist/splitting.css";
 import "splitting/dist/splitting-cells.css";
 // import Splitting from "splitting";
 
+// vimeo
+import Player from '@vimeo/player';
+
 
 // Fractional Component
 function NavItem(props){
@@ -187,10 +190,20 @@ function MyApp({ Component, pageProps }) {
         var menuContainerRef = document.querySelector(".Header .Menu")
         var menuNavItem = document.querySelectorAll(".Header .Menu-navItem")
 
+        let iframe, player;
+
+        if ( router.asPath == "/" ){
+            iframe = document.querySelector('.homeHeadSection iframe');
+            player = new Player(iframe);
+
+            player.play()
+        }
+
 
         let toggleMenuState = () => {
             menuState.current = !menuState.current;
             if ( menuState.current ) {
+                if ( player != undefined ) player.pause(); // pausing the home page video
 
                 let menuSecDelay = 0;
 
@@ -241,6 +254,9 @@ function MyApp({ Component, pageProps }) {
                     menuButtonRef.classList.toggle("menu-open");
                 } });
                 m_cursor_states("color", {color: "rgb(85, 65, 248)"});
+
+
+                if ( player != undefined ) player.play() // continuing the home page video
             }
         }
 
@@ -590,7 +606,7 @@ function MyApp({ Component, pageProps }) {
                             }
 
 
-                            let limit = 100 // (>= 1024)
+                            let limit = 70 // (>= 1024)
                             if (document.body.clientWidth <= 1023) { limit = 50 }
 
                             const sc_anim_tl = gsap.timeline({
@@ -745,7 +761,6 @@ function MyApp({ Component, pageProps }) {
             }
         });
 
-
         // only home page animations
         if ( router.asPath === "/" ){
 
@@ -845,6 +860,14 @@ function MyApp({ Component, pageProps }) {
                                         duration: ( (img_index_N == range_N[0] && !prev_pl_state[index_by_array+1] && scroll_vec == +1) || (img_index_N == range_N[range_N.length-1] && !prev_pl_state[index_by_array-1] && scroll_vec == -1) ) ? 0 : 0.5, // as to avoid too much delay while the first scroll happens into the animation
                                         onComplete: ()=> { // setting up the current image as the visible
 
+                                            let Vision_bgItem = document.querySelectorAll(".Vision-bgItem")
+                                            for (let i = 0; i < range_N[1]; i++) {
+                                                if ( i != index_by_array ){
+                                                    console.log(Vision_bgItem[i])
+                                                    gsap.to(Vision_bgItem[i], {scale: 0.6, opacity:0, duration:0.5} )
+                                                }
+                                            }
+
                                             // to be made fluent
                                             gsap.fromTo(this_class.replace("-item", "-bgItem"), {scale: 1.4, opacity:0}, {scale: 1, opacity:1}); // scale in
                                             gsap.fromTo(this_class.replace("-item", "-bgItem")+" .Vision-bgItemWrapImage", {scale: 1}, {scale: 1.4}); // scale out
@@ -892,24 +915,19 @@ function MyApp({ Component, pageProps }) {
                         }
                     });
 
-
-
                     // line bt line animation of each Image
                     visionItem_tl
                         .fromTo(".Vision-bgItem:first-child", {"--val":0}, {
                             "--val":100,
                             onUpdate: ()=> {
                                 anim_img(1, [1, 4])
-
                             }
 
                         }, 0)
                         .fromTo(".Vision-bgItem:nth-child(2)", {"--val":0}, {
                             "--val":100,
                             onUpdate: ()=> {
-
                                 anim_img(2, [1, 4])
-
                             }
                         }, 0.25)
                         .fromTo(".Vision-bgItem:nth-child(3)", {"--val":0}, {
@@ -923,9 +941,7 @@ function MyApp({ Component, pageProps }) {
                         .fromTo(".Vision-bgItem:nth-child(4)", {"--val":0}, {
                             "--val":100,
                             onUpdate: ()=> {
-
                                 anim_img(4, [1, 4])
-
                             }
                         }, 0.75)
 

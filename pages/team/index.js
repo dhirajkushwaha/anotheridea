@@ -16,7 +16,7 @@ function OtherDirectorItem(props){
                 <img className="OtherDirectors-Image" src={props.imgSrc} alt="" />
             </picture>
             <h3 className="OtherDirectors-Name">{props.name}</h3>
-            <span>{props.about}</span>
+            {/* <span>{props.about}</span> */}
         </div>
     )
 }
@@ -64,52 +64,42 @@ export default function Team(){
                                 <OtherDirectorItem
                                     imgSrc = {profiles[0][0]}
                                     name = {profiles[0][1]}
-                                    about = "Sample Text"
                                 />
                                 <OtherDirectorItem
                                     imgSrc = {profiles[1][0]}
                                     name = {profiles[1][1]}
-                                    about = "Sample Text"
                                 />
                                 <OtherDirectorItem
                                     imgSrc = {profiles[2][0]}
                                     name = {profiles[2][1]}
-                                    about = "Sample Text"
                                 />
                                 <OtherDirectorItem
                                     imgSrc = {profiles[3][0]}
                                     name = {profiles[3][1]}
-                                    about = "Sample Text"
                                 />
                                 <OtherDirectorItem
                                     imgSrc = {profiles[4][0]}
                                     name = {profiles[4][1]}
-                                    about = "Sample Text"
                                 />
                                 <OtherDirectorItem
                                     imgSrc = {profiles[5][0]}
                                     name = {profiles[5][1]}
-                                    about = "Sample Text"
                                 />
                                 <OtherDirectorItem
                                     imgSrc = {profiles[6][0]}
                                     name = {profiles[6][1]}
-                                    about = "Sample Text"
                                 />
                                 <OtherDirectorItem
                                     imgSrc = {profiles[7][0]}
                                     name = {profiles[7][1]}
-                                    about = "Sample Text"
                                 />
                                 <OtherDirectorItem
                                     imgSrc = {profiles[8][0]}
                                     name = {profiles[8][1]}
-                                    about = "Sample Text"
                                 />
                                 <OtherDirectorItem
                                     imgSrc = {profiles[9][0]}
                                     name = {profiles[9][1]}
-                                    about = "Sample Text"
                                 />
                             </div>
                         </div>

@@ -20,7 +20,7 @@ export default function Trustedby() {
 
 			//  Trusters Logo sourcing
 			if (true) {
-                
+
                 let n_logos = 9;
                 if (document.body.clientWidth <= 1023) { n_logos = 3 }
 
@@ -100,18 +100,6 @@ export default function Trustedby() {
                 <h2>Trusted by</h2>
                 <div className="trustersLoop">
                     <div className="trusterSlideWrapper">
-
-
-
-                        {/* <div className="trusterSlider">
-
-                            { logo }
-
-                            Copy content
-
-                            { logo }
-
-                        </div> */}
 
                         { trusters }
 
