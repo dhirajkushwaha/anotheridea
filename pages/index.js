@@ -800,35 +800,35 @@ export default function Home(props) {
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/yodha-cement.jpg"
 								label="Yodha Cement"
-								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								videoSrc="https://player.vimeo.com/video/757567353?h=48603657bf&amp;quality=240p"
 								addPopup={addPopup}
 								index="1"
 							/>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Minal-Murli-khali.jpg"
 								label="Minal Murli khali"
-								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								videoSrc="https://player.vimeo.com/video/674292817?h=8b0a629b30&amp;quality=240p"
 								addPopup={addPopup}
 								index="2"
 							/>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Amazon-Rakhi.jpg"
 								label="Amazon Rakhi"
-								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								videoSrc="https://player.vimeo.com/video/674290692?h=6042c3a705&amp;quality=240p"
 								addPopup={addPopup}
 								index="3"
 							/>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Ola_Proximity.jpg"
 								label="Ola Proximity"
-								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								videoSrc="https://player.vimeo.com/video/765214457?h=b5716ad29c&amp;quality=240p"
 								addPopup={addPopup}
 								index="4"
 							/>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/MiTV.jpg"
 								label="Mi TV"
-								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								videoSrc="https://player.vimeo.com/video/674301398?h=515f40e64f&amp;quality=240p"
 								addPopup={addPopup}
 								index="5"
 							/>
