@@ -50,11 +50,11 @@ export default function Directors(){
                                 <div className="ContactForm-details">
                                     <div className="ContactDetailsItem">
                                         <h3 className="ContactDetailsLabel">Email</h3>
-                                        <span className="ContactDetailsInfo">info@anotheridea.com</span>
+                                        <span className="ContactDetailsInfo">srushti@anotheridea.in</span>
                                     </div>
                                     <div className="ContactDetailsItem">
                                         <h3 className="ContactDetailsLabel">Phone</h3>
-                                        <span className="ContactDetailsInfo">022-6661-5000</span>
+                                        <span className="ContactDetailsInfo">+91 99306 60099</span>
                                     </div>
                                     <div className="ContactDetailsItem">
                                         <h3 className="ContactDetailsLabel">Address</h3>
@@ -64,6 +64,14 @@ export default function Directors(){
                                             Senapati Bapat Marg,
                                             Mumbai, 400013
                                         </span>
+                                    </div>
+                                    <div className="ContactDetailsItem">
+                                        {/* <h3 className="ContactDetailsLabel Map">Brady Gladys Plaza <img src="https://img.icons8.com/ios/50/FFFFFF/marker--v1.png" alt="" /> </h3> */}
+                                        <a href="https://goo.gl/maps/VjyPbnGvXj2SAmec7" target={"_blank"}>
+                                            <span className="ContactDetailsInfo Contact-Map">
+                                                Brady Gladys Plaza <img src="https://img.icons8.com/ios-filled/50/FFFFFF/marker.png" alt="" />
+                                            </span>
+                                        </a>
                                     </div>
                                 </div>
                                 <form action="/form.js" className="ContactForm-form">

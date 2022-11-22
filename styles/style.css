@@ -2553,6 +2553,26 @@ img.OtherDirectors-Image {
 	font-weight: 300;
 }
 
+.ContactDetailsInfo.Contact-Map{
+	display: flex;
+    align-items: center;
+
+	width: fit-content;
+
+	border-bottom: 1px solid white;
+
+	transition: border 0.1s linear;
+}
+
+.ContactDetailsInfo.Contact-Map:hover{
+	border-color: transparent;
+}
+
+.ContactDetailsInfo img{
+	height: calc( (18 / 19.2) * 1vw );
+	margin-left: calc( (10 / 19.2) * 1vw );
+}
+
 .ContactForm-form{
 	padding-left: calc( (50 / 19.2) * 1vw );
 

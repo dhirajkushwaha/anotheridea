@@ -445,7 +445,7 @@ function MyApp({ Component, pageProps }) {
             "/work" : [".WorksListItem", ".AppButton", ".Menu-navItemLink"],
             "/directors" : [".AppButton", ".Menu-navItemLink"],
             "/team" : [".AppButton", ".Menu-navItemLink"],
-            "/contact" : [".AppButton"],
+            "/contact" : [".AppButton", ".ContactDetailsInfo.Contact-Map"],
             "/about" : [".AppButton", ".Menu-navItemLink"],
         }
 
