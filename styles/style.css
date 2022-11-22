@@ -2562,6 +2562,7 @@ img.OtherDirectors-Image {
 	border-bottom: 1px solid white;
 
 	transition: border 0.1s linear;
+    border-block-style: dashed;
 }
 
 .ContactDetailsInfo.Contact-Map:hover{
