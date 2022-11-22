@@ -3301,7 +3301,7 @@ button.FormButton .AppButton-label{
 /* Works List Popup */
 
 
-.List-popup{
+.List-popup, .Slide-popup{
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -3323,7 +3323,14 @@ button.FormButton .AppButton-label{
 	transition: opacity .5s ease;
 
 	backface-visibility: hidden;
+
+	pointer-events: all;
 }
+
+/* .List-popup:not(.popup-hidden),
+.Slide-popup:not(.popup-hidden){
+
+} */
 
 
 .popup-hidden{

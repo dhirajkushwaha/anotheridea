@@ -145,9 +145,11 @@ function MyApp({ Component, pageProps }) {
                     scrollMagSet(scrollMag, prevScrollMag);
                     prevScrollMag = scrollMag;
 
-                    // works list popup
-                    if ( router.asPath !== "/work" ) return;
-                    gsap.set(".List-popup", {y:scrollMag})
+                    // popups
+                    if ( router.asPath == "/work" ) { gsap.set(".List-popup", {y:scrollMag}); }
+                    if ( router.asPath == "/" ) { gsap.set(".Slide-popup", {y:scrollMag}); }
+                    // if ( router.asPath == "/work" ) { gsap.set(".List-popup:not(.popup-hidden)", {y:scrollMag}); }
+                    // if ( router.asPath == "/" ) { gsap.set(".Slide-popup:not(.popup-hidden)", {y:scrollMag-window.innerHeight}); }
                 })
             })
 
@@ -161,7 +163,11 @@ function MyApp({ Component, pageProps }) {
                 scrollMagSet(scrollMag, prevScrollMag);
                 prevScrollMag = scrollMag;
 
-                if ( router.asPath == "/work" ) { gsap.set(".List-popup", {y:scrollMag}) }
+                // popups
+                if ( router.asPath == "/work" ) { gsap.set(".List-popup", {y:scrollMag}); }
+                if ( router.asPath == "/" ) { gsap.set(".Slide-popup", {y:scrollMag}); }
+
+                // Text Animation <1023px
                 if ( router.asPath == "/" ) {
                     let vision_bg_pos = scrollMag;
                     let vision_height = document.querySelector(".Vision").getBoundingClientRect().height
@@ -869,7 +875,7 @@ function MyApp({ Component, pageProps }) {
                                             }
 
                                             // to be made fluent
-                                            gsap.fromTo(this_class.replace("-item", "-bgItem"), {scale: 1.4, opacity:0}, {scale: 1, opacity:1}); // scale in
+                                            gsap.fromTo(this_class.replace("-item", "-bgItem"), {scale: 1.4, opacity:0}, {scale: 1, opacity:1 }); // scale in
                                             gsap.fromTo(this_class.replace("-item", "-bgItem")+" .Vision-bgItemWrapImage", {scale: 1}, {scale: 1.4}); // scale out
 
                                             // swaping the ending dash
@@ -902,7 +908,6 @@ function MyApp({ Component, pageProps }) {
                         },
                         scrollTrigger:{
                             trigger: ".Vision-item:first-child",
-                            markers: true,
                             scroller: page_scroller,
                             start: "top top+=up%".replace("up", limits[0]), // It is (limits[0] + limits[1])% of scrubbing area with
                             end: "top top-=low%".replace("low", limits[1]), // 0, 0.25, 0.5, 0.75 triggering spots of four animations in (limits[0] + limits[1])% of screen

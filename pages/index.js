@@ -1,5 +1,5 @@
 // React
-import { React, useEffect, useRef } from "react";
+import { React, useEffect, useRef, useState } from "react";
 
 // Next Components
 import Head from "next/head";
@@ -17,6 +17,10 @@ import { gsap } from "gsap/dist/gsap"; // GSAP animation took
 import Footer from "../components/footer/footer";
 import Appbutton from "../components/button/appbutton";
 import Trustedby from "../components/trustedby.js";
+
+// vimeo
+import Player from '@vimeo/player';
+
 
 
 function _getClosest(item, array, getDiff) {
@@ -317,8 +321,67 @@ class Slider {
 
 function WorksSliderItem(props) {
 
+    const executed = useRef(0);
+
+	const cl_name = `.Slide-Popup-${props.index}`;
+
+    useEffect(() => {
+		if (typeof window === "undefined") { return; }
+        if ( !executed.current){
+
+			props.addPopup(
+
+				(<div className={"Slide-popup popup-hidden Slide-Popup-"+props.index}>
+					<div className="Popup-frame">
+						<div className="Popup-cross">close <img src="https://img.icons8.com/ios-filled/18/FFFFFF/delete-sign--v2.png"/> </div>
+						<div className="Popup-video">
+							<iframe src={props.videoSrc} width="640" height="360" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen></iframe>
+						</div>
+					</div>
+            	</div>),
+
+				()=>{
+
+					// console.log(cl_name);
+
+					let iframe = document.querySelector(cl_name+' iframe');
+					let player = new Player(iframe);
+
+
+
+
+					// adding the popup
+					document.querySelector(".Works-SlideItem-"+props.index+" .Works-slideContent").addEventListener("click", (e)=>{
+						document.querySelector(cl_name).classList.remove("popup-hidden");
+						document.querySelector(".Header").classList.add("Header-under-element");
+						e.preventDefault();
+
+						console.log(".Works-SlideItem-"+props.index+" .Works-slideContent")
+					})
+
+					// popup remove fn
+					let popup_r_fn = (e)=>{
+						document.querySelector(cl_name).classList.add("popup-hidden");
+						document.querySelector(".Header").classList.remove("Header-under-element");
+						e.cancelBubble = true;
+
+						player.pause();
+					}
+
+					// removing the popup
+					document.querySelector(cl_name+" .Popup-cross").addEventListener("click", popup_r_fn);
+					document.querySelector(cl_name).addEventListener("click", popup_r_fn);
+
+				}
+			);
+
+
+            executed.current += 1;
+        }
+    }, [])
+
 	return (
-		<div className="Works-slide"
+		<div className={"Works-slide Works-SlideItem-"+props.index}
 			data-index={props.index}
 			style={{
 				"--index": props.index,
@@ -383,7 +446,7 @@ function WorksSliderItem(props) {
 				</div>
 				{/* <Link href={"/works/"+props.label} > */}
 					{/* <a href={"/works/"+props.label} className="Works-slideContent" style={{touchAction: "pan-y", transformStyle: "preserve-3d"}}> */}
-					<div href={"/works/"+props.label} className="Works-slideContent" style={{touchAction: "pan-y", transformStyle: "preserve-3d"}}>
+					<div className="Works-slideContent" style={{touchAction: "pan-y", transformStyle: "preserve-3d"}}>
 						<div className="Works-slideWrapTitle" style={{touchAction: "pan-y"}}>
 							<span data-label={ props.label } style={{touchAction: "pan-y"}} className="Works-slideTitle colorFill">{ props.label }</span>
 							<div className="Works-slideHover" style={{touchAction:"pan-y"}}>
@@ -399,6 +462,15 @@ function WorksSliderItem(props) {
 					{/* </a> */}
 				{/* </Link> */}
 			</div>
+
+			{/* <div className="Slide-popup popup-hidden">
+                <div className="Popup-frame">
+                    <div className="Popup-cross">close <img src="https://img.icons8.com/ios-filled/18/FFFFFF/delete-sign--v2.png"/> </div>
+                    <div className="Popup-video">
+                        <iframe src={props.videoSrc} width="640" height="360" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div> */}
 		</div>
 	)
 }
@@ -477,8 +549,65 @@ function Ideasbehindtextitem(props) {
 	);
 }
 
+function VisionbgItem(props) {
+	return (
+		<div className="Vision-bgItem" style={{"transform": "scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
+			<div className="Vision-bgItemWrapImage" >
+				<div className="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
+					<div className="AppImage-overlay" ></div>
+					<div className="AppImage-placeholder"  style={{"background-color": "rgb(68, 68, 151)"}}>
+					</div>
+					<picture >
+						{/* <source
+							data-srcset="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360 360w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800 800w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
+							sizes="(min-width: 768px) 50vw, 100vw"  srcSet="
+							https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360   360w,
+							https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800   800w,
+							https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w,
+							https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
+						/> */}
+						<img draggable="false"
+							data-src={props.imgSrc}
+							alt="Think" className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
+							// src="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
+							src={props.imgSrc}
+						/>
+					</picture>
+				</div>
+			</div>
+		</div>
+	)
+}
+
 export default function Home(props) {
 	const executed = useRef(false);
+	const [popupList, setPopupList] = useState([]);
+
+	const cur_callback = useRef([()=>{}]);
+	const popup_instances = useRef([]);
+
+	const num_slides = 6; // count of slides
+	const slides_slided = useRef(0); // slides that are added to html
+
+	const addPopup = (popup, cb_fn)=>{
+		slides_slided.current += 1
+
+		cur_callback.current.push(cb_fn);
+
+		popup_instances.current = [...popup_instances.current, popup];
+
+		if ( slides_slided.current == num_slides ){
+			console.log(popup_instances.current)
+			setPopupList(popup_instances.current);
+		}
+
+		// let newPopupList = [...popupList];
+		// newPopupList.push(popup);
+
+		// // console.log(popupList, newPopupList, popup)
+		// console.log(popupList)
+
+	}
 
 	useEffect(() => {
 		if (typeof window === "undefined") {
@@ -604,6 +733,19 @@ export default function Home(props) {
 		}
 	}, []);
 
+	useEffect(() => {
+		console.log( slides_slided.current == num_slides && popupList.length == num_slides, slides_slided.current, num_slides, popupList.length )
+
+		if ( slides_slided.current == num_slides && popupList.length == num_slides ){
+			setTimeout(() => {
+				cur_callback.current.forEach(cb_fn => {
+					cb_fn();
+				});
+			}, 1000);
+		}
+	}, [popupList])
+
+
 	return (
 		<div data-scroll-container>
 			<Head>
@@ -648,34 +790,46 @@ export default function Home(props) {
 							}}
 						>
 							<WorksSliderItem
-								src="./assets/spotify_work.png"
-								label="Spotify"
+								src="./assets/work_slider_thumbnail/Scram.jpg"
+								label="Scram"
 								overlayColor="#777799"
+								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								addPopup={addPopup}
 								index="0"
 							/>
 							<WorksSliderItem
-								src="./assets/amul_icecream_work.png"
-								label="Amul Icecream"
+								src="./assets/work_slider_thumbnail/yodha-cement.jpg"
+								label="Yodha Cement"
+								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								addPopup={addPopup}
 								index="1"
 							/>
 							<WorksSliderItem
-								src="./assets/ola_london_work.png"
-								label="Ola London"
+								src="./assets/work_slider_thumbnail/Minal-Murli-khali.jpg"
+								label="Minal Murli khali"
+								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								addPopup={addPopup}
 								index="2"
 							/>
 							<WorksSliderItem
-								src="./assets/spotify_work.png"
-								label="Spotify"
+								src="./assets/work_slider_thumbnail/Amazon-Rakhi.jpg"
+								label="Amazon Rakhi"
+								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								addPopup={addPopup}
 								index="3"
 							/>
 							<WorksSliderItem
-								src="./assets/amul_icecream_work.png"
-								label="Amul Icecream"
+								src="./assets/work_slider_thumbnail/Ola_Proximity.jpg"
+								label="Ola Proximity"
+								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								addPopup={addPopup}
 								index="4"
 							/>
 							<WorksSliderItem
-								src="./assets/ola_london_work.png"
-								label="Ola London"
+								src="./assets/work_slider_thumbnail/MiTV.jpg"
+								label="Mi TV"
+								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								addPopup={addPopup}
 								index="5"
 							/>
 						</div>
@@ -689,6 +843,10 @@ export default function Home(props) {
 								<li className="SliderBullets-item u-alignVerticalCenter"></li>
 							</ul>
 						</div>
+					</div>
+					{/* pop up */}
+					<div className="slide-popup-list">
+						{popupList}
 					</div>
 				</div>
 
@@ -719,103 +877,12 @@ export default function Home(props) {
 						"transform": "translate3d(0px, 0px, 0px) scale(2, 2)"
 						}}></div>
 						<div className="Vision-bgItems" >
-							<div className="Vision-bgItem" style={{"transform": "scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
-								<div className="Vision-bgItemWrapImage" >
-									<div className="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
-										<div className="AppImage-overlay" ></div>
-										<div className="AppImage-placeholder"  style={{"background-color": "rgb(68, 68, 151)"}}>
-										</div>
-										<picture >
-											<source
-												data-srcset="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360 360w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800 800w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
-												sizes="(min-width: 768px) 50vw, 100vw"  srcSet="
-												https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360   360w,
-												https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800   800w,
-												https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w,
-												https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
-											/>
-											<img draggable="false"
-												data-src="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
-												alt="Think" className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
-												// src="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
-												src="/assets/works_thumbnail/TATA YODHA 2.0-04.png"
-											/>
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div className="Vision-bgItem" style={{"transform": "scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
-								<div className="Vision-bgItemWrapImage">
-									<div className="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
-										<div className="AppImage-overlay" ></div>
-										<div className="AppImage-placeholder" ></div>
-										<picture >
-											<source
-												data-srcset="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360 360w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800 800w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
-												sizes="(min-width: 768px) 50vw, 100vw"  srcSet="
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360   360w,
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800   800w,
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w,
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w
-												" />
-											<img draggable="false"
-												data-src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
-												alt="make" className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
-												src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800" />
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div className="Vision-bgItem" style={{"transform": "scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
-								<div className="Vision-bgItemWrapImage">
-									<div className="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
-										<div className="AppImage-overlay" ></div>
-										<div className="AppImage-placeholder" ></div>
-										<picture >
-											<source
-												data-srcset="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360 360w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800 800w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
-												sizes="(min-width: 768px) 50vw, 100vw"
-												srcSet="
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360   360w,
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800   800w,
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w,
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w
-												"
-												/>
-											<img draggable="false"
-												data-src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
-												alt="make" className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
-												src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800" />
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div className="Vision-bgItem" style={{"transform": "scale(0.6, 0.6)", "z-index": 0, "opacity": 0}}>
-								<div className="Vision-bgItemWrapImage">
-									<div className="AppImage Vision-bgItemImage loaded lazyload fit-cover" style={{"--ratio": "0%"}}>
-										<div className="AppImage-overlay" ></div>
-										<div className="AppImage-placeholder" ></div>
-										<picture >
-											<source
-												data-srcset="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360 360w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800 800w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w, https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
-												sizes="(min-width: 768px) 50vw, 100vw"  srcSet="
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360   360w,
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800   800w,
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w,
-													https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w
-												" />
-											<img draggable="false"
-												data-src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
-												alt="make" className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
-												src="https://images.prismic.io/mediakeys/29faf53d-a942-4a1a-9a4c-af9d54922fc9_make.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800" />
-										</picture>
-									</div>
-								</div>
-							</div>
+							<VisionbgItem imgSrc = "/assets/text_slides_thumbnail/Amazon Rakhi.png" />
+							<VisionbgItem imgSrc = "/assets/text_slides_thumbnail/Scram 411 - Royal Enfield.png" />
+							<VisionbgItem imgSrc = "/assets/text_slides_thumbnail/OLA Electric MoveSO3 -3.png" />
+							<VisionbgItem imgSrc = "/assets/text_slides_thumbnail/TATA YODHA 2.0 -04.png" />
 						</div>
 					</div>
-
-
 
 					<h2 className="SplitText-component HomeTitle Vision-title">
 						<span className="HomeTitle-surtitle app-title--small">Nous associons</span>
