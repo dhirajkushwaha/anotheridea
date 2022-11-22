@@ -67,7 +67,7 @@ export default function Directors(){
                                     </div>
                                     <div className="ContactDetailsItem">
                                         {/* <h3 className="ContactDetailsLabel Map">Brady Gladys Plaza <img src="https://img.icons8.com/ios/50/FFFFFF/marker--v1.png" alt="" /> </h3> */}
-                                        <a href="https://goo.gl/maps/VjyPbnGvXj2SAmec7" target={"_blank"}>
+                                        <a href="https://goo.gl/maps/VjyPbnGvXj2SAmec7" target={"_blank"} rel="noreferrer">
                                             <span className="ContactDetailsInfo Contact-Map">
                                                 Brady Gladys Plaza <img src="https://img.icons8.com/ios-filled/50/FFFFFF/marker.png" alt="" />
                                             </span>
