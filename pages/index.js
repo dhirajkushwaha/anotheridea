@@ -348,8 +348,6 @@ function WorksSliderItem(props) {
 					let player = new Player(iframe);
 
 
-
-
 					// adding the popup
 					document.querySelector(".Works-SlideItem-"+props.index+" .Works-slideContent").addEventListener("click", (e)=>{
 						document.querySelector(cl_name).classList.remove("popup-hidden");
@@ -374,7 +372,6 @@ function WorksSliderItem(props) {
 
 				}
 			);
-
 
             executed.current += 1;
         }
@@ -451,26 +448,17 @@ function WorksSliderItem(props) {
 							<span data-label={ props.label } style={{touchAction: "pan-y"}} className="Works-slideTitle colorFill">{ props.label }</span>
 							<div className="Works-slideHover" style={{touchAction:"pan-y"}}>
 								<div className="Works-slideSubtitle" style={{touchAction:"pan-y", opacity: 0}}>
-									<span style={{touchAction:"pan-y"}}>
-										Computer Scientist
-									</span>
+									{/* <span style={{touchAction:"pan-y"}}>
+										Director : { props.dirName }
+									</span> */}
 								</div>
-								<div className="Works-slideOffice" style={{touchAction:"pan-y", opacity: 0}}> IIT Bombay </div>
+								<div className="Works-slideOffice" style={{touchAction:"pan-y", opacity: 0}}> Director : { props.dirName } </div>
 							</div>
 						</div>
 					</div>
 					{/* </a> */}
 				{/* </Link> */}
 			</div>
-
-			{/* <div className="Slide-popup popup-hidden">
-                <div className="Popup-frame">
-                    <div className="Popup-cross">close <img src="https://img.icons8.com/ios-filled/18/FFFFFF/delete-sign--v2.png"/> </div>
-                    <div className="Popup-video">
-                        <iframe src={props.videoSrc} width="640" height="360" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div> */}
 		</div>
 	)
 }
@@ -601,12 +589,6 @@ export default function Home(props) {
 			setPopupList(popup_instances.current);
 		}
 
-		// let newPopupList = [...popupList];
-		// newPopupList.push(popup);
-
-		// // console.log(popupList, newPopupList, popup)
-		// console.log(popupList)
-
 	}
 
 	useEffect(() => {
@@ -734,7 +716,6 @@ export default function Home(props) {
 	}, []);
 
 	useEffect(() => {
-		console.log( slides_slided.current == num_slides && popupList.length == num_slides, slides_slided.current, num_slides, popupList.length )
 
 		if ( slides_slided.current == num_slides && popupList.length == num_slides ){
 			setTimeout(() => {
@@ -792,6 +773,7 @@ export default function Home(props) {
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Scram.jpg"
 								label="Scram"
+								dirName="Lloyd Baptista"
 								overlayColor="#777799"
 								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
 								addPopup={addPopup}
@@ -800,6 +782,7 @@ export default function Home(props) {
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/yodha-cement.jpg"
 								label="Yodha Cement"
+								dirName="Lloyd Baptista"
 								videoSrc="https://player.vimeo.com/video/757567353?h=48603657bf&amp;quality=240p"
 								addPopup={addPopup}
 								index="1"
@@ -807,6 +790,7 @@ export default function Home(props) {
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Minal-Murli-khali.jpg"
 								label="Minal Murli khali"
+								dirName="Vasan Bala"
 								videoSrc="https://player.vimeo.com/video/674292817?h=8b0a629b30&amp;quality=240p"
 								addPopup={addPopup}
 								index="2"
@@ -814,6 +798,7 @@ export default function Home(props) {
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Amazon-Rakhi.jpg"
 								label="Amazon Rakhi"
+								dirName="Prosit Roy"
 								videoSrc="https://player.vimeo.com/video/674290692?h=6042c3a705&amp;quality=240p"
 								addPopup={addPopup}
 								index="3"
@@ -821,6 +806,7 @@ export default function Home(props) {
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Ola_Proximity.jpg"
 								label="Ola Proximity"
+								dirName="Ken Rolston"
 								videoSrc="https://player.vimeo.com/video/765214457?h=b5716ad29c&amp;quality=240p"
 								addPopup={addPopup}
 								index="4"
@@ -828,6 +814,7 @@ export default function Home(props) {
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/MiTV.jpg"
 								label="Mi TV"
+								dirName="Adam Johnson"
 								videoSrc="https://player.vimeo.com/video/674301398?h=515f40e64f&amp;quality=240p"
 								addPopup={addPopup}
 								index="5"
@@ -965,21 +952,21 @@ export default function Home(props) {
 				<div className="ideasBehind-wrapper">
 					<Ideasbehindtextitem
 						label="Advertisements"
-						href="/"
+						href="/work"
 						color="#af37d9"
 						skill=""
 						slidemag="2vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Promos"
-						href="/"
+						href="/work"
 						color="#de477e"
 						skill=""
 						slidemag="24vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Print Ads"
-						href="/"
+						href="/work"
 						color="#f2ad45"
 						// skill="Bringing ideas to focus"
 						skill=""
@@ -987,7 +974,7 @@ export default function Home(props) {
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Animation"
-						href="/"
+						href="/work"
 						color="#3ab8c9"
 						// skill="Lorem Ipsum"
 						skill=""
@@ -997,7 +984,7 @@ export default function Home(props) {
 						label="Post Production"
 						label_left={"Post \n Production"}
 						label_right={"Post \n Production"}
-						href="/"
+						href="/work"
 						color="#3b33b3"
 						// skill="Lorem Ipsum"
 						skill=""
