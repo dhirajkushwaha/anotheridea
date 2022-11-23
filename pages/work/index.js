@@ -111,7 +111,7 @@ function WorksList(props){
 
     const worksDetailsList = [
                                 ["/", "/assets/works_thumbnail/Amazon-Prime-Day.jpg", "Amazon Prime Day - Mauka Badi Tarakki Ka", "Vikrant Yadav", "", "https://player.vimeo.com/video/748676041?h=f88346ac9f&amp;quality=240p"],
-                                ["/", "/assets/works_thumbnail/Ola-Electric-MoveOS3-.jpg", "Ola Electric - MoveOS3 - Proximity", "Ken Rolston", "", "https://player.vimeo.com/video/765214457?h=b5716ad29c&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Ola-Electric-MoveOS3--.jpg", "Ola Electric - MoveOS3 - Proximity", "Ken Rolston", "", "https://player.vimeo.com/video/765214457?h=b5716ad29c&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/TATA-YODHA-Cement.jpg", "TATA YODHA 2.0 | Cement | Jahan Zameen Hai, Wahan Raaste Hain", "Lloyd Baptista", "", "https://player.vimeo.com/video/757567353?h=48603657bf&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Amazon-Rakhi.jpg", "Amazon - Rakhi", "Prosit Roy", "", "https://player.vimeo.com/video/674290692?h=6042c3a705&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Minnal-Murali-Promo--.jpg", "Minnal Murali Promo - Khali", "Vasan Bala", "", "https://player.vimeo.com/video/674292817?h=8b0a629b30&amp;quality=240p"],
@@ -136,8 +136,8 @@ function WorksList(props){
 
                                 ["/", "/assets/works_thumbnail/GOA-Tourism.jpg", "Goa Tourism - TVC", "", "", "https://player.vimeo.com/video/674301748?h=76d37c804d&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Bajaj-Allianz-Father_s-Day.jpg", "Bajaj Allianz - Father's Day (Lockdown Film)", "", "", "https://player.vimeo.com/video/674306213?h=e692543fcc&amp;quality=240p"],
-                                ["/", "/assets/works_thumbnail/Reliance-Smart-Tyohar.jpg", "Reliance Smart Tyohaar hai Bada Manao", "", "", "https://player.vimeo.com/video/674314923?h=35de1ffe29&amp;quality=240p"],
-                                ["/", "/assets/works_thumbnail/Platinum-Day-Of-Love.jpg", "Platinum Day of Love", "", "", "https://player.vimeo.com/video/674314252?h=f8aeae0703&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Reliance-Smart-Tyohar-.jpg", "Reliance Smart Tyohaar hai Bada Manao", "", "", "https://player.vimeo.com/video/674314923?h=35de1ffe29&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Platinum-Day-Of-Love-.jpg", "Platinum Day of Love", "", "", "https://player.vimeo.com/video/674314252?h=f8aeae0703&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/ISHQ-FM.jpg", "ISHQ FM - PMSing", "", "", "https://player.vimeo.com/video/674304657?h=6e22cf2c2c&amp;quality=240p"],
 
                                 ["/", "/assets/works_thumbnail/JioMart-FPVS--Birthday-Party.jpg", "JioMart FPVS - Birthday", "", "", "https://player.vimeo.com/video/750972931?h=9afe4cd65d&amp;quality=240p"],
