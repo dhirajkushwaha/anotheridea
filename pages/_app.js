@@ -968,19 +968,19 @@ function MyApp({ Component, pageProps }) {
                 }
 
                 {// (not in use) changes in the animation elements( circle ) on the mentioned position
-                    let sec_tl = gsap.timeline({
-                    defaults:{
-                        ease: "sine"
-                    },
-                    scrollTrigger:{
-                        trigger: ".Vision",
-                        scroller: page_scroller,
-                        start: "top top",
-                        end: "top top-=30%",
-                        // end: "top top-=30%",
-                        scrub: true
-                    }
-                    });
+                    // let sec_tl = gsap.timeline({
+                    // defaults:{
+                    //     ease: "sine"
+                    // },
+                    // scrollTrigger:{
+                    //     trigger: ".Vision",
+                    //     scroller: page_scroller,
+                    //     start: "top top",
+                    //     end: "top top-=30%",
+                    //     // end: "top top-=30%",
+                    //     scrub: true
+                    // }
+                    // });
 
                     // deprecated currently
                     // sec_tl
@@ -1003,15 +1003,21 @@ function MyApp({ Component, pageProps }) {
                         }
                     })
 
-                    init_tl
-                        .fromTo(".Vision-bgAnimatedLogoVideo", {scale:"0.0146"}, {scale:"1"} ) // not visible currently( display: none )
-                        .fromTo(".Vision-bg", { opacity: 0.9 }, { opacity: 0.9 }, "<0")
-                        .fromTo(".Vision-bgCircle", { scale: 2, opacity: 0 }, { scale: 1, opacity: 0.07 }, "<0")
-                        .fromTo(".BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.3 }, "<0");
+                    if ( window.innerWidth >= 1024){
 
-                    // forcing the values, as they get distrupted by above one
-                    gsap.set(".Vision-bgCircle", { scale: 2, opacity: 0 });
+                        init_tl
+                            .fromTo(".Vision-bgAnimatedLogoVideo", {scale:"0.0146"}, {scale:"1"} ) // not visible currently( display: none )
+                            .fromTo(".Vision-bg", { opacity: 0.9 }, { opacity: 0.9 }, "<0")
+                            .fromTo(".Vision-bgCircle", { scale: 2, opacity: 0 }, { scale: 1, opacity: 0.07 }, "<0")
+                            .fromTo(".BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.3 }, "<0");
+
+                        // forcing the values, as they get distrupted by above one
+                        gsap.set(".Vision-bgCircle", { scale: 2, opacity: 0 });
+
+                    }
+
                 }
+
 
                 {// while scrolling through the section
 
