@@ -171,14 +171,15 @@ function MyApp({ Component, pageProps }) {
                 if ( router.asPath == "/" ) {
                     let vision_bg_pos = scrollMag;
                     let vision_height = document.querySelector(".Vision").getBoundingClientRect().height
-                    let vision_pos = document.querySelector(".Vision").getBoundingClientRect().y + vision_bg_pos - vision_height/2
+                    let vision_pos = document.querySelector(".Vision").getBoundingClientRect().y + scrollMag - vision_height/2
 
-                    console.log(vision_pos+vision_height-document.body.clientHeight, vision_bg_pos)
+                    console.log(vision_pos+vision_height-window.innerHeight, vision_bg_pos)
 
-                    if ( vision_bg_pos < vision_pos ){
+                    if ( scrollMag < vision_pos ){
                         vision_bg_pos = vision_pos
-                    } else if ( vision_bg_pos > vision_pos+vision_height-window.clientHeight ){
-                        vision_bg_pos = vision_pos+window.clientHeight
+                    }
+                    if ( scrollMag > vision_pos+vision_height ){ // -window.innerHeight
+                        vision_bg_pos = vision_pos+vision_height
                     }
 
                     gsap.set(".Vision-bg", {y:vision_bg_pos})
@@ -869,7 +870,6 @@ function MyApp({ Component, pageProps }) {
                                             let Vision_bgItem = document.querySelectorAll(".Vision-bgItem")
                                             for (let i = 0; i < range_N[1]; i++) {
                                                 if ( i != index_by_array ){
-                                                    console.log(Vision_bgItem[i])
                                                     gsap.to(Vision_bgItem[i], {scale: 0.6, opacity:0, duration:0.5} )
                                                 }
                                             }
@@ -1205,9 +1205,8 @@ function MyApp({ Component, pageProps }) {
                         let loadingScreenInterval = setInterval(() => {
                             if ( router.isReady === true )
                                 gsap.to(".Load-screen", { duration:1, y:"-100vh", ease:"power3", onComplete:()=>{
-                                    window.scroll(0, 0);
+
                                     document.querySelector(".Load-screen").classList.add("--is-hidden");
-                                    // document.body.style.removeProperty("overflow-y");
 
                                 }});
                                 clearInterval(loadingScreenInterval);
@@ -1215,6 +1214,7 @@ function MyApp({ Component, pageProps }) {
 
                         // Locomotive
                         if ( true ){
+                            window.scroll(0, 0);
                             if ( locomotiveScrollInstance.current !== undefined ){
                                 locomotiveScrollInstance.current.destroy();
                             }
