@@ -195,8 +195,13 @@
 
 	background-color: rgb(14, 14, 14);
 
+
 	/* border-radius: 50% 50% 0 0; */
 }
+
+/* lottie-player{
+	transform: scale(0.6);
+} */
 
 /* header section */
 
@@ -578,8 +583,8 @@
 
 .Menu-quickAccessItem {
 	text-transform: uppercase;
-	font-size: 2vw;
-	line-height: 2.2vw;
+	font-size: 1.4vw;
+	line-height: 1.4vw;
 	padding: 0.5rem 0;
 }
 
@@ -607,7 +612,8 @@
 
 .Menu-socials {
 	display: inline-flex;
-	margin-top: 1.5vh;
+	/* margin-top: 1.5vh; */
+	margin-top: 1vh;
 }
 
 .Menu-socialsItem {
@@ -719,6 +725,10 @@
 		position: absolute;
 		left: 0;
 		bottom: 5vh;
+
+		transform: scale(0.9);
+		transform-origin: left bottom;
+		will-change: transform;
 	}
 
 	.Menu-logoContainer >  svg {
@@ -1040,6 +1050,8 @@ section.homeHeadSection {
 
 @media only screen and (max-width: 1023px) {
 	.ideasBehind-wrapper {
+		display: none;
+
 		text-align: center;
 	}
 
@@ -1233,6 +1245,7 @@ section.homeHeadSection {
 
 	.Works-slider, .Works-wrapper{
 		height: calc(60vw * 0.69);
+		margin-top: calc(10vw * 0.69);
 	}
 
 	.Works-slideImage {
@@ -1241,7 +1254,7 @@ section.homeHeadSection {
 
 	.Works-slideContent{
 		left: calc(18vw * 0.69);
-		width: calc(24vw * 0.69);
+		width: calc(36vw * 0.69);
 		top: calc(42vw * 0.69);
 
 	}
@@ -1467,7 +1480,7 @@ h4 {
 .trusterSliderItem {
 	height: fit-content;
 
-	/* cursor: pointer; */
+	cursor: pointer;
 	/* pointer-events: none;
 	user-select: none; */
 
@@ -1494,8 +1507,8 @@ h4 {
 	height: 70%; */
 
 	/* Stopped State */
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 50%;
 	/*  */
 
 	object-fit: contain;
@@ -1503,13 +1516,20 @@ h4 {
 	filter: grayscale(1);
 	filter: gray;
 
+	opacity: 0.5;
+
 	/* transition: filter 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); */
+	transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* .trusterSliderItem:hover img{
 	filter: grayscale(0);
 	filter: none;
 } */
+
+.trusterSliderItem:hover img{
+	opacity: 1;
+}
 
 .trusterSliderItemDummy {
 	position: absolute;
@@ -2247,6 +2267,7 @@ footer {
 	}
 
 	.WorksListItem-title {
+		opacity: 0;
 		font-weight: 500;
 		opacity: 1;
 		color: #fff;
@@ -3258,6 +3279,10 @@ button.FormButton .AppButton-label{
 }
 
 @media only screen and (max-width: 1023px){
+	.Vision{
+		display: none;
+	}
+
 	.Vision-title {
 		width: calc(33.33333vw * 2.667);
 	}

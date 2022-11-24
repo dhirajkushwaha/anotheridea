@@ -199,12 +199,13 @@ function MyApp({ Component, pageProps }) {
 
         let iframe, player;
 
-        if ( router.asPath == "/" ){
-            iframe = document.querySelector('.homeHeadSection iframe');
-            player = new Player(iframe);
+        // to be uncommented
+        // if ( router.asPath == "/" ){
+        //     iframe = document.querySelector('.homeHeadSection iframe');
+        //     player = new Player(iframe);
 
-            player.play()
-        }
+        //     player.play()
+        // }
 
 
         let toggleMenuState = () => {
@@ -294,19 +295,29 @@ function MyApp({ Component, pageProps }) {
                 easeValueOutTime = element.style.getPropertyValue("--ease-end-duration");
 
 
+            let hover_state = false;
+
+
             element.addEventListener("mousemove", (e)=>{
+
                 let relativePos = getRelativePos(e.target)
-                element.style.setProperty("--x", (relativePos[0]).toString() + "px")
-                element.style.setProperty("--y", (relativePos[1]).toString() + "px")
+                // element.style.setProperty("--x", (relativePos[0]).toString() + "px")
+                // element.style.setProperty("--y", (relativePos[1]).toString() + "px")
+
+                gsap.to(element, {duration: 1, "--x": (relativePos[0]).toString() + "px", "--y": (relativePos[1]).toString() + "px" })
+
+                // hover_state = true;
             })
 
             element.addEventListener("mouseenter", (e)=>{
-                max_radius = element.clientWidth*1.1;
+                max_radius = element.clientWidth*1.4;
                 gsap.to(e.target, { duration: 0.7, "--r":`${max_radius}px`, ease: easeValueIn})
             })
 
             element.addEventListener("mouseleave", (e)=>{
                 gsap.to(e.target, { duration: easeValueOutTime, "--r":"0px", ease: easeValueOut})
+
+                // hover_state = false;
             })
 
         });
@@ -1362,7 +1373,7 @@ function MyApp({ Component, pageProps }) {
             <div className={"Load-screen"}>
                 <div className="Load-text">
                     {/* Loading... */}
-                    <lottie-player src="/assets/AI_Logo.json"  background="transparent"  speed="1"  style={{width: "300px", height: "300px"}}  loop="true" autoplay></lottie-player>
+                    <lottie-player src="/assets/AI_Logo.json"  background="transparent"  speed="1"  style={{width: "180px", height: "180px"}}  loop="true" autoplay></lottie-player>
                     {/* <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_0fvcgy9k.json"  background="transparent"  speed="1"  style={{width: "400px", height: "400px"}}  loop autoplay></lottie-player> */}
                 </div>
             </div>

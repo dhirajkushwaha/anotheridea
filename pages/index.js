@@ -130,7 +130,7 @@ class Slider {
 		this.currentX = this.offX + ((window.innerWidth >= 1024 ? e.clientX : e.touches[0].clientX ) - this.onX) * (window.innerWidth >= 1024 ? 1 : 3);
 	}
 
-	mathVals(translationVal){
+	mathVals(translationVal,slide, index){
 		let transformOrigin, scale, textDisp, opacity1st, mobTranslation;
 		let ranges, itemCount;
 
@@ -151,7 +151,16 @@ class Slider {
 			opacity1st = mapVal(0, this.slideWidth*1, ranges[3][0], ranges[3][1], translationVal)
 			mobTranslation = mapVal(this.slideWidth, this.slideWidth*(2), (1.667 * 2.667),(5.833 * 2.667))
 
-			textDisp *= 0.69;
+
+
+			const bounds = slide.getBoundingClientRect()
+			const diff = this.currentX - this.lastX
+			const start = (bounds.x + diff) + (0)
+			const fromStart = this.startX - start
+			// numbers.push(fromStart)
+
+			// textDisp *= 0.69 * 1.8 //*((window.innerWidth*1.1 - fromStart))/window.innerWidth;
+			textDisp *= 1.2 //*(2 - ((window.innerWidth*2 - fromStart))/window.innerWidth);
 		} else {
 			transformOrigin = 0;
 			scale = 0.25;
@@ -202,7 +211,7 @@ class Slider {
 			else slide.style.setProperty("visibility", "hidden")
 
 
-			let transformScaleDispOpacVal = this.mathVals(translationVal);
+			let transformScaleDispOpacVal = this.mathVals(translationVal,slide, index);
 
 
 			slide.style.setProperty("transform",
@@ -772,7 +781,7 @@ export default function Home(props) {
 						>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Scram.jpg"
-								label="Scram"
+								label="SCRAM 411"
 								dirName="Lloyd Baptista"
 								overlayColor="#777799"
 								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
@@ -781,7 +790,7 @@ export default function Home(props) {
 							/>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/yodha-cement.jpg"
-								label="Yodha Cement"
+								label="YODHA 2.0"
 								dirName="Lloyd Baptista"
 								videoSrc="https://player.vimeo.com/video/757567353?h=48603657bf&amp;quality=240p"
 								addPopup={addPopup}
@@ -789,7 +798,7 @@ export default function Home(props) {
 							/>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Minal-Murli-khali.jpg"
-								label="Minal Murli khali"
+								label="MINAL MURLI"
 								dirName="Vasan Bala"
 								videoSrc="https://player.vimeo.com/video/674292817?h=8b0a629b30&amp;quality=240p"
 								addPopup={addPopup}
@@ -797,7 +806,7 @@ export default function Home(props) {
 							/>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Amazon-Rakhi.jpg"
-								label="Amazon Rakhi"
+								label="AMAZON KHEER"
 								dirName="Prosit Roy"
 								videoSrc="https://player.vimeo.com/video/674290692?h=6042c3a705&amp;quality=240p"
 								addPopup={addPopup}
@@ -805,7 +814,7 @@ export default function Home(props) {
 							/>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Ola_Proximity.jpg"
-								label="Ola Proximity"
+								label="OLA PROXIMITY UNLOCKED"
 								dirName="Ken Rolston"
 								videoSrc="https://player.vimeo.com/video/765214457?h=b5716ad29c&amp;quality=240p"
 								addPopup={addPopup}
@@ -887,7 +896,7 @@ export default function Home(props) {
 									</h2>
 									<div className="Vision-itemSubtitle app-text--large">
 										{/* <p><strong>Stratégie</strong> et vision</p> */}
-										<p>Storytelling</p>
+										<p>storytelling</p>
 									</div>
 									{/* <div className="Vision-itemKeyFigures app-text--small">
 										+ 60 consultants en stratégie
@@ -902,7 +911,7 @@ export default function Home(props) {
 							<div className="Vision-itemInner">
 								<div className="Vision-itemHead">
 									<div className="Vision-itemSubtitle app-text--large">
-										<p>A piece of</p>
+										<p>a piece of</p>
 									</div>
 									<h2 data-label="make" className="Vision-itemTitle app-title--regular">
 										Art
@@ -936,7 +945,7 @@ export default function Home(props) {
 							<div className="Vision-itemInner">
 								<div className="Vision-itemHead">
 									<div className="Vision-itemSubtitle app-text--large">
-										<p>Producers of</p>
+										<p>producers of</p>
 									</div>
 									<h2 data-label="make" className="Vision-itemTitle app-title--regular">
 										Excellence
