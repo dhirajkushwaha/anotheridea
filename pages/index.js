@@ -959,6 +959,16 @@ export default function Home(props) {
 				</div>
 
 				<div className="ideasBehind-wrapper">
+
+					<div className="ideasBehind-bgCross">
+						<div className="BackgroundCross in-view">
+							<div className="BackgroundCross-wrapper">
+								{/* <div className="BackgroundCross-inner" style={{"opacity": 0, "transform": "translate3d(0px, -318.188px, 0px)"}}></div> */}
+								<div className="BackgroundCross-inner" style={{"opacity": 0}}></div>
+							</div>
+						</div>
+					</div>
+
 					<Ideasbehindtextitem
 						label="Advertisements"
 						href="/work"
@@ -979,7 +989,7 @@ export default function Home(props) {
 						color="#f2ad45"
 						// skill="Bringing ideas to focus"
 						skill=""
-						slidemag="7vw"
+						slidemag="14vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Animation"

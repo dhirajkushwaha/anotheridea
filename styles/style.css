@@ -920,6 +920,9 @@ section.homeHeadSection {
 	/* max-width: 100rem; */
 	margin-left: auto;
 	margin-right: auto;
+
+    position: relative;
+    margin: 0 5vw;
 }
 
 .ideasBehind-item {
@@ -3174,7 +3177,7 @@ button.FormButton .AppButton-label{
 
 /* cross bg  */
 
-.Vision-bgCross{
+.Vision-bgCross, .ideasBehind-bgCross{
 	position: absolute;
     bottom: 0;
     left: 0;
@@ -3222,7 +3225,7 @@ button.FormButton .AppButton-label{
 @media only screen and (min-width: 1024px){
 
 	.Vision {
-		margin: calc(22vw * 0.69) auto calc(20vw * 0.69);
+		margin: calc(22vw * 0.69) auto calc(30vw * 0.69);
 	}
 
 	.Vision-title{
@@ -3250,6 +3253,10 @@ button.FormButton .AppButton-label{
 
 	.Vision-item:nth-child(n+1){
 		/* margin-top: calc(-6vw * 0.69); */
+	}
+
+	.Vision-item:nth-child(n+1){
+		margin-top: calc(15vw * 0.69);
 	}
 
 	.Vision-item:first-child .Vision-itemHead::after {

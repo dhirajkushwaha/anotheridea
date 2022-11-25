@@ -311,11 +311,11 @@ function MyApp({ Component, pageProps }) {
 
             element.addEventListener("mouseenter", (e)=>{
                 max_radius = element.clientWidth*1.4;
-                gsap.to(e.target, { duration: 0.7, "--r":`${max_radius}px`, ease: easeValueIn})
+                gsap.fromTo(e.target, { "--r":"0px", ease: easeValueOut}, { duration: 0.7, "--r":`${max_radius}px`, ease: easeValueIn})
             })
 
             element.addEventListener("mouseleave", (e)=>{
-                gsap.to(e.target, { duration: easeValueOutTime, "--r":"0px", ease: easeValueOut})
+                gsap.fromTo(e.target, { "--r":`${max_radius}px`, ease: easeValueIn}, { duration: easeValueOutTime, "--r":"0px", ease: easeValueOut})
 
                 // hover_state = false;
             })
@@ -780,7 +780,7 @@ function MyApp({ Component, pageProps }) {
         });
 
         // only home page animations
-        if ( router.asPath === "/" ){
+        if ( router.asPath === "/" &&  window.innerWidth >= 1024 ){
 
             {// works slider section
                 let s_ref_interv = setInterval(() => {
@@ -832,6 +832,29 @@ function MyApp({ Component, pageProps }) {
                 // reference to be used in scroll trigger attributes
                 let page_scroller = document.querySelector("[data-scroll-container]");
 
+                {// Ending animation
+
+                    let end_tl = gsap.timeline({
+                        defaults:{ duration:0.7, ease:"sine" },
+                        scrollTrigger:{
+                            trigger: ".Vision",
+                            scroller: page_scroller,
+                            start: "bottom top+=20%",
+                            end: "bottom top",
+                            scrub: true,
+                        }
+                    })
+
+                    end_tl
+                        // .fromTo(".Vision-bg", { opacity: 0.9 }, { opacity: 0.9 }, "<0")
+                        .to(".Vision-bgCircle", { opacity: 0 })
+                        .to(".Vision .BackgroundCross-inner", { opacity: 0 }, "<0");
+
+                    // forcing the values, as they get distrupted by above one
+                    // gsap.set(".Vision-bgCircle", { scale: 2, opacity: 0 });
+
+                }
+
                 {// image poping animation
 
                     // checks if last time an element was played or not, to avoid infinite plays
@@ -858,7 +881,7 @@ function MyApp({ Component, pageProps }) {
 
                             let an_prog_val = document.querySelector(this_class.replace("-item", "-bgItem")).style.getPropertyValue("--val") // being set while animation playes through
 
-                            if ( an_prog_val <= 20 || (an_prog_val >= 100 && img_index_N == range_N[range_N.length-1]) ){ // in the initial range the image this make it remain invisible or // when animation is fully completed the
+                            if ( an_prog_val <= 5 || (an_prog_val >= 100 && img_index_N == range_N[range_N.length-1]) ){ // in the initial range the image this make it remain invisible or // when animation is fully completed the
 
                                 // putting current img to zero state
                                 gsap.to(this_class.replace("-item", "-bgItem"), {scale: 0.6, opacity:0});
@@ -909,9 +932,14 @@ function MyApp({ Component, pageProps }) {
                     }
 
                     // let limits = [55, 115] // (>= 1024)
-                    let limits = [55, 85] // (>= 1024)
+                    // let limits = [55, 85] // (>= 1024)
+                    let limits = [55, 85 + 26.66*3] // (>= 1024)
 
-                    if (document.body.clientWidth <= 1023) { limits = [55, 65] }
+                    // what changes are made,
+                        // 15% from all other slides other than first one.
+                        // so, 15*3vw ~ 26.66% of vh to be increased
+
+                    // if (document.body.clientWidth <= 1023) { limits = [55, 65] }
 
                     let visionItem_tl = gsap.timeline({
                         defaults:{
@@ -1019,8 +1047,8 @@ function MyApp({ Component, pageProps }) {
                         init_tl
                             .fromTo(".Vision-bgAnimatedLogoVideo", {scale:"0.0146"}, {scale:"1"} ) // not visible currently( display: none )
                             .fromTo(".Vision-bg", { opacity: 0.9 }, { opacity: 0.9 }, "<0")
-                            .fromTo(".Vision-bgCircle", { scale: 2, opacity: 0 }, { scale: 1, opacity: 0.07 }, "<0")
-                            .fromTo(".BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.3 }, "<0");
+                            .fromTo(".Vision-bgCircle", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 0.1 }, "<0")
+                            .fromTo(".Vision .BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.3 }, "<0");
 
                         // forcing the values, as they get distrupted by above one
                         gsap.set(".Vision-bgCircle", { scale: 2, opacity: 0 });
@@ -1029,11 +1057,13 @@ function MyApp({ Component, pageProps }) {
 
                 }
 
-
                 {// while scrolling through the section
 
-                let limits = [55, 115+11] // (>= 1024)
-                if (document.body.clientWidth <= 1023) { limits = [55, 65+11] }
+                // let limits = [55, 115+11] // (>= 1024)
+                // if (document.body.clientWidth <= 1023) { limits = [55, 65+11] }
+
+                // changes, as the things change
+                let limits = [55, 85+26.66*3-30] // (>= 1024)
 
                 if ( (document.body.clientWidth >= 1024) ) gsap.set(".Vision-bg", {transform:"translate3d(0px, calc(-57.6vh * 0.69), 0px)"});
                 gsap.fromTo(".Vision-bg",
@@ -1044,15 +1074,15 @@ function MyApp({ Component, pageProps }) {
                             trigger: ".Vision-bg",
                             scroller: page_scroller,
                             start: "top top",
-                            end: "top top-=h%".replace("h", limits[1]),
+                            end: "top top-=h%".replace("h", limits[0] + limits[1]),
                             scrub: true,
                             pin: (document.body.clientWidth >= 1024),
                         }
                     }
                 );
 
-                gsap.set(".BackgroundCross-inner", {transform:"translate3d(0px, calc(-14vw*0.69), 0px)"});
-                gsap.fromTo(".BackgroundCross-inner",
+                gsap.set(".Vision .BackgroundCross-inner", {transform:"translate3d(0px, calc(-14vw*0.69), 0px)"});
+                gsap.fromTo(".Vision .BackgroundCross-inner",
                     {
                         opacity: 0.3,
                         scale: 0.95
@@ -1061,7 +1091,7 @@ function MyApp({ Component, pageProps }) {
                         opacity: 1,
                         scale: 0.8744,
                         scrollTrigger:{
-                            trigger: ".BackgroundCross-inner",
+                            trigger: ".Vision .BackgroundCross-inner",
                             scroller: page_scroller,
                             start: "top top",
                             end: "bottom top",
@@ -1070,6 +1100,26 @@ function MyApp({ Component, pageProps }) {
                         }
                     }
                 );
+
+                gsap.fromTo(".Vision-bgCircle",
+                    {
+                        opacity: 0.1,
+                        scale: 1
+                    },
+                    {
+                        opacity: 0.3,
+                        scale: 1.1,
+                        scrollTrigger:{
+                            trigger: ".Vision .BackgroundCross-inner",
+                            scroller: page_scroller,
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: true,
+                            pin: (document.body.clientWidth >= 1024)
+                        }
+                    }
+                );
+                gsap.set(".Vision-bgCircle", {opacity: 0, scale: 0});
                 }
 
                 {// texts poping animation on initial look
@@ -1098,6 +1148,58 @@ function MyApp({ Component, pageProps }) {
                             .fromTo(el.querySelector(".Vision-itemKeyFigures"), {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`, opacity:0},  {transform:"translate3d(0px, 0px, 0px)", opacity:1}, "<0.3")
 
                     });
+                }
+            }
+
+            {// animation of ideasBehind
+
+                // reference to be used in scroll trigger attributes
+                let page_scroller = document.querySelector("[data-scroll-container]");
+
+                {// initial motion into the animation
+                    let init_tl = gsap.timeline({
+                        defaults:{
+
+                        },
+                        scrollTrigger:{
+                            trigger: ".ideasBehind-wrapper",
+                            scroller: page_scroller,
+                            start: "top top+=50%",
+                            end: "top top+=20%",
+                            scrub: true,
+                            // markers: true
+                        }
+                    })
+
+                    init_tl
+                        .fromTo(".ideasBehind-wrapper .BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.3 });
+
+                }
+
+                {// while scrolling through the section
+
+                    let limits = [55, 85+26.66*3-30] // (>= 1024)
+
+                    gsap.set(".ideasBehind-wrapper .BackgroundCross-inner", {transform:"translate3d(0px, calc(-14vw*0.69), 0px)"});
+                    gsap.fromTo(".ideasBehind-wrapper .BackgroundCross-inner",
+                        {
+                            opacity: 0.3,
+                            scale: 0.95
+                        },
+                        {
+                            opacity: 1,
+                            scale: 0.8744,
+                            scrollTrigger:{
+                                trigger: ".ideasBehind-wrapper .BackgroundCross-inner",
+                                scroller: page_scroller,
+                                start: "top top",
+                                end: "bottom top",
+                                scrub: true,
+                                pin: (document.body.clientWidth >= 1024)
+                            }
+                        }
+                    );
+
                 }
             }
 
