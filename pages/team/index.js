@@ -28,6 +28,7 @@ export default function Team(){
 
     const profiles = [
         ["./assets/team_profiles/gaurav_gandhi.jpg", "Gaurav Gandhi", "Executive Producer"],
+        ["./assets/team_profiles/smaran_gandhi.JPG", "Smaran Gandhi", "Executive Producer"],
         ["./assets/team_profiles/srushti_iyer.JPG", "Shruti Iyer", "Senior Producer"],
         ["./assets/team_profiles/nidhi_gandhi.jpg", "Nidhi Gandhi", "Senior Producer"],
         ["./assets/team_profiles/ishaandeep_awasty.JPEG", "Ishaandeep Awasty", "Producer"],
@@ -110,6 +111,11 @@ export default function Team(){
                                     imgSrc = {profiles[9][0]}
                                     name = {profiles[9][1]}
                                     about = {profiles[9][2]}
+                                />
+                                <OtherDirectorItem
+                                    imgSrc = {profiles[10][0]}
+                                    name = {profiles[10][1]}
+                                    about = {profiles[10][2]}
                                 />
                             </div>
                         </div>

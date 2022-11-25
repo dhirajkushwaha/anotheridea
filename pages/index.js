@@ -974,7 +974,7 @@ export default function Home(props) {
 						slidemag="24vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
-						label="Print Ads"
+						label="Print"
 						href="/work"
 						color="#f2ad45"
 						// skill="Bringing ideas to focus"
