@@ -1,10 +1,17 @@
 // React component
 import { React, useEffect, useRef, useState } from "react";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+
 // Next component
 import Link from "next/link";
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/scrollbar";
 
+// import required modules
+import { Scrollbar } from "swiper";
 
 export default function Trustedby() {
 
@@ -21,37 +28,30 @@ export default function Trustedby() {
 			//  Trusters Logo sourcing
 			if (true) {
 
-                let n_logos = 9;
+                // let n_logos = 9;
+                let n_logos = 5;
                 if (document.body.clientWidth <= 1023) { n_logos = 3 }
 
                 let t_logos = [];
 
-
                 for (let layer_n = 1; layer_n <= Math.round( 45/n_logos ); layer_n++) {
 
                     let oneLayer_logos = [];
-
-
-
                     for (let num = 1; num <= n_logos; num++) {
 
                         if ( ((layer_n-1)*n_logos + num) > 45 ){
                             continue;
                         }
-
                         let trustedSliderItem = (<div className="trusterSliderItem">
                                                     <img
                                                         src={`/assets/truster/logo (${(layer_n-1)*n_logos + num}).png`}
                                                         alt=""
-
                                                         key={(layer_n-1)*n_logos + num}
                                                     />
                                                 </div>)
 
                         oneLayer_logos.push( trustedSliderItem );
-
                     }
-
                     // Animation state
                     // oneLayer_logos.push([... oneLayer_logos])
 
@@ -99,11 +99,28 @@ export default function Trustedby() {
                 {/* <h2>TRUSTED BY</h2> */}
                 <h2>Trusted by</h2>
                 <div className="trustersLoop">
-                    <div className="trusterSlideWrapper">
-
-                        { trusters }
-
-                    </div>
+                        <Swiper
+                            scrollbar={{
+                                hide: true,
+                            }}
+                            modules={[Scrollbar]}
+                        >
+                            <SwiperSlide>
+                                <div className="trusterSlideWrapper">
+                                    { trusters.slice(0, 3) }
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <div className="trusterSlideWrapper">
+                                    { trusters.slice(3, 6) }
+                                </div>
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <div className="trusterSlideWrapper">
+                                    { trusters.slice(6, 9) }
+                                </div>
+                            </SwiperSlide>
+                        </Swiper>
                 </div>
             </div>
         </>

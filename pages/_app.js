@@ -1172,18 +1172,16 @@ function MyApp({ Component, pageProps }) {
                     })
 
                     init_tl
-                        .fromTo(".ideasBehind-wrapper .BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.3 });
+                        .fromTo(".ideasBehind-wrapper .BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.5 });
 
                 }
 
                 {// while scrolling through the section
 
-                    let limits = [55, 85+26.66*3-30] // (>= 1024)
-
                     gsap.set(".ideasBehind-wrapper .BackgroundCross-inner", {transform:"translate3d(0px, calc(-14vw*0.69), 0px)"});
                     gsap.fromTo(".ideasBehind-wrapper .BackgroundCross-inner",
                         {
-                            opacity: 0.3,
+                            opacity: 0.5,
                             scale: 0.95
                         },
                         {
@@ -1193,7 +1191,7 @@ function MyApp({ Component, pageProps }) {
                                 trigger: ".ideasBehind-wrapper .BackgroundCross-inner",
                                 scroller: page_scroller,
                                 start: "top top",
-                                end: "bottom top",
+                                end: "top+=67% top",
                                 scrub: true,
                                 pin: (document.body.clientWidth >= 1024)
                             }

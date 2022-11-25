@@ -989,7 +989,7 @@ export default function Home(props) {
 						color="#f2ad45"
 						// skill="Bringing ideas to focus"
 						skill=""
-						slidemag="14vw"
+						slidemag="30vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Animation"

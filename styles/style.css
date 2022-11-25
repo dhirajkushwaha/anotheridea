@@ -922,7 +922,6 @@ section.homeHeadSection {
 	margin-right: auto;
 
     position: relative;
-    margin: 0 5vw;
 }
 
 .ideasBehind-item {
@@ -3186,6 +3185,11 @@ button.FormButton .AppButton-label{
     margin: auto;
     width: 100%;
     height: 100%;
+}
+
+.ideasBehind-bgCross{
+    width: 100vw;
+	margin-left: -5vw;
 }
 
 .BackgroundCross{
