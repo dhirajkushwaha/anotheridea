@@ -132,7 +132,7 @@ export default function Team(){
             radius = 3;
 
             var colors = ["#fff","#5541F8","#373737"];
-            var amount = 50;
+            var amount = 100;
 
             var ww = canvas.width = mainContainer.getBoundingClientRect().width;
             var wh = canvas.height = mainContainer.getBoundingClientRect().height;
@@ -145,9 +145,9 @@ export default function Team(){
                     y: Math.round(y*100)/100
                 };
 
-                this.r =  (Math.random()*5 + 2);
-                this.vx = ((Math.random()-0.5)*20);
-                this.vy = ((Math.random()-0.5)*20);
+                this.r =  (Math.random()*4 + 2);
+                this.vx = ((Math.random()-0.5)*2);
+                this.vy = ((Math.random()-0.5)*2);
                 this.accX = 0;
                 this.accY = 0;
 
@@ -156,8 +156,8 @@ export default function Team(){
 
             Particle.prototype.render = function() {
 
-                this.accX = (this.dest.x - this.x)/10000;
-                this.accY = (this.dest.y - this.y)/10000;
+                this.accX = (this.dest.x - this.x)/1000000000;
+                this.accY = (this.dest.y - this.y)/1000000000;
                 this.vx += this.accX;
                 this.vy += this.accY;
 
@@ -187,8 +187,10 @@ export default function Team(){
                 }
                 if ( g_li(this.x) == g_li(this.dest.x) && g_li(this.y) == g_li(this.dest.y) ){
                     this.dest = {
-                        x : Math.round(Math.random()*ww),
-                        y : Math.round(Math.random()*wh)
+                        x : Math.random()*ww,
+                        y : Math.random()*wh
+                        // x : Math.round(Math.random()*ww),
+                        // y : Math.round(Math.random()*wh)
                     }
                 }
 
