@@ -141,13 +141,15 @@ export default function Team(){
                 this.x =  (Math.random()*ww);
                 this.y =  (Math.random()*wh);
                 this.dest = {
-                    x: Math.round(x*100)/100,
-                    y: Math.round(y*100)/100
+                    x: x*100,
+                    y: y*100
+                    // x: Math.round(x*100)/100,
+                    // y: Math.round(y*100)/100
                 };
 
                 this.r =  (Math.random()*4 + 2);
-                this.vx = ((Math.random()-0.5)*2);
-                this.vy = ((Math.random()-0.5)*2);
+                this.vx = ((Math.random()-0.5)*0.2);
+                this.vy = ((Math.random()-0.5)*0.2);
                 this.accX = 0;
                 this.accY = 0;
 
@@ -156,13 +158,27 @@ export default function Team(){
 
             Particle.prototype.render = function() {
 
-                this.accX = (this.dest.x - this.x)/1000000000;
-                this.accY = (this.dest.y - this.y)/1000000000;
+                // this.accX = (this.dest.x - this.x)/500000000;
+                // this.accY = (this.dest.y - this.y)/500000000;
+                this.accX = (Math.random()-0.5)/1000;
+                this.accY = (Math.random()-0.5)/1000;
+
                 this.vx += this.accX;
                 this.vy += this.accY;
 
-                this.x += this.vx;
-                this.y += this.vy;
+                if ( this.x > ww ){
+                    this.x -= Math.sign(this.vx)*this.vx;
+                } else {
+                    this.x += this.vx;
+                }
+                if ( this.y > wh ){
+                    this.y -= Math.sign(this.vx)*this.vy;
+                } else {
+                    this.y += this.vy;
+                }
+
+                // this.x += this.vx;
+                // this.y += this.vy;
 
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
@@ -182,17 +198,15 @@ export default function Team(){
                 }
 
                 // random motion
-                const g_li = ( val ) => {
-                    return Math.round(val/10)*10
-                }
-                if ( g_li(this.x) == g_li(this.dest.x) && g_li(this.y) == g_li(this.dest.y) ){
-                    this.dest = {
-                        x : Math.random()*ww,
-                        y : Math.random()*wh
-                        // x : Math.round(Math.random()*ww),
-                        // y : Math.round(Math.random()*wh)
-                    }
-                }
+                // const g_li = ( val ) => {
+                //     return Math.round(val/10)*10
+                // }
+                // if ( g_li(this.x) == g_li(this.dest.x) && g_li(this.y) == g_li(this.dest.y) ){
+                //     this.dest = {
+                //         x : Math.random()*ww,
+                //         y : Math.random()*wh
+                //     }
+                // }
 
             }
 
@@ -213,7 +227,7 @@ export default function Team(){
             function onMouseMove(e){
                 // adjusted to take it relative to canvas
                 mouse.x = ww * Math.floor(1000*(e.clientX - canvas.getBoundingClientRect().left)/canvasContainer.clientWidth)/1000;
-                mouse.y = wh * Math.floor(1000*(e.clientY - canvas.getBoundingClientRect().top)/canvasContainer.clientWidth)/1000;
+                mouse.y = wh * Math.floor(1000*(e.clientY - canvas.getBoundingClientRect().top)/canvasContainer.clientHeight)/1000;
             }
 
             // this function is called repeatedly many times

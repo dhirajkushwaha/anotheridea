@@ -24,7 +24,7 @@ function OnBoardItem(props){
             radius = 3;
 
             var colors = ["#fff","#5541F8","#373737"];
-            var amount = 14;
+            var amount = 40;
 
             var ww = 1152;
             var wh = 1152;
@@ -33,13 +33,15 @@ function OnBoardItem(props){
                 this.x =  (Math.random()*ww);
                 this.y =  (Math.random()*wh);
                 this.dest = {
-                    x: Math.round(x*100)/100,
-                    y: Math.round(y*100)/100
+                    x: x,
+                    y: y
+                    // x: Math.round(x*100)/100,
+                    // y: Math.round(y*100)/100
                 };
 
                 this.r =  (Math.random()*14 + 2);
-                this.vx = ((Math.random()-0.5)*20);
-                this.vy = ((Math.random()-0.5)*20);
+                this.vx = ((Math.random()-0.5)*0.2);
+                this.vy = ((Math.random()-0.5)*0.2);
                 this.accX = 0;
                 this.accY = 0;
 
@@ -48,8 +50,8 @@ function OnBoardItem(props){
 
             Particle.prototype.render = function() {
 
-                this.accX = (this.dest.x - this.x)/10000;
-                this.accY = (this.dest.y - this.y)/10000;
+                this.accX = (this.dest.x - this.x)/10000000000;
+                this.accY = (this.dest.y - this.y)/10000000000;
                 this.vx += this.accX;
                 this.vy += this.accY;
 
@@ -62,16 +64,16 @@ function OnBoardItem(props){
                 ctx.fill();
 
                 // mouse avoiding
-                var a = this.x - mouse.x;
-                var b = this.y - mouse.y;
+                // var a = this.x - mouse.x;
+                // var b = this.y - mouse.y;
 
-                var distance = Math.sqrt( a*a + b*b );
-                if(distance<(radius*70)){
-                    this.accX = (this.x - mouse.x)/100;
-                    this.accY = (this.y - mouse.y)/100;
-                    this.vx += this.accX;
-                    this.vy += this.accY;
-                }
+                // var distance = Math.sqrt( a*a + b*b );
+                // if(distance<(radius*70)){
+                //     this.accX = (this.x - mouse.x)/100;
+                //     this.accY = (this.y - mouse.y)/100;
+                //     this.vx += this.accX;
+                //     this.vy += this.accY;
+                // }
 
                 // random motion
                 const g_li = ( val ) => {
@@ -79,8 +81,10 @@ function OnBoardItem(props){
                 }
                 if ( g_li(this.x) == g_li(this.dest.x) && g_li(this.y) == g_li(this.dest.y) ){
                     this.dest = {
-                        x : Math.round(Math.random()*ww),
-                        y : Math.round(Math.random()*wh)
+                        x : Math.random()*ww,
+                        y : Math.random()*wh
+                        // x : Math.round(Math.random()*ww),
+                        // y : Math.round(Math.random()*wh)
                     }
                 }
 
