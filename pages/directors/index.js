@@ -24,29 +24,26 @@ function OnBoardItem(props){
             radius = 3;
 
             var colors = ["#fff","#5541F8","#373737"];
-            var particlesCount = 50;
-
-            var copy = {value: "Hello"};
+            var amount = 14;
 
             var ww = 1152;
             var wh = 1152;
 
             function Particle(x,y){
-                this.x =  Math.random()*ww;
-                this.y =  Math.random()*wh;
+                this.x =  (Math.random()*ww);
+                this.y =  (Math.random()*wh);
                 this.dest = {
-                    x : x,
-                    y: y
+                    x: Math.round(x*100)/100,
+                    y: Math.round(y*100)/100
                 };
 
-                this.r =  Math.random()*14 + 2;
-                this.vx = (Math.random()-0.5)*20;
-                this.vy = (Math.random()-0.5)*20;
+                this.r =  (Math.random()*14 + 2);
+                this.vx = ((Math.random()-0.5)*20);
+                this.vy = ((Math.random()-0.5)*20);
                 this.accX = 0;
                 this.accY = 0;
-                this.friction = Math.random()*0.05 + 0.94;
 
-                this.color = colors[Math.floor(Math.random()*6)];
+                this.color = colors[Math.floor(Math.random()*(colors.length+1))];
             }
 
             Particle.prototype.render = function() {
@@ -55,18 +52,16 @@ function OnBoardItem(props){
                 this.accY = (this.dest.y - this.y)/10000;
                 this.vx += this.accX;
                 this.vy += this.accY;
-                this.vx *= this.friction;
-                this.vy *= this.friction;
 
                 this.x += this.vx;
-                this.y +=  this.vy;
+                this.y += this.vy;
 
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
                 ctx.fill();
 
-                // Mouse Avoding
+                // mouse avoiding
                 var a = this.x - mouse.x;
                 var b = this.y - mouse.y;
 
@@ -78,74 +73,40 @@ function OnBoardItem(props){
                     this.vy += this.accY;
                 }
 
-                // Random Motion
+                // random motion
                 const g_li = ( val ) => {
                     return Math.round(val/10)*10
                 }
-
                 if ( g_li(this.x) == g_li(this.dest.x) && g_li(this.y) == g_li(this.dest.y) ){
                     this.dest = {
-                        x : Math.random()*ww,
-                        y : Math.random()*wh
+                        x : Math.round(Math.random()*ww),
+                        y : Math.round(Math.random()*wh)
                     }
                 }
 
             }
 
-            function onMouseMove(e){
-                mouse.x = ww * Math.floor(1000*(e.clientX - canvas.getBoundingClientRect().left)/canvasContainer.clientWidth)/1000;
-                mouse.y = wh * Math.floor(1000*(e.clientY - canvas.getBoundingClientRect().top)/canvasContainer.clientWidth)/1000;
-
-                // console.log(mouse.x, mouse.y)
-            }
-
-            function onTouchMove(e){
-                if(e.touches.length > 0 ){
-                    mouse.x = e.touches[0].clientX;
-                    mouse.y = e.touches[0].clientY;
-                }
-            }
-
-            function onTouchEnd(e){
-                mouse.x = -9999;
-                mouse.y = -9999;
-            }
-
             function initScene(){
-
                 var ww = 1152;
                 var wh = 1152;
 
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                ctx.font = "bold "+(ww/10)+"px sans-serif";
-                ctx.textAlign = "center";
-                ctx.fillText(copy.value, ww/2, wh/2);
-
-                var data  = ctx.getImageData(0, 0, ww, wh).data;
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.globalCompositeOperation = "screen";
 
                 particles = [];
-                for(var i=0;i<ww;i+=Math.round(ww/particlesCount)){
-                    for(var j=0;j<wh;j+=Math.round(ww/particlesCount)){
-                        if(data[ ((i + j*ww)*4) + 3] > particlesCount){
-                            console.log(data[ ((i + j*ww)*4) + 3])
-                            particles.push(new Particle( Math.random()*ww, Math.random()*wh));
-                        }
-                    }
-                }
-                amount = particles.length;
 
-            }
-
-            function onMouseClick(){
-                radius++;
-                if(radius ===5){
-                    radius = 0;
+                for (let i = 0; i < amount; i++) {
+                    particles.push(new Particle( Math.round(Math.random()*ww), Math.round(Math.random()*wh)));
                 }
             }
 
+            function onMouseMove(e){
+                // adjusted to take it relative to canvas
+                mouse.x = ww * Math.floor(1000*(e.clientX - canvas.getBoundingClientRect().left)/canvasContainer.clientWidth)/1000;
+                mouse.y = wh * Math.floor(1000*(e.clientY - canvas.getBoundingClientRect().top)/canvasContainer.clientWidth)/1000;
+            }
+
+            // this function is called repeatedly many times
             function render(a) {
                 requestAnimationFrame(render);
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -154,15 +115,10 @@ function OnBoardItem(props){
                 }
             };
 
-            // copy.addEventListener("keyup", initScene);
-            // window.addEventListener("resize", initScene);
-            // window.addEventListener("mousemove", onMouseMove);
             canvas.addEventListener("mousemove", onMouseMove);
-            canvas.addEventListener("touchmove", onTouchMove);
-            // window.addEventListener("click", onMouseClick);
-            window.addEventListener("touchend", onTouchEnd);
             initScene();
             requestAnimationFrame(render);
+
 
             executed.current = 1;
         }
@@ -180,16 +136,7 @@ function OnBoardItem(props){
                             <div className="AppImage-overlay"></div>
                             <div className="AppImage-placeholder" style={{"background-color": "rgb(127, 128, 127)"}}></div>
                             <picture>
-                                {/* <source
-                                    data-srcset="https://images.prismic.io/mediakeys/9f278982-0539-4aef-a28a-e4f44a51332a_balmain-jerome-square.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C2000%2C2000&amp;w=360 360w, https://images.prismic.io/mediakeys/9f278982-0539-4aef-a28a-e4f44a51332a_balmain-jerome-square.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C2000%2C2000&amp;w=800 800w, https://images.prismic.io/mediakeys/9f278982-0539-4aef-a28a-e4f44a51332a_balmain-jerome-square.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C2000%2C2000&amp;w=1000 1000w"
-                                    sizes="(min-width: 768px) 40vw, 100vw"
-                                    srcset="
-                                        https://images.prismic.io/mediakeys/9f278982-0539-4aef-a28a-e4f44a51332a_balmain-jerome-square.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C2000%2C2000&amp;w=360   360w,
-                                        https://images.prismic.io/mediakeys/9f278982-0539-4aef-a28a-e4f44a51332a_balmain-jerome-square.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C2000%2C2000&amp;w=800   800w,
-                                        https://images.prismic.io/mediakeys/9f278982-0539-4aef-a28a-e4f44a51332a_balmain-jerome-square.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C2000%2C2000&amp;w=1000 1000w
-                                    " /> */}
                                 <img draggable="false"
-                                    // data-src="https://images.prismic.io/mediakeys/9f278982-0539-4aef-a28a-e4f44a51332a_balmain-jerome-square.jpg?auto=compress,format&amp;rect=0,0,2000,2000&amp;w=768&amp;h=768"
                                     alt={props.name} className="AppImage-image"
                                     style={{"object-fit": "cover", "object-position": "center center"}}
                                     src={props.imgSrc} />
@@ -227,16 +174,14 @@ function OnBoardItem(props){
                     </div>
                 </div>
                 <div className={"ExpertItem-canvas ExpertItem-canvas-"+props.index}>
-                    <canvas width="1152" height="1152"
-                        // style={{width: "120%", height: "120%"}}
-                     ></canvas>
+                    <canvas width="1152" height="1152"></canvas>
                 </div>
             </div>
             <div className="OnBoardDirector-About">
                 <p>{props.about}</p>
             </div>
         </div>
-)
+    )
 }
 
 export default function Directors(){
@@ -250,13 +195,13 @@ export default function Directors(){
 		if (typeof window === "undefined") { return; }
         if ( !executed.current){
 
-            
+            let pos_set = [[-10, -10], [10, -10], [10, 10], [-10, 10]];
 
             let positions = [];
             for (let i = 0; i < 3; i++) {
-                positions.push(`translate3d(calc(${-10 - Math.random()*5} * var(--scale_f) * 1vw), calc(-10 * var(--scale_f) * 1vw), 0px) rotate(${Math.random()*180}deg)`)
+                let random_set = Math.floor(Math.random()*4)
+                positions.push(`translate3d(calc(${pos_set[random_set][0] - Math.random()*3} * var(--scale_f) * 1vw), calc(${pos_set[random_set][1] - Math.random()*3} * var(--scale_f) * 1vw), 0px) rotate(${Math.random()*180}deg)`)
             }
-
             set_random_pos(positions)
 
             executed.current = 1;

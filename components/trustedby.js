@@ -16,32 +16,21 @@ import "swiper/css/scrollbar";
 import { Scrollbar } from "swiper";
 import { Pagination } from "swiper";
 
-function ListenerEl(props){
-
+function Right_click(){
     const swiper = useSwiper();
+    return <button id="trust_Right" onClick={() => swiper.slideNext(1000, false)}>next</button>
+}
 
-    const swipe_left = () => {
-        swiper.slidePrev();
-    }
-
-    const swipe_right = () => {
-        swiper.slidePrev();
-    }
-
-    useEffect(() => {
-        if ( swiper != undefined ){
-            props.sendSwiperInstance(swiper)
-        }
-    }, [])
-
-
-    return <span></span>
+function Left_click(){
+    const swiper = useSwiper();
+    return <button id="trust_Left" onClick={() => swiper.slidePrev(1000, false)}>prev</button>
 }
 
 export default function Trustedby(props) {
 
     const executed = useRef(false);
     const [trusters, setTrusters] = useState([]);
+    const [slides, setSlides] = useState([]);
 
 
 	useEffect(() => {
@@ -53,7 +42,6 @@ export default function Trustedby(props) {
 
 			//  Trusters Logo sourcing
 			if (true) {
-
                 // let n_logos = 9;
                 let n_logos = 5;
                 if (document.body.clientWidth <= 1023) { n_logos = 3 }
@@ -78,45 +66,34 @@ export default function Trustedby(props) {
 
                         oneLayer_logos.push( trustedSliderItem );
                     }
-                    // Animation state
-                    // oneLayer_logos.push([... oneLayer_logos])
 
                     t_logos.push([<div className="trusterSlider" key={layer_n}> {oneLayer_logos} </div> ]);
 
                 }
 
                 setTrusters(t_logos);
-
 			}
+
+
 
 		}
 	}, []);
 
     useEffect(() => {
-
-        //  Trusters Logo Making them flow
         if (true) {
 
-            // Animation state
-            // document.querySelectorAll(".trusterSlider").forEach((slider) => {
+            let no_column_per_slide = trusters.length/3;
 
-            //     let xOffset = 0;
-            //     let isMouseIn = false;
-            //     const slides = slider;
+            let slides_copy = [];
+            for (let i = 0; i <3; i++) {
+                slides_copy.push( <SwiperSlide> <div className="trusterSlideWrapper">{trusters.slice(i*no_column_per_slide, (i+1)*no_column_per_slide)}</div></SwiperSlide>)
+            }
 
-            //     setInterval(translate, 0);
-
-            //     function translate() {
-            //         let offsetIncrementor = isMouseIn ? 0.05 : 0.5;
-            //         if (xOffset >= (( window.innerWidth >= 1024 ) ? (window.innerWidth/100)*((280+40)/19.2) : 280+40) * 7) xOffset = 0;
-            //         else xOffset = xOffset + offsetIncrementor;
-            //         slides.style.transform = "translateX(-" + xOffset + "px)";
-            //     }
-            // });
+            setSlides(slides_copy);
         }
 
-
     }, [trusters])
+
 
 
     return (
@@ -130,7 +107,7 @@ export default function Trustedby(props) {
                             modules={[Pagination]}
                             className="trustedBy-slider"
                         >
-                            <SwiperSlide>
+                            {/* <SwiperSlide>
                                 <div className="trusterSlideWrapper">
                                     { trusters.slice(0, 3) }
                                 </div>
@@ -144,8 +121,10 @@ export default function Trustedby(props) {
                                 <div className="trusterSlideWrapper">
                                     { trusters.slice(6, 9) }
                                 </div>
-                            </SwiperSlide>
-                            <ListenerEl sendSwiperInstance={props.sendSwiperInstance} />
+                            </SwiperSlide> */}
+                            { slides }
+                            <Left_click/>
+                            <Right_click/>
                         </Swiper>
                 </div>
             </div>

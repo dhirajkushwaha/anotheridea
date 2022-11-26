@@ -311,7 +311,7 @@
 }
 
 .Routes-text {
-	font-size: calc(1.6vw * 0.69);
+	font-size: calc(1.6vw * var(--scale_f));
 	font-weight: 500;
 	color: rgb(107, 107, 107);
 
@@ -902,8 +902,8 @@ section.homeHeadSection {
 	padding: 4rem 0;
 	justify-content: center;
 
-    font-size: calc( 12vw * 0.69 );
-	line-height: calc( 12.2vw * 0.69 );
+    font-size: calc( 12vw * var(--scale_f) );
+	line-height: calc( 12.2vw * var(--scale_f) );
 	font-weight: 400;
 	text-align: center;
 }
@@ -963,12 +963,12 @@ section.homeHeadSection {
 .ideasBehind-labelWrapper {
 	position: relative;
 	display: inline-block;
-    /* font-size: calc(9vw * 0.69);
-    line-height: calc(9vw * 0.69); */
-    /* font-size: calc(14.2vw * 0.69);
-    line-height: calc(14.2vw * 0.69); */
-    font-size: calc(14vw * 0.69);
-    line-height: calc(14vw * 0.69);
+    /* font-size: calc(9vw * var(--scale_f));
+    line-height: calc(9vw * var(--scale_f)); */
+    /* font-size: calc(14.2vw * var(--scale_f));
+    line-height: calc(14.2vw * var(--scale_f)); */
+    font-size: calc(14vw * var(--scale_f));
+    line-height: calc(14vw * var(--scale_f));
 	text-transform: uppercase;
 	font-weight: 500;
 }
@@ -1151,10 +1151,10 @@ section.homeHeadSection {
 
 .Works-slideContent{
 	position: absolute;
-    top: calc(30vw * 0.69);
+    top: calc(30vw * var(--scale_f));
     z-index: 90;
     pointer-events: auto;
-    height: calc(5vw * 0.69);
+    height: calc(5vw * var(--scale_f));
     display: flex;
     align-items: center;
 }
@@ -1164,8 +1164,8 @@ section.homeHeadSection {
 }
 
 .Works-slideTitle{
-	font-size: calc(4.5vw * 0.69);
-    line-height: calc(5.5vw * 0.69);
+	font-size: calc(4.5vw * var(--scale_f));
+    line-height: calc(5.5vw * var(--scale_f));
     text-transform: uppercase;
     font-weight: 500;
     display: block;
@@ -1206,8 +1206,8 @@ section.homeHeadSection {
 }
 
 .Works-slideOffice{
-    font-size: calc(1.4vw * 0.69);
-    line-height: calc(2vw * 0.69);
+    font-size: calc(1.4vw * var(--scale_f));
+    line-height: calc(2vw * var(--scale_f));
     color: #b5b5b5;
     font-weight: 500;
 }
@@ -1259,30 +1259,30 @@ section.homeHeadSection {
 @media only screen and (min-width: 1024px) {
 	.Works-slide {
 		pointer-events: none;
-		width: calc(40vw * 0.69);
-		height: calc(60vw * 0.69);
+		width: calc(40vw * var(--scale_f));
+		height: calc(60vw * var(--scale_f));
 		padding: 0;
 	}
 
 	.Works-slider, .Works-wrapper{
-		height: calc(60vw * 0.69);
-		margin-top: calc(10vw * 0.69);
+		height: calc(60vw * var(--scale_f));
+		margin-top: calc(10vw * var(--scale_f));
 	}
 
 	.Works-slideImage {
-		width: calc(40vw * 0.69);
+		width: calc(40vw * var(--scale_f));
 	}
 
 	.Works-slideContent{
-		left: calc(18vw * 0.69);
-		width: calc(36vw * 0.69);
-		top: calc(42vw * 0.69);
+		left: calc(18vw * var(--scale_f));
+		width: calc(36vw * var(--scale_f));
+		top: calc(42vw * var(--scale_f));
 
 	}
 
 	.Works-slideTitle{
-		font-size: calc(6vw * 0.69);
-		line-height: calc(5.8vw * 0.69);
+		font-size: calc(6vw * var(--scale_f));
+		line-height: calc(5.8vw * var(--scale_f));
 	}
 
 	.Works-slideImageInnerImg {
@@ -1505,7 +1505,7 @@ h4 {
 	/* pointer-events: none;
 	user-select: none; */
 
-	/* margin-right: calc(1vw * 2.5*16/19.2); */
+	margin-right: calc(1vw * 2.5*16/19.2);
 
 	/* width: calc( 1vw * 280/19.2 );
 	height: 7.5vw; */
@@ -1581,6 +1581,13 @@ h4 {
 	/*  */
 }
 
+#trust_Right, #trust_Left{
+	visibility: hidden;
+	opacity: 0;
+	user-select: none;
+	pointer-events: none;
+}
+
 .trustersLoop {
 	width: 100vw;
 	margin-left: auto;
@@ -1641,8 +1648,8 @@ footer {
 	/* margin-top: 14px; */
 	font-size: max(10px, 1.04vw);
 
-	font-size: calc(1.4vw * 0.69);
-    line-height: calc(4vw * 0.69);
+	font-size: calc(1.4vw * var(--scale_f));
+    line-height: calc(4vw * var(--scale_f));
 
 	opacity: 0.5;
 
@@ -1660,11 +1667,11 @@ footer {
 
 /* Background Planet */
 .Footer-planetbg {
-	width: calc(30vw * 0.69);
-	height: calc(30vw * 0.69);
-	margin-left: calc(-15vw * 0.69);
+	width: calc(30vw * var(--scale_f));
+	height: calc(30vw * var(--scale_f));
+	margin-left: calc(-15vw * var(--scale_f));
 	position: absolute;
-	bottom: calc(-15vw * 0.69);
+	bottom: calc(-15vw * var(--scale_f));
 	left: 50%;
 	pointer-events: none;
 	-webkit-user-select: none;
@@ -1698,10 +1705,10 @@ footer {
 
 @media only screen and (min-width: 1024px) {
 	.Footer-planetbg {
-		width: calc(82vw * 0.69);
-		height: calc(82vw * 0.69);
-		margin-left: calc(-41vw * 0.69);
-		bottom: calc(-43vw * 0.69);
+		width: calc(82vw * var(--scale_f));
+		height: calc(82vw * var(--scale_f));
+		margin-left: calc(-41vw * var(--scale_f));
+		bottom: calc(-43vw * var(--scale_f));
 	}
 
 	.footerRow:nth-child(1) {
@@ -1716,10 +1723,10 @@ footer {
 	.Footer-wrapper {
 		display: flex;
 		width: 88vw;
-		/* padding: calc(11vw * 0.69) calc(12vw * 0.69) calc(10vw * 0.69); */
+		/* padding: calc(11vw * var(--scale_f)) calc(12vw * var(--scale_f)) calc(10vw * var(--scale_f)); */
 
 		/* change  footer */
-		padding: calc(5vw * 0.69) calc(12vw * 0.69) calc(5vw * 0.69);
+		padding: calc(5vw * var(--scale_f)) calc(12vw * var(--scale_f)) calc(5vw * var(--scale_f));
 		justify-content: center;
 	}
 
@@ -1806,7 +1813,7 @@ footer {
 	}
 
 	.footerLearnMore {
-		padding-top: calc(14vw * 0.69);
+		padding-top: calc(14vw * var(--scale_f));
 		border-top: none;
 	}
 
@@ -1914,16 +1921,16 @@ footer {
 	margin-right: 1.4vw;
 	margin-bottom: 0.3vw;
 	white-space: nowrap;
-	font-size: calc(3.2vw * 0.69);
-	line-height: calc(3.8vw * 0.69);
+	font-size: calc(3.2vw * var(--scale_f));
+	line-height: calc(3.8vw * var(--scale_f));
 	display: none;
 
 	font-weight: 400;
 }
 
 .Listfilter-listItem {
-	font-size: calc(2vw * 0.69);
-	line-height: calc(2.4vw * 0.69);
+	font-size: calc(2vw * var(--scale_f));
+	line-height: calc(2.4vw * var(--scale_f));
 	margin: 0 1.1vw;
 	height: 4.5vw;
 	color: #b5b5b5;
@@ -1955,9 +1962,9 @@ footer {
 }
 
 .Listfilters-listItemCount{
-	font-size: calc(1.4vw * 0.69);
-    line-height: calc(1.7vw * 0.69);
-    top: calc(-1.5vw * 0.69);
+	font-size: calc(1.4vw * var(--scale_f));
+    line-height: calc(1.7vw * var(--scale_f));
+    top: calc(-1.5vw * var(--scale_f));
     right: 0;
     position: relative;
 }
@@ -2076,6 +2083,7 @@ footer {
 .AppImage.loaded .AppImage-image {
 	opacity: 1;
 	transition: opacity 0.8s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+	scale: 1.01;
 }
 
 /* List Items */
@@ -2087,8 +2095,8 @@ footer {
 }
 
 .app-title--small {
-	font-size: calc(3vw * 0.69);
-	line-height: calc(3.6vw * 0.69);
+	font-size: calc(3vw * var(--scale_f));
+	line-height: calc(3.6vw * var(--scale_f));
 }
 
 .app-title--regular{
@@ -2101,7 +2109,7 @@ footer {
 	font-weight: 500;
 	opacity: 0;
 	color: #fff;
-	margin-bottom: calc(1vw * 0.69);
+	margin-bottom: calc(1vw * var(--scale_f));
 
 	transform: translate(20%, 0);
 
@@ -2204,21 +2212,21 @@ footer {
 	}
 
 	.WorksListItem-thumbnail {
-		/* height: calc(36vw * 0.69); */
+		/* height: calc(36vw * var(--scale_f)); */
 
 		/* 16:9 ratio */
-		height: calc(30.9782vw * 0.69);
+		height: calc(30.9782vw * var(--scale_f));
 	}
 
 	.app-title--small {
-		font-size: calc(4.5vw * 0.69);
-		line-height: calc(5vw * 0.69);
+		font-size: calc(4.5vw * var(--scale_f));
+		line-height: calc(5vw * var(--scale_f));
 	}
 
 	.app-title--regular{
 		font-weight: 400;
-		font-size: calc(12vw * 0.69);
-		line-height: calc(12.2vw * 0.69);
+		font-size: calc(12vw * var(--scale_f));
+		line-height: calc(12.2vw * var(--scale_f));
 	}
 
 	.WorksListItem-title {
@@ -2228,7 +2236,7 @@ footer {
 	}
 
 	.WorksListItem-detail {
-		margin-bottom: calc(2vw * 0.69);
+		margin-bottom: calc(2vw * var(--scale_f));
 	}
 }
 
@@ -2373,10 +2381,10 @@ footer {
 
 img.OnBoardDirector-Image,
 img.OtherDirectors-Image {
-	width: 20.83vw;
-	aspect-ratio: 1;
+	/* width: 20.83vw;
+	aspect-ratio: 1; */
 	object-fit: cover;
-	border-radius: 50%;
+	/* border-radius: 50%; */
 
 	filter: gray; /* IE6-9 */
 	-webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
@@ -2433,10 +2441,6 @@ img.OtherDirectors-Image {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
-}
-
-img.OtherDirectors-Image {
-	width: 10.44vw;
 }
 
 .OtherDirectors-Name {
@@ -2524,10 +2528,6 @@ img.OtherDirectors-Image {
 
 	img.OnBoardDirector-Image {
 		width: 70.83vw;
-	}
-
-	img.OtherDirectors-Image {
-		width: 63vw;
 	}
 
 	.OtherDirectors-ListItems {
@@ -2795,21 +2795,21 @@ button.FormButton .AppButton-label{
 }
 
 .Label:nth-child(n+2){
-	margin-top: calc( 7vw * 0.69 );
+	margin-top: calc( 7vw * var(--scale_f) );
 }
 
 .Label-header h2{
-	font-size: calc( 7vw * 0.69 );
-	line-height: calc( 7.2vw * 0.69 );
+	font-size: calc( 7vw * var(--scale_f) );
+	line-height: calc( 7.2vw * var(--scale_f) );
 
 	font-weight: 400;
 }
 
 .Label-title h4{
-	font-size: calc( 3vw * 0.69 );
-	line-height: calc( 4.8vw * 0.69 );
+	font-size: calc( 3vw * var(--scale_f) );
+	line-height: calc( 4.8vw * var(--scale_f) );
 
-	letter-spacing: calc( 1vw * 2/16 * 0.69 );
+	letter-spacing: calc( 1vw * 2/16 * var(--scale_f) );
 
 	font-weight: 500;
 
@@ -2822,14 +2822,14 @@ button.FormButton .AppButton-label{
 
 
 .Label-tags p{
-	font-size: calc( 2.9vw * 0.69 );
-	line-height: calc( 4vw * 0.69 );
+	font-size: calc( 2.9vw * var(--scale_f) );
+	line-height: calc( 4vw * var(--scale_f) );
 
 	font-weight: 200;
 
 	width: max-content;
 
-	letter-spacing: calc( 1vw * 4/16 * 0.69 );
+	letter-spacing: calc( 1vw * 4/16 * var(--scale_f) );
 }
 
 
@@ -2838,7 +2838,7 @@ button.FormButton .AppButton-label{
 
 .AboutCarousel-section{
 	position: relative;
-    height: calc( 60vw * 0.69 );
+    height: calc( 60vw * var(--scale_f) );
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2851,9 +2851,9 @@ button.FormButton .AppButton-label{
     position: relative;
     z-index: 10;
 
-    width: calc( 112vw * 0.69 );
+    width: calc( 112vw * var(--scale_f) );
 
-	margin-top: calc( 21vw * 0.69 );
+	margin-top: calc( 21vw * var(--scale_f) );
 }
 
 .AboutCarousel{
@@ -2868,8 +2868,8 @@ button.FormButton .AppButton-label{
 .AboutTitle-title{
     display: block;
 
-	font-size: calc(9vw * 0.69);
-    line-height: calc(11.2vw * 0.69);
+	font-size: calc(9vw * var(--scale_f));
+    line-height: calc(11.2vw * var(--scale_f));
 
 	font-weight: 400;
 }
@@ -2877,8 +2877,8 @@ button.FormButton .AppButton-label{
 .AboutTitle-subtitle{
     display: block;
 
-	font-size: calc(3.8vw * 0.69);
-    line-height: calc(4vw * 0.69);
+	font-size: calc(3.8vw * var(--scale_f));
+    line-height: calc(4vw * var(--scale_f));
 
 	font-weight: 400;
 
@@ -2890,8 +2890,8 @@ button.FormButton .AppButton-label{
 
 .AboutCarousel.Works-slide{
 	pointer-events: none;
-	width: calc(36vw * 0.69);
-	height: calc(60vw * 0.69);
+	width: calc(36vw * var(--scale_f));
+	height: calc(60vw * var(--scale_f));
 	padding: 0;
 }
 
@@ -2929,7 +2929,7 @@ button.FormButton .AppButton-label{
 
 		text-align: center;
 
-		letter-spacing: calc( 1vw * 2/16 * 0.69 );
+		letter-spacing: calc( 1vw * 2/16 * var(--scale_f) );
 	}
 
 	.Label-tags p{
@@ -2939,7 +2939,7 @@ button.FormButton .AppButton-label{
 		font-size: max(14px, min(4.2vw, 64px));
 		line-height: max(14px, min(9vw, 128px));
 
-		letter-spacing: calc( 1vw * 4/16 * 0.69 );
+		letter-spacing: calc( 1vw * 4/16 * var(--scale_f) );
 	}
 
 	/* Title Section */
@@ -2980,7 +2980,7 @@ button.FormButton .AppButton-label{
 
 .Vision {
     position: relative;
-    margin: calc(6vw * 0.69) auto;
+    margin: calc(6vw * var(--scale_f)) auto;
 }
 
 .Vision-title{
@@ -2988,7 +2988,7 @@ button.FormButton .AppButton-label{
     margin-right: auto;
     position: relative;
     z-index: 2;
-    margin-bottom: calc(5vw * 0.69);
+    margin-bottom: calc(5vw * var(--scale_f));
 
 	display: none;
 }
@@ -3013,7 +3013,7 @@ button.FormButton .AppButton-label{
 }
 
 .Vision-item:first-child{
-    margin-top: calc(15vw * 0.69);
+    margin-top: calc(15vw * var(--scale_f));
 }
 
 .Vision-itemHead{
@@ -3038,10 +3038,10 @@ button.FormButton .AppButton-label{
 }
 
 .Vision-itemSubtitle {
-    font-size: calc(3.2vw * 0.69);
-    line-height: calc(3.8vw * 0.69);;
-    /* margin-bottom: calc(1.2vw * 0.69);; */
-    margin-top: calc(-1.2vw * 0.69);;
+    font-size: calc(3.2vw * var(--scale_f));
+    line-height: calc(3.8vw * var(--scale_f));;
+    /* margin-bottom: calc(1.2vw * var(--scale_f));; */
+    margin-top: calc(-1.2vw * var(--scale_f));;
 }
 
 .Vision-itemSubtitle strong {
@@ -3052,7 +3052,7 @@ button.FormButton .AppButton-label{
 .Vision-itemHead:after {
     content: "";
     display: block;
-    width: calc(4vw * 0.69);
+    width: calc(4vw * var(--scale_f));
     height: 1px;
     background: #fff;
     position: absolute;
@@ -3231,8 +3231,8 @@ button.FormButton .AppButton-label{
 }
 
 .BackgroundCross-inner {
-    top: calc(-10vw * 0.69);
-    height: calc(100% + -10vw * 0.69);
+    top: calc(-10vw * var(--scale_f));
+    height: calc(100% + -10vw * var(--scale_f));
     background-image: url("https://www.mediakeys-experience.com/_nuxt/img/bg-cross.e364cb3.png");
     background-size: 100% auto;
     background-repeat: repeat;
@@ -3248,38 +3248,38 @@ button.FormButton .AppButton-label{
 @media only screen and (min-width: 1024px){
 
 	.Vision {
-		margin: calc(22vw * 0.69) auto calc(30vw * 0.69);
+		margin: calc(22vw * var(--scale_f)) auto calc(30vw * var(--scale_f));
 	}
 
 	.Vision-title{
-		width: calc(112vw * 0.69);
-		margin-bottom: calc(10vw * 0.69);
+		width: calc(112vw * var(--scale_f));
+		margin-bottom: calc(10vw * var(--scale_f));
 	}
 
 	.HomeTitle-surtitle{
-		margin-left: calc(12vw * 0.69);
+		margin-left: calc(12vw * var(--scale_f));
 	}
 
 	.Vision-title .HomeTitle-title--l2 {
-		margin-left: calc(24vw * 0.69);
+		margin-left: calc(24vw * var(--scale_f));
 	}
 
 	.Vision-wrapper{
-		width: calc(92vw * 0.69);
+		width: calc(92vw * var(--scale_f));
     	height: auto;
 	}
 
 	.Vision-item:nth-child(2n) {
-		/* margin-top: calc(-6vw * 0.69); */
+		/* margin-top: calc(-6vw * var(--scale_f)); */
 		text-align: right;
 	}
 
 	.Vision-item:nth-child(n+1){
-		/* margin-top: calc(-6vw * 0.69); */
+		/* margin-top: calc(-6vw * var(--scale_f)); */
 	}
 
 	.Vision-item:nth-child(n+1){
-		margin-top: calc(15vw * 0.69);
+		margin-top: calc(15vw * var(--scale_f));
 	}
 
 	.Vision-item:first-child .Vision-itemHead::after {
@@ -3300,11 +3300,11 @@ button.FormButton .AppButton-label{
 	}
 
 	.Vision-itemSkills {
-		padding-top: calc(4.5vw * 0.69);
+		padding-top: calc(4.5vw * var(--scale_f));
 	}
 
 	.Vision-itemHead {
-		padding-bottom: calc(6vw * 0.69);
+		padding-bottom: calc(6vw * var(--scale_f));
 	}
 }
 
@@ -3490,7 +3490,7 @@ button.FormButton .AppButton-label{
 	}
 
 	.Popup-video{
-		border-radius: calc(1vw * 1 * 2.677/0.69);
+		border-radius: calc(1vw * 1 * 2.677/var(--scale_f));
 	}
 
 	.Popup-video iframe{
@@ -3501,13 +3501,13 @@ button.FormButton .AppButton-label{
 	.Popup-cross{
 		font-size: calc(14/var(--vw-size-px) * 1vw);
 
-		padding: calc(1vw * 0.5 * 2.677/0.69) calc(1vw * 2.677/0.69);
+		padding: calc(1vw * 0.5 * 2.677/var(--scale_f)) calc(1vw * 2.677/var(--scale_f));
 
-		margin-right: calc(1vw * 1 * 2.677/0.69);
+		margin-right: calc(1vw * 1 * 2.677/var(--scale_f));
 
-		border-radius: calc(1vw * 1.2 * 2.677/0.69);
+		border-radius: calc(1vw * 1.2 * 2.677/var(--scale_f));
 
-		margin-bottom: calc(1vw * 0.5 * 2.677/0.69);
+		margin-bottom: calc(1vw * 0.5 * 2.677/var(--scale_f));
 	}
 }
 
@@ -3515,8 +3515,13 @@ button.FormButton .AppButton-label{
 
 
 .ExpertItem-wrapImage {
-    width: calc(30 * 0.69 * 1vw);
-    height: calc(30 * 0.69 * 1vw);
+    width: calc(30 * var(--scale_f) * 1vw);
+    height: calc(30 * var(--scale_f) * 1vw);
+}
+
+.ExpertItem.small .ExpertItem-wrapImage{
+    width: calc(25 * var(--scale_f) * 1vw);
+    height: calc(25 * var(--scale_f) * 1vw);
 }
 
 .ExpertItem-wrapImage {
@@ -3568,10 +3573,17 @@ button.FormButton .AppButton-label{
 }
 
 .ExpertItem.large .ExpertItem-blob {
-    width: calc(40 * 0.69 * 1vw);
-    height: calc(40 * 0.69 * 1vw);
-    margin-top: calc(-20 * 0.69 * 1vw);
-    margin-left: calc(-20 * 0.69 * 1vw);
+    width: calc(40 * var(--scale_f) * 1vw);
+    height: calc(40 * var(--scale_f) * 1vw);
+    margin-top: calc(-20 * var(--scale_f) * 1vw);
+    margin-left: calc(-20 * var(--scale_f) * 1vw);
+}
+
+.ExpertItem.small .ExpertItem-blob {
+    width: calc(40 * var(--scale_f) * 1vw);
+    height: calc(40 * var(--scale_f) * 1vw);
+    margin-top: calc(-20 * var(--scale_f) * 1vw);
+    margin-left: calc(-20 * var(--scale_f) * 1vw);
 }
 
 .ExpertItem-blobSvg {
@@ -3586,6 +3598,7 @@ button.FormButton .AppButton-label{
     fill: var(--color);
     transform-origin: 50% 50%;
 }
+
 @-webkit-keyframes move-data-v-132379df {
 	0% {
 	  transform: scale(1) translateZ(0) rotate(0);
@@ -3667,18 +3680,55 @@ button.FormButton .AppButton-label{
     position: relative;
 }
 
+/* Making it particle suitable */
+.OnBoard-wrapper{
+    position: relative;
+}
+
+.ExpertItem-canvas-large {
+    position: absolute;
+    /* left: -10%;
+    top: -10%; */
+    left: 0%;
+    top: 0%;
+    /* width: calc(1.2 * 30 * var(--scale_f) * 1vw);
+    height: calc(1.2 * 30 * var(--scale_f) * 1vw); */
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.ExpertItem-canvas-large canvas{
+    /* width: calc(1.2 * 30 * var(--scale_f) * 1vw);
+    height: calc(1.2 * 30 * var(--scale_f) * 1vw); */
+	width: 100%;
+    height: 100%;
+}
+
 .ExpertItem-content {
     text-align: center;
 }
 .ExpertItem-content {
     position: relative;
     z-index: 10;
-    margin-top: calc(1 * 0.69 * 1vw);
+    margin-top: calc(1 * var(--scale_f) * 1vw);
 }
 
 .ExpertItem-title {
-    line-height: calc(3.4 * 0.69 * 1vw);
-    margin-bottom: calc(1 * 0.69 * 1vw);
+    line-height: calc(3.4 * var(--scale_f) * 1vw);
+    /* margin-bottom: calc(1 * var(--scale_f) * 1vw); */
+}
+
+.ExpertItem-designation {
+	display: inline-block;
+
+	font-weight: 300;
+	letter-spacing: calc(1vw/19.2);
+
+	font-size: calc(1.8vw *var(--scale_f));
+	line-height: calc(2vw *var(--scale_f));
+	margin-top: 3px;
+	width: 90%;
 }
 
 /* Expert Canvas */
@@ -3687,29 +3737,29 @@ button.FormButton .AppButton-label{
     position: absolute;
     left: -10%;
     top: -10%;
-    width: calc(1.2 * 30 * 0.69 * 1vw);
-    height: calc(1.2 * 30 * 0.69 * 1vw);
+    width: calc(1.2 * 30 * var(--scale_f) * 1vw);
+    height: calc(1.2 * 30 * var(--scale_f) * 1vw);
     z-index: -1;
     /* z-index: 2; */
 
-	/* --val: calc(0.6 * 30 * 0.69 * 1vw);
+	/* --val: calc(0.6 * 30 * var(--scale_f) * 1vw);
     clip-path: ellipse(var(--val) var(--val) at var(--val) var(--val)); */
 }
 
 .ExpertItem-canvas canvas{
-    width: calc(1.2 * 30 * 0.69 * 1vw);
-    height: calc(1.2 * 30 * 0.69 * 1vw);
+    width: calc(1.2 * 30 * var(--scale_f) * 1vw);
+    height: calc(1.2 * 30 * var(--scale_f) * 1vw);
 }
 
 .app-text--regular {
-    font-size: calc(2.4 * 0.69 * 1vw);
-    line-height: calc(3.6 * 0.69 * 1vw);
+    font-size: calc(2.4 * var(--scale_f) * 1vw);
+    line-height: calc(3.6 * var(--scale_f) * 1vw);
 }
 
 @media only screen and (min-width: 1024px){
 	.app-text--regular {
-		font-size: calc(3.2 * 0.69 * 1vw);
-		line-height: calc(4.8 * 0.69 * 1vw);
+		font-size: calc(3.2 * var(--scale_f) * 1vw);
+		line-height: calc(4.8 * var(--scale_f) * 1vw);
 	}
 }
 

@@ -80,14 +80,14 @@ function MyApp({ Component, pageProps }) {
 
     const el_h_event = useRef([]);
 
-    const swiper_instance = useRef();
+    const swiper_instance_left = useRef();
+    const swiper_instance_right = useRef();
 
     const [headerVisibilityState, setHeaderVisibilityState] = useState(0);
 
-    function getSwiperInstance(instance){
-        swiper_instance.current = instance;
-
-        console.log("Hello")
+    function getSwiperInstance(instance_left, instance_right){
+        swiper_instance_left.current = instance_left;
+        swiper_instance_right.current = instance_right;
     }
 
 	function trackMouse(){
@@ -585,7 +585,7 @@ function MyApp({ Component, pageProps }) {
 
                         h_arrow.addEventListener("mousemove", (e)=>{
                             // listener_ref = document.addEventListener("mousemove", (e) => {
-                            if ( swiper_instance.current == undefined ) return;
+                            // if ( swiper_instance_right.current == undefined ) return;
                             if ( router.asPath != "/" ) { h_arrow.removeEventListener("mousemove", listener_ref) }
 
                             if ( e.pageX < centre ){
@@ -605,9 +605,9 @@ function MyApp({ Component, pageProps }) {
                         h_arrow.addEventListener("click", (e)=>{
 
                             if ( d_arrow == "slide-arrow-right" ){
-                                swiper_instance.current.slideNext(1, false);
+                                document.querySelector("#trust_Right").click();
                             } else {
-                                swiper_instance.current.slidePrev(1, false);
+                                document.querySelector("#trust_Left").click();
                             }
                         })
 
