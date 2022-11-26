@@ -45,7 +45,7 @@ function OnBoardItem(props){
 
                 this.ivx = this.vx
                 this.ivy = this.vx
-                
+
                 this.accX = 0;
                 this.accY = 0;
 
@@ -116,7 +116,7 @@ function OnBoardItem(props){
                 }
             };
 
-            canvas.addEventListener("mousemove", onMouseMove);
+            // canvas.addEventListener("mousemove", onMouseMove);
             initScene();
             requestAnimationFrame(render);
 

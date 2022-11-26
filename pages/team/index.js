@@ -243,7 +243,7 @@ export default function Team(){
                 }
             };
 
-            canvas.addEventListener("mousemove", onMouseMove);
+            // canvas.addEventListener("mousemove", onMouseMove);
             initScene();
             requestAnimationFrame(render);
 
