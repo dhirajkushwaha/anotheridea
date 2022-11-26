@@ -1,5 +1,7 @@
 // React component
 import { React, useEffect, useRef, useState } from "react";
+// swiper slider
+import { useSwiper } from 'swiper/react';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -12,11 +14,26 @@ import "swiper/css/scrollbar";
 
 // import required modules
 import { Scrollbar } from "swiper";
+import { Pagination } from "swiper";
 
-export default function Trustedby() {
+function ListenerEl(props){
+
+    const swiper = useSwiper();
+
+    useEffect(() => {
+      props.sendSwiperInstance(swiper)
+
+    }, [])
+
+
+    return <span></span>
+}
+
+export default function Trustedby(props) {
 
     const executed = useRef(false);
     const [trusters, setTrusters] = useState([]);
+
 
 	useEffect(() => {
 		if (typeof window === "undefined") {
@@ -100,10 +117,9 @@ export default function Trustedby() {
                 <h2>Trusted by</h2>
                 <div className="trustersLoop">
                         <Swiper
-                            scrollbar={{
-                                hide: true,
-                            }}
-                            modules={[Scrollbar]}
+                            pagination={true}
+                            modules={[Pagination]}
+                            className="trustedBy-slider"
                         >
                             <SwiperSlide>
                                 <div className="trusterSlideWrapper">
@@ -120,6 +136,7 @@ export default function Trustedby() {
                                     { trusters.slice(6, 9) }
                                 </div>
                             </SwiperSlide>
+                            <ListenerEl sendSwiperInstance={props.sendSwiperInstance} />
                         </Swiper>
                 </div>
             </div>

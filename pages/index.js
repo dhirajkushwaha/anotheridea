@@ -748,7 +748,7 @@ export default function Home(props) {
 						className="vimeo-fullscreenVideo"
 						style={{ width: "1920px", height: "1080px" }}
 					>
-						<iframe
+						{/* <iframe
 							src="https://player.vimeo.com/video/772717266?h=a297e390d4&amp;title=0&amp;portrait=0&amp;muted=1&amp;autoplay=1&amp;controls=0&amp;dnt=1&amp;loop=1&amp;transparent=0&amp;background=1&amp;quality=240p&amp;app_id=122963"
 							width="640"
 							height="360"
@@ -757,7 +757,7 @@ export default function Home(props) {
 							allowFullScreen=""
 							title="Another Idea"
 							data-ready="true"
-						></iframe>
+						></iframe> */}
 					</div>
 				</div>
 			</section>
@@ -981,7 +981,7 @@ export default function Home(props) {
 						href="/work"
 						color="#de477e"
 						skill=""
-						slidemag="24vw"
+						slidemag="14vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Print"
@@ -989,7 +989,7 @@ export default function Home(props) {
 						color="#f2ad45"
 						// skill="Bringing ideas to focus"
 						skill=""
-						slidemag="30vw"
+						slidemag="35vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Animation"
@@ -997,7 +997,7 @@ export default function Home(props) {
 						color="#3ab8c9"
 						// skill="Lorem Ipsum"
 						skill=""
-						slidemag="16vw"
+						slidemag="20vw"
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Post Production"
@@ -1044,7 +1044,7 @@ export default function Home(props) {
 					</p>
 					<Appbutton href="/about" label="Learn More" />
 				</div>
-				<Trustedby />
+				<Trustedby sendSwiperInstance={props.sendSwiperInstance} />
 			</section>
 
 			<Footer></Footer>

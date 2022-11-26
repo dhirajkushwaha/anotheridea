@@ -28,6 +28,9 @@ import "splitting/dist/splitting-cells.css";
 // vimeo
 import Player from '@vimeo/player';
 
+// swiper slider
+import { useSwiper } from 'swiper/react';
+
 
 // Fractional Component
 function NavItem(props){
@@ -77,7 +80,15 @@ function MyApp({ Component, pageProps }) {
 
     const el_h_event = useRef([]);
 
+    const swiper_instance = useRef();
+
     const [headerVisibilityState, setHeaderVisibilityState] = useState(0);
+
+    function getSwiperInstance(instance){
+        swiper_instance.current = instance;
+
+        console.log("Hello")
+    }
 
 	function trackMouse(){
 		document.body.addEventListener("mousemove", (e)=>{
@@ -239,7 +250,7 @@ function MyApp({ Component, pageProps }) {
                             delay = "<0.75"
                     }
                     else
-                        delay = "<0.1"
+                        delay = "<0.01"
 
                     gsapTimelineAnimation
                         .fromTo(element.querySelector(".Menu-navItemNum"), { x: element.querySelector(".Menu-navItemNum").clientWidth*7, opacity:0 }, { x: 0, opacity:1 }, delay)
@@ -340,7 +351,7 @@ function MyApp({ Component, pageProps }) {
                 .fromTo(".mouseCursorIconWrapper", { x: -document.querySelector(".mouseCursor").clientWidth/2, y: document.querySelector(".mouseCursor").clientWidth/2, opacity:0 }, { duration:0.5, x: 0, y: 0, opacity:1, ease:"back" });
 
             prevCursor.current = "link";
-            }
+        }
         else if ( state == "link-end"){
             c_tl
                 // .set(m_cursor_scale, { current:1 });
@@ -349,6 +360,36 @@ function MyApp({ Component, pageProps }) {
                 }});
             prevCursor.current = "default-state";
         }
+        else if ( state == "slide-arrow-left" ){
+            c_tl
+                .to(".mouseCursor", { scale:1, onComplete: ()=>{
+                    setm_content_icon(<svg xmlns="http://www.w3.org/2000/svg" className="mouseCursorIcon icon sprite-icons move-arrow">
+                            <path xmlns="http://www.w3.org/2000/svg" d="M12.7 18.7L6 12h15V8.9H6l6.7-6.7L10.5 0 0 10.5l10.5 10.4 2.2-2.2z"/>
+                        </svg>)
+                }})
+                .fromTo(".mouseCursorIconWrapper", { x: document.querySelector(".mouseCursor").clientWidth/2, y: 0, opacity:0 }, { duration:0.5, x: 0, y: 0, opacity:1, ease:"back" });
+
+            prevCursor.current = "link";
+        }
+        else if ( state == "slide-arrow-right" ){
+            c_tl
+                .to(".mouseCursor", { scale:1, onComplete: ()=>{
+                    setm_content_icon(<svg xmlns="http://www.w3.org/2000/svg" className="mouseCursorIcon icon sprite-icons move-arrow">
+                            <path xmlns="http://www.w3.org/2000/svg" d="M8.3 2.2L15 8.9H0V12h15l-6.7 6.7 2.2 2.2L21 10.4 10.5 0 8.3 2.2z"/>
+                        </svg>)
+                }})
+                .fromTo(".mouseCursorIconWrapper", { x: -document.querySelector(".mouseCursor").clientWidth/2, y: 0, opacity:0 }, { duration:0.5, x: 0, y: 0, opacity:1, ease:"back" });
+
+            prevCursor.current = "link";
+        }
+        // else if ( state == "slide-arrow-end" ){
+        //     c_tl
+        //         .to(".mouseCursor", { scale:0.2, onComplete: ()=>{
+        //             setm_content_icon("")
+        //         }})
+
+        //     prevCursor.current = "default-state";
+        // }
         else if ( state == "move-slide" ){
             c_tl
                 .to(".mouseCursor", { scale:1, onComplete: ()=>{
@@ -510,6 +551,81 @@ function MyApp({ Component, pageProps }) {
                     clearInterval(interv_cl_vis);
                 }, 0);
 
+            });
+
+        }
+
+        // cl having slide
+        var cl_h_arrow = {
+            "/" : [".trustersLoop"],
+            "/work" : [],
+            "/directors" : [],
+            "/team" : [],
+            "/contact" : [],
+            "/about" : [],
+        }
+
+        if ( cl_h_arrow[router.asPath] !== undefined ){
+
+            cl_h_arrow[router.asPath].forEach((cl, index) => {
+                document.querySelectorAll(cl).forEach(h_arrow => {
+                    if ( el_h_event.current.indexOf(h_arrow) === -1 ){
+                        let prev_c = ""
+
+                        let d_arrow = "";
+                        let prev_d_arrow = "";
+                        let centre = window.innerWidth/2;
+
+                        let listener_ref;
+
+                        // let slide_interv = setInterval(() => {
+                        h_arrow.addEventListener("mouseenter", (e)=>{
+                            prev_c = prevCursor.current;
+                        })
+
+                        h_arrow.addEventListener("mousemove", (e)=>{
+                            // listener_ref = document.addEventListener("mousemove", (e) => {
+                            if ( swiper_instance.current == undefined ) return;
+                            if ( router.asPath != "/" ) { h_arrow.removeEventListener("mousemove", listener_ref) }
+
+                            if ( e.pageX < centre ){
+                                prev_d_arrow = d_arrow;
+                                d_arrow = "slide-arrow-left"
+                            } else {
+                                prev_d_arrow = d_arrow;
+                                d_arrow ="slide-arrow-right"
+                            }
+
+                            if ( prev_d_arrow != d_arrow ){
+                                m_cursor_states(d_arrow);
+                            }
+
+                        }, 0);
+
+                        h_arrow.addEventListener("click", (e)=>{
+
+                            if ( d_arrow == "slide-arrow-right" ){
+                                swiper_instance.current.slideNext(1, false);
+                            } else {
+                                swiper_instance.current.slidePrev(1, false);
+                            }
+                        })
+
+                        h_arrow.addEventListener("mouseleave", (e)=>{
+
+                            h_arrow.removeEventListener("mousemove", listener_ref)
+                            m_cursor_states(prev_c);
+                            d_arrow = "";
+                            prev_d_arrow = "";
+
+                        });
+
+
+
+                        el_h_event.current.push(h_arrow);
+
+                    }
+                });
             });
 
         }
@@ -1670,6 +1786,7 @@ function MyApp({ Component, pageProps }) {
                     m_cursor_states={m_cursor_states}
                     s_trigger_anim={s_trigger_anim}
                     s_ref={s_ref}
+                    sendSwiperInstance={getSwiperInstance}
                 />
             </>
         </>
