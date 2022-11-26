@@ -96,6 +96,7 @@
 }
 
 
+
 @media only screen and (max-width: 1024px) {
 	.mouseCursor {
 		display: none;
@@ -103,6 +104,19 @@
 
 	body {
 		cursor: auto;
+	}
+}
+
+/* Changing const */
+
+@media only screen and (min-width: 1024px) {
+	body{
+		--scale_f : 0.69
+	}
+}
+@media only screen and (max-width: 1023px) {
+	body{
+		--scale_f : 2.667
 	}
 }
 
@@ -1290,34 +1304,34 @@ section.homeHeadSection {
 
 	.Works-slide {
 		/* pointer-events: none; */
-		width: calc(31.25vw * 2.667);
-		height: calc(45vw * 2.667);
+		width: calc(31.25vw *var(--scale_f));
+		height: calc(45vw *var(--scale_f));
 		padding: 0;
 	}
 
 	.Works-slider, .Works-wrapper{
-		height: calc(45vw * 2.667);
+		height: calc(45vw *var(--scale_f));
 	}
 
 	.Works-slideImage {
-		width: calc(31.25vw * 2.667);
+		width: calc(31.25vw *var(--scale_f));
 	}
 
 	.Works-slideContent{
 		left: calc(1vw * 19/3.75);
-		top: calc(30vw * 2.667);
+		top: calc(30vw *var(--scale_f));
 		width: 100%;
 
 		text-align: center;
 		justify-content: center;
 
-		height: calc(5vw * 2.667);
+		height: calc(5vw *var(--scale_f));
 	}
 
 
 	.Works-slideTitle {
-		font-size: calc(4.5vw * 2.667);
-		line-height: calc(5.5vw * 2.667);
+		font-size: calc(4.5vw *var(--scale_f));
+		line-height: calc(5.5vw *var(--scale_f));
 	}
 }
 
@@ -1734,8 +1748,8 @@ footer {
 	.footerTable span {
 		/* font-size: max(16px, min(3vw, 64px)); */
 
-		font-size: calc(1.4vw * 2.667);
-    	line-height: calc(3vw * 2.667);
+		font-size: calc(1.4vw *var(--scale_f));
+    	line-height: calc(3vw *var(--scale_f));
 	}
 
 	.footerRow h2 {
@@ -1778,9 +1792,9 @@ footer {
 	}
 
 	.footerLearnMore>p {
-		font-size: calc(1.8vw * 2.667);
+		font-size: calc(1.8vw *var(--scale_f));
 
-		margin-top: calc(2vw * 2.667);
+		margin-top: calc(2vw *var(--scale_f));
 	}
 
 	.footerTrustedBy > h2 {
@@ -1809,7 +1823,7 @@ footer {
 	}
 
 	/* .trusterSliderItem img{
-		width: calc(7vw * 2.667);
+		width: calc(7vw *var(--scale_f));
 	} */
 
 
@@ -1824,7 +1838,7 @@ footer {
 		border-radius: 2.5rem;
 		padding: 0 max(50px, min(calc(4.5vw * 4), 150px));
 
-		margin-top: calc(3vw * 2.667);
+		margin-top: calc(3vw *var(--scale_f));
 	}
 
 	.AppButton-label {
@@ -2079,8 +2093,8 @@ footer {
 
 .app-title--regular{
 	font-weight: 400;
-    font-size: calc(5vw * 2.667);
-    line-height: calc(6.2vw * 2.667);
+    font-size: calc(5vw *var(--scale_f));
+    line-height: calc(6.2vw *var(--scale_f));
 }
 
 .WorksListItem-title {
@@ -2257,9 +2271,9 @@ footer {
 	}
 
 	.Listfilters-listItemCount{
-		font-size: calc(1.4vw * 2.667);
-		line-height: calc(1.7vw * 2.667);
-		top: calc(-1.5vw * 2.667);
+		font-size: calc(1.4vw *var(--scale_f));
+		line-height: calc(1.7vw *var(--scale_f));
+		top: calc(-1.5vw *var(--scale_f));
 	}
 
 	.WorksListItem-thumbnail {
@@ -2497,8 +2511,8 @@ img.OtherDirectors-Image {
 
 	.OnBoardDirector-About,
 	.OtherDirectors-ListItem>span {
-		font-size: calc(1.8vw * 2.667);
-		line-height: calc(2vw * 2.667);
+		font-size: calc(1.8vw *var(--scale_f));
+		line-height: calc(2vw *var(--scale_f));
 		margin-top: 20px;
 		width: 90%;
 	}
@@ -2887,7 +2901,7 @@ button.FormButton .AppButton-label{
 	}
 
 	.Label:nth-child(n+2){
-		margin-top: calc( 5vw * 2.667 );
+		margin-top: calc( 5vw *var(--scale_f) );
 	}
 
 	.Label-header h2{
@@ -2931,19 +2945,19 @@ button.FormButton .AppButton-label{
 	/* Title Section */
 
 	.AboutCarousel-section{
-		height: calc( 45vw * 2.667 );
+		height: calc( 45vw *var(--scale_f) );
 	}
 
 	.AboutTitle-wrapper{
-		margin-top: calc( 27vw * 2.667 );
+		margin-top: calc( 27vw *var(--scale_f) );
 	}
 
 	.AboutTitle-title{
 		/* font-size: max(22px, min(8vw, 128px));
 		line-height: max(22px, min(10vw, 128px)); */
 
-		font-size: calc(4vw * 2.667);
-		line-height: calc(5.5vw * 2.667);
+		font-size: calc(4vw *var(--scale_f));
+		line-height: calc(5.5vw *var(--scale_f));
 
 		font-weight: 500;
 	}
@@ -3003,7 +3017,7 @@ button.FormButton .AppButton-label{
 }
 
 .Vision-itemHead{
-	padding-bottom: calc(6vw * 2.667);
+	padding-bottom: calc(6vw *var(--scale_f));
     position: relative;
     transition: transform .3s cubic-bezier(.165,.84,.44,1) 0s;
 }
@@ -3226,7 +3240,7 @@ button.FormButton .AppButton-label{
 }
 
 .Vision-itemSkills {
-    padding-top: calc(4.5vw * 2.667);
+    padding-top: calc(4.5vw *var(--scale_f));
     width: 100%;
     pointer-events: none;
 }
@@ -3300,19 +3314,19 @@ button.FormButton .AppButton-label{
 	}
 
 	.Vision-title {
-		width: calc(33.33333vw * 2.667);
+		width: calc(33.33333vw *var(--scale_f));
 	}
 
 	.HomeTitle-surtitle{
-		margin-left: calc(4.16667vw * 2.667);
+		margin-left: calc(4.16667vw *var(--scale_f));
 	}
 
 	.Vision-title .HomeTitle-title--l2 {
-		margin-left: calc(6.25vw * 2.667);
+		margin-left: calc(6.25vw *var(--scale_f));
 	}
 
 	.Vision-wrapper{
-		width: calc(33.3333vw * 2.667);
+		width: calc(33.3333vw *var(--scale_f));
     	height: auto;
 	}
 
@@ -3323,30 +3337,30 @@ button.FormButton .AppButton-label{
 
 	.Vision-itemHead::after {
 		left: 50%;
-		margin-left: calc(-2vw * 2.667);
+		margin-left: calc(-2vw *var(--scale_f));
 	}
 
 	.Vision-itemHead:after {
-		width: calc(4vw * 2.667);
+		width: calc(4vw *var(--scale_f));
 	}
 
 	.Vision-itemSubtitle {
-		font-size: calc(3.2vw * 2.667);
-		line-height: calc(3.8vw * 2.667);;
-		/* margin-bottom: calc(1.2vw * 2.667);; */
-		margin-top: calc(-1.2vw * 2.667);;
+		font-size: calc(3.2vw *var(--scale_f));
+		line-height: calc(3.8vw *var(--scale_f));;
+		/* margin-bottom: calc(1.2vw *var(--scale_f));; */
+		margin-top: calc(-1.2vw *var(--scale_f));;
 	}
 
 	.Vision-item:first-child {
-		margin-top: calc(15vw * 2.667);
+		margin-top: calc(15vw *var(--scale_f));
 	}
 
 	.Vision-item:nth-child(n+1) {
-		margin-top: calc(2vw * 2.667);
+		margin-top: calc(2vw *var(--scale_f));
 	}
 
 	.Vision {
-		margin: calc(14vw * 2.667) auto;
+		margin: calc(14vw *var(--scale_f)) auto;
 	}
 
 	.Vision-bg {
@@ -3696,5 +3710,38 @@ button.FormButton .AppButton-label{
 	.app-text--regular {
 		font-size: calc(3.2 * 0.69 * 1vw);
 		line-height: calc(4.8 * 0.69 * 1vw);
+	}
+}
+
+@media only screen and (max-width: 1023px){
+	.ExpertItem-wrapImage {
+		width: calc(30 *var(--scale_f) * 1vw);
+		height: calc(30 *var(--scale_f) * 1vw);
+	}
+
+	.app-text--regular {
+		font-size: calc(2.4 *var(--scale_f) * 1vw);
+		line-height: calc(3.6 *var(--scale_f) * 1vw);
+	}
+
+	.ExpertItem.large .ExpertItem-blob {
+		width: calc(40 *var(--scale_f) * 1vw);
+		height: calc(40 *var(--scale_f) * 1vw);
+		margin-top: calc(-20 *var(--scale_f) * 1vw);
+		margin-left: calc(-20 *var(--scale_f) * 1vw);
+	}
+
+	.ExpertItem-canvas {
+		position: absolute;
+		left: -5%;
+		top: -10%;
+		width: 110%;
+		height: calc(1.2 * 30 *var(--scale_f) * 1vw);
+		z-index: -1;
+	}
+
+	.ExpertItem-canvas canvas {
+		width: 100%;
+		height: 100%;
 	}
 }

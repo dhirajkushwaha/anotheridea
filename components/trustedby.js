@@ -20,9 +20,18 @@ function ListenerEl(props){
 
     const swiper = useSwiper();
 
-    useEffect(() => {
-      props.sendSwiperInstance(swiper)
+    const swipe_left = () => {
+        swiper.slidePrev();
+    }
 
+    const swipe_right = () => {
+        swiper.slidePrev();
+    }
+
+    useEffect(() => {
+        if ( swiper != undefined ){
+            props.sendSwiperInstance(swiper)
+        }
     }, [])
 
 
