@@ -39,9 +39,13 @@ function OnBoardItem(props){
                     // y: Math.round(y*100)/100
                 };
 
-                this.r =  (Math.random()*14 + 2);
-                this.vx = ((Math.random()-0.5)*0.2);
-                this.vy = ((Math.random()-0.5)*0.2);
+                this.r =  (Math.random()*14 + 5);
+                this.vx = ((Math.random()-0.5));
+                this.vy = ((Math.random()-0.5));
+
+                this.ivx = this.vx
+                this.ivy = this.vx
+                
                 this.accX = 0;
                 this.accY = 0;
 
@@ -50,10 +54,16 @@ function OnBoardItem(props){
 
             Particle.prototype.render = function() {
 
-                this.accX = (this.dest.x - this.x)/10000000000;
-                this.accY = (this.dest.y - this.y)/10000000000;
-                this.vx += this.accX;
-                this.vy += this.accY;
+                if ( this.x + this.vx > ww ){
+                    this.vx = -this.vx;
+                } else if ( this.x + this.vx < 0 ) {
+                    this.vx = -this.vx;
+                }
+                if ( this.y + this.vy > wh ){
+                    this.vy = -this.vy;
+                } else if ( this.y + this.vy < 0 ) {
+                    this.vy = -this.vy;
+                }
 
                 this.x += this.vx;
                 this.y += this.vy;
@@ -74,19 +84,6 @@ function OnBoardItem(props){
                 //     this.vx += this.accX;
                 //     this.vy += this.accY;
                 // }
-
-                // random motion
-                const g_li = ( val ) => {
-                    return Math.round(val/10)*10
-                }
-                if ( g_li(this.x) == g_li(this.dest.x) && g_li(this.y) == g_li(this.dest.y) ){
-                    this.dest = {
-                        x : Math.random()*ww,
-                        y : Math.random()*wh
-                        // x : Math.round(Math.random()*ww),
-                        // y : Math.round(Math.random()*wh)
-                    }
-                }
 
             }
 

@@ -129,7 +129,7 @@ export default function Team(){
             particles = [],
             amount = 0,
             mouse = {x:0,y:0},
-            radius = 3;
+            radius = 1;
 
             var colors = ["#fff","#5541F8","#373737"];
             var amount = 100;
@@ -148,8 +148,14 @@ export default function Team(){
                 };
 
                 this.r =  (Math.random()*4 + 2);
-                this.vx = ((Math.random()-0.5)*0.2);
-                this.vy = ((Math.random()-0.5)*0.2);
+                this.vx = ((Math.random()-0.5));
+                this.vy = ((Math.random()-0.5));
+
+                this.ivx = this.vx
+                this.ivy = this.vx
+
+                // this.accX = ((Math.random()-0.5));
+                // this.accY = ((Math.random()-0.5));
                 this.accX = 0;
                 this.accY = 0;
 
@@ -158,27 +164,21 @@ export default function Team(){
 
             Particle.prototype.render = function() {
 
-                // this.accX = (this.dest.x - this.x)/500000000;
-                // this.accY = (this.dest.y - this.y)/500000000;
-                this.accX = (Math.random()-0.5)/1000;
-                this.accY = (Math.random()-0.5)/1000;
-
-                this.vx += this.accX;
-                this.vy += this.accY;
-
-                if ( this.x > ww ){
-                    this.x -= Math.sign(this.vx)*this.vx;
-                } else {
-                    this.x += this.vx;
+                if ( this.x + this.vx > ww ){
+                    this.vx = -this.vx;
+                } else if ( this.x + this.vx < 0 ) {
+                    this.vx = -this.vx;
                 }
-                if ( this.y > wh ){
-                    this.y -= Math.sign(this.vx)*this.vy;
-                } else {
-                    this.y += this.vy;
+                if ( this.y + this.vy > wh ){
+                    this.vy = -this.vy;
+                } else if ( this.y + this.vy < 0 ) {
+                    this.vy = -this.vy;
                 }
 
-                // this.x += this.vx;
-                // this.y += this.vy;
+                // if ( this.ivx )
+
+                this.x += this.vx;
+                this.y += this.vy;
 
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
@@ -186,16 +186,20 @@ export default function Team(){
                 ctx.fill();
 
                 // mouse avoiding
-                var a = this.x - mouse.x;
-                var b = this.y - mouse.y;
+                // var a = this.x - mouse.x;
+                // var b = this.y - mouse.y;
 
-                var distance = Math.sqrt( a*a + b*b );
-                if(distance<(radius*70)){
-                    this.accX = (this.x - mouse.x)/100;
-                    this.accY = (this.y - mouse.y)/100;
-                    this.vx += this.accX;
-                    this.vy += this.accY;
-                }
+                // var distance = Math.sqrt( a*a + b*b );
+                // if(distance<(radius*70)){
+                //     // // this.accX = (this.x - mouse.x)/100;
+                //     // // this.accY = (this.y - mouse.y)/100;
+                //     // this.vx = Math.sign((this.x - mouse.x)/100)*this.vx;
+                //     // this.vy = Math.sign((this.y - mouse.y)/100)*this.vx;
+                //     this.accX = (this.x - mouse.x)/100;
+                //     this.accY = (this.y - mouse.y)/100;
+                //     this.vx += this.accX;
+                //     this.vy += this.accY;
+                // }
 
                 // random motion
                 // const g_li = ( val ) => {
