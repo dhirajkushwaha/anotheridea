@@ -108,7 +108,8 @@ function MyApp({ Component, pageProps }) {
             locomotiveScrollInstance.current = new LocomotiveScroll.default({
                 el: document.querySelector("[data-scroll-container]"),
                 smooth: true,
-                lerp: 0.11
+                // lerp: 0.11
+                lerp: 0.10
             });
         });
 
@@ -179,7 +180,7 @@ function MyApp({ Component, pageProps }) {
                 if ( router.asPath == "/" ) { gsap.set(".Slide-popup", {y:scrollMag}); }
 
                 // Text Animation <1023px
-                if ( router.asPath == "/" ) {
+                if ( router.asPath == "/" && false ) {
                     let vision_bg_pos = scrollMag;
                     let vision_height = document.querySelector(".Vision").getBoundingClientRect().height
                     let vision_pos = document.querySelector(".Vision").getBoundingClientRect().y + scrollMag - vision_height/2
@@ -306,29 +307,36 @@ function MyApp({ Component, pageProps }) {
                 easeValueOutTime = element.style.getPropertyValue("--ease-end-duration");
 
 
-            let hover_state = false;
+            let once_hov = false;
+            let mouse_hov = false;
+            let anim_state = false;
 
 
             element.addEventListener("mousemove", (e)=>{
 
-                let relativePos = getRelativePos(e.target)
-                // element.style.setProperty("--x", (relativePos[0]).toString() + "px")
-                // element.style.setProperty("--y", (relativePos[1]).toString() + "px")
+                // if ( !mouse_hov ) return;
 
-                gsap.to(element, {duration: 1, "--x": (relativePos[0]).toString() + "px", "--y": (relativePos[1]).toString() + "px" })
+                let relativePos = getRelativePos(e.target);
 
-                // hover_state = true;
+                gsap.to(element, {duration: 1, "--x": (relativePos[0]).toString() + "px", "--y": (relativePos[1]).toString() + "px" });
+                // if ( anim_state == true ) gsap.to(e.target, { duration: 0.7, "--r":`${max_radius}px`, ease: easeValueIn});
+                // gsap.to(e.target, { duration: 0.7, "--r":`${max_radius}px`, ease: easeValueIn});
+
+
             })
 
             element.addEventListener("mouseenter", (e)=>{
-                max_radius = element.clientWidth*1.4;
-                gsap.fromTo(e.target, { "--r":"0px", ease: easeValueOut}, { duration: 0.7, "--r":`${max_radius}px`, ease: easeValueIn})
+                if ( !once_hov ) max_radius = element.clientWidth*1.4;
+                gsap.fromTo(e.target, { "--r":"0px", ease: easeValueOut}, { duration: 0.7, "--r":`${max_radius}px`, ease: easeValueIn, onComplete: ()=>{ anim_state = true; } })
+
+                once_hov = true;
+                mouse_hov = true;
             })
 
             element.addEventListener("mouseleave", (e)=>{
-                gsap.fromTo(e.target, { "--r":`${max_radius}px`, ease: easeValueIn}, { duration: easeValueOutTime, "--r":"0px", ease: easeValueOut})
+                gsap.fromTo(e.target, { "--r":`${max_radius}px`, ease: easeValueIn}, { duration: easeValueOutTime, "--r":"0px", ease: easeValueOut, onComplete: ()=>{ anim_state = false; }})
 
-                // hover_state = false;
+                mouse_hov = false;
             })
 
         });
@@ -672,7 +680,7 @@ function MyApp({ Component, pageProps }) {
         //  "<route>": {main_target:"<root_class_cont or just el>", head_obj:"<main_heading>", opacity_obj:"<>", lower_part:"<>", button:"<button_root_class>"}
             "/" : {main_target: [".ideasTitle", ".footerLearnMore", ".ideasBehind-wrapper", ".Works-slider", ".ideasImageCarousel", ".footerTrustedBy", ".Vision-title",        ".Vision-title",        ".Vision-title"],
                     head_obj:   [".ideasTitle > h1", ".footerLearnMore > h4, .footerLearnMore > h1", "", "", "", "",                                    ".HomeTitle-surtitle",  ".HomeTitle-title--l1", ".HomeTitle-title--l2" ],
-                    opacity_obj:["", " > p", ".ideasBehind-item", "", ".swiper", "h2, .trusterSlider", "", "", ""],
+                    opacity_obj:["", " > p", ".ideasBehind-item", "", ".swiper", "h2, .trusterSliderItem", "", "", ""],
                     // slide_obj:["", "", "", ".Works-wrapper", "", ""],
                     opacity_dur:["undef", "undef", "0.5", "0.5", "0.5", "0.5", "", "", ""],
                     button_obj: ["", ".AppButton", "", "", "", "", "", "", ""],
@@ -703,7 +711,7 @@ function MyApp({ Component, pageProps }) {
             // animtating
             if ( Splitting === undefined ) return;
             if ( split_t_anim_cl[router.asPath] !== undefined ){
-                let c_p_l = split_t_anim_cl[router.asPath]
+                let c_p_l = split_t_anim_cl[window.location.pathname]
                 c_p_l.main_target.forEach( (target_bunch, index) => {
 
                     let target_bunch_copy = target_bunch
@@ -896,7 +904,7 @@ function MyApp({ Component, pageProps }) {
         });
 
         // only home page animations
-        if ( router.asPath === "/" &&  window.innerWidth >= 1024 ){
+        if ( window.location.pathname === "/" ){
 
             {// works slider section
                 let s_ref_interv = setInterval(() => {
@@ -907,7 +915,7 @@ function MyApp({ Component, pageProps }) {
                     const w_s_tl =  gsap.timeline({
                         defaults : {
                             duration: 1,
-                            ease: "sine",
+                            // ease: "sine",
                         },
                         scrollTrigger:{
                             trigger: ".Works-slider",
@@ -923,12 +931,15 @@ function MyApp({ Component, pageProps }) {
                     })
 
                     w_s_tl
-                        .from(".Works-slider", { opacity: 0, duration: 0.5 })
+                        .fromTo(".Works-slider", { opacity: 0 }, { opacity: 1, duration: 1 })
                         // .from(".Works-slideInner", { x: `${( 80 * 0.69 )}vw` }, "<0")
                         .to(s_ref.current, {
                             currentX: 0,
                             duration: 1.5,
                             ease: "circ",
+                            // ease: "power.inOut",
+                            // ease: "sine.in",
+                            // ease: "none",
                             onComplete: ()=>{
                                 s_ref.current.snappingState = 1
                             }
@@ -943,379 +954,390 @@ function MyApp({ Component, pageProps }) {
                 }, 0);
             }
 
-            {// animation of vision sections
+            if ( window.innerWidth >= 1024  ){
+                {// animation of vision sections
 
-                // reference to be used in scroll trigger attributes
-                let page_scroller = document.querySelector("[data-scroll-container]");
+                    // reference to be used in scroll trigger attributes
+                    let page_scroller = document.querySelector("[data-scroll-container]");
 
-                {// Ending animation
-
-                    let end_tl = gsap.timeline({
-                        defaults:{ duration:0.7, ease:"sine" },
-                        scrollTrigger:{
-                            trigger: ".Vision",
-                            scroller: page_scroller,
-                            start: "bottom top+=20%",
-                            end: "bottom top",
-                            scrub: true,
-                        }
-                    })
-
-                    end_tl
-                        // .fromTo(".Vision-bg", { opacity: 0.9 }, { opacity: 0.9 }, "<0")
-                        .to(".Vision-bgCircle", { opacity: 0 })
-                        .to(".Vision .BackgroundCross-inner", { opacity: 0 }, "<0");
-
-                    // forcing the values, as they get distrupted by above one
-                    // gsap.set(".Vision-bgCircle", { scale: 2, opacity: 0 });
-
-                }
-
-                {// image poping animation
-
-                    // checks if last time an element was played or not, to avoid infinite plays
-                    let prev_pl_state = [false, false, false, false]
-
-                    let scroll_vec = +1;
-                    let prev_prog = 0;
-
-                    // image animating function
-                    const anim_img = (img_index_N, range_N)=> {
-
-                        if ( router.asPath !== "/" ) return;
-
-                        let this_index = img_index_N // index in natural number
-                        let index_by_array = this_index-1
-
-                        let prev_class = undefined, next_class = undefined;
-
-                        if ( img_index_N != range_N[0] ) { prev_class = ".Vision-item:nth-child("+(this_index-1)+")"} // avoid first image
-                        let this_class = ".Vision-item:nth-child("+this_index+")"
-                        if ( img_index_N != range_N[range_N.length-1] ) { next_class = ".Vision-item:nth-child("+(this_index+1)+")"} // avoid last image
-
-                        try { // as to counter any senseless error
-
-                            let an_prog_val = document.querySelector(this_class.replace("-item", "-bgItem")).style.getPropertyValue("--val") // being set while animation playes through
-
-                            if ( an_prog_val <= 5 || (an_prog_val >= 100 && img_index_N == range_N[range_N.length-1]) ){ // in the initial range the image this make it remain invisible or // when animation is fully completed the
-
-                                // putting current img to zero state
-                                gsap.to(this_class.replace("-item", "-bgItem"), {scale: 0.6, opacity:0});
-                                document.querySelector(this_class).classList.remove("active");
-
-                                prev_pl_state[index_by_array] = false;
-
-                            } else { // playes for once when entering the range
-
-                                if ( prev_pl_state[index_by_array] ) return; // doesn't playes if already played and has not yet changed image.
-
-                                gsap.to(
-                                    `${ ( prev_class != undefined ) ? prev_class.replace("-item", "-bgItem") : "" } ${ ( prev_class != undefined && next_class != undefined) ? ", " : "" } ${ ( next_class != undefined ) ? next_class.replace("-item", "-bgItem") : "" }`,
-                                    { // setting the previous element to invisible state, then
-                                        scale: 0.6,
-                                        opacity:0,
-                                        duration: ( (img_index_N == range_N[0] && !prev_pl_state[index_by_array+1] && scroll_vec == +1) || (img_index_N == range_N[range_N.length-1] && !prev_pl_state[index_by_array-1] && scroll_vec == -1) ) ? 0 : 0.5, // as to avoid too much delay while the first scroll happens into the animation
-                                        onComplete: ()=> { // setting up the current image as the visible
-
-                                            let Vision_bgItem = document.querySelectorAll(".Vision-bgItem")
-                                            for (let i = 0; i < range_N[1]; i++) {
-                                                if ( i != index_by_array ){
-                                                    gsap.to(Vision_bgItem[i], {scale: 0.6, opacity:0, duration:0.5} )
-                                                }
-                                            }
-
-                                            // to be made fluent
-                                            gsap.fromTo(this_class.replace("-item", "-bgItem"), {scale: 1.4, opacity:0}, {scale: 1, opacity:1 }); // scale in
-                                            gsap.fromTo(this_class.replace("-item", "-bgItem")+" .Vision-bgItemWrapImage", {scale: 1}, {scale: 1.4}); // scale out
-
-                                            // swaping the ending dash
-                                            if ( prev_class != undefined ) { document.querySelector(prev_class).classList.remove("active"); }
-                                            document.querySelector(this_class).classList.add("active");
-                                            if ( next_class != undefined ) { document.querySelector(next_class).classList.remove("active"); }
-
-                                        }
-                                });
-
-                                if ( prev_class != undefined ) { prev_pl_state[index_by_array-1] = false; }
-                                prev_pl_state[index_by_array] = true;
-                                if ( next_class != undefined ) { prev_pl_state[index_by_array+1] = false; }
-
-
-                            }
-
-                        } catch (error) {}
-
-                    }
-
-                    // let limits = [55, 115] // (>= 1024)
-                    // let limits = [55, 85] // (>= 1024)
-                    let limits = [55, 85 + 26.66*3] // (>= 1024)
+                    let el_vision = document.querySelector(".Vision")
+                    let percen_vision = ((el_vision.clientHeight + parseInt((window.getComputedStyle(el_vision).marginTop).replace("px")) + 0.07*parseInt((window.getComputedStyle(el_vision).marginBottom).replace("px")))/window.innerHeight)*100 - 55;
 
                     // what changes are made,
                         // 15% from all other slides other than first one.
                         // so, 15*3vw ~ 26.66% of vh to be increased
 
-                    // if (document.body.clientWidth <= 1023) { limits = [55, 65] }
+                    //  As can be intuitively thought second limit can be set as per the dimensions of .vision element,
+                    //      Particularly (0.98 of the height + top margin) / (height of screen)
 
-                    let visionItem_tl = gsap.timeline({
-                        defaults:{
-                            duration: 0.25
-                        },
-                        scrollTrigger:{
-                            trigger: ".Vision-item:first-child",
-                            scroller: page_scroller,
-                            start: "top top+=up%".replace("up", limits[0]), // It is (limits[0] + limits[1])% of scrubbing area with
-                            end: "top top-=low%".replace("low", limits[1]), // 0, 0.25, 0.5, 0.75 triggering spots of four animations in (limits[0] + limits[1])% of screen
-                            scrub: 1, // To give a lag of 1 second.
-                            onUpdate : self => {
-                                scroll_vec = (self.progress.toFixed(3) - prev_prog) // measuring the change
-                                scroll_vec = scroll_vec/Math.sign(scroll_vec)*scroll_vec  // getting the direction
-                                prev_prog = scroll_vec + prev_prog // remembering what was the progress
+
+                    {// Ending animation
+
+                        let end_tl = gsap.timeline({
+                            defaults:{ duration:0.7, ease:"sine" },
+                            scrollTrigger:{
+                                trigger: ".Vision",
+                                scroller: page_scroller,
+                                start: "bottom top+=20%",
+                                end: "bottom top",
+                                scrub: true,
                             }
-                        }
-                    });
+                        })
 
-                    // line bt line animation of each Image
-                    visionItem_tl
-                        .fromTo(".Vision-bgItem:first-child", {"--val":0}, {
-                            "--val":100,
-                            onUpdate: ()=> {
-                                anim_img(1, [1, 4])
-                            }
-
-                        }, 0)
-                        .fromTo(".Vision-bgItem:nth-child(2)", {"--val":0}, {
-                            "--val":100,
-                            onUpdate: ()=> {
-                                anim_img(2, [1, 4])
-                            }
-                        }, 0.25)
-                        .fromTo(".Vision-bgItem:nth-child(3)", {"--val":0}, {
-                            "--val":100,
-                            onUpdate: ()=> {
-
-                                anim_img(3, [1, 4])
-
-                            }
-                        }, 0.5)
-                        .fromTo(".Vision-bgItem:nth-child(4)", {"--val":0}, {
-                            "--val":100,
-                            onUpdate: ()=> {
-                                anim_img(4, [1, 4])
-                            }
-                        }, 0.75)
-
-                    // nullifyinh errors caused by code above
-                    let last_index = 4;
-                    gsap.to(".Vision-bgItem:nth-child(index)".replace("index", last_index),
-                        { // setting last element as not visible, as being made visible by above code
-                            scale: 0.6,
-                            opacity:0,
-                            onComplete:()=>{
-                                    gsap.to(".Vision-bgItem:nth-child(index)".replace("index", last_index), {scale: 0.6, opacity:0});
-
-                                    document.querySelector(".Vision-item:first-child").classList.remove("active");
-                                    document.querySelector(".Vision-item:nth-child(index)".replace("index", last_index)).classList.remove("active");
-                                }
-                        }
-                    );
-
-                }
-
-                {// (not in use) changes in the animation elements( circle ) on the mentioned position
-                    // let sec_tl = gsap.timeline({
-                    // defaults:{
-                    //     ease: "sine"
-                    // },
-                    // scrollTrigger:{
-                    //     trigger: ".Vision",
-                    //     scroller: page_scroller,
-                    //     start: "top top",
-                    //     end: "top top-=30%",
-                    //     // end: "top top-=30%",
-                    //     scrub: true
-                    // }
-                    // });
-
-                    // deprecated currently
-                    // sec_tl
-                    //     .fromTo(".Vision-bgAnimatedLogoVideo", {scale:"1"}, {scale:"0"})
-                    //     .fromTo(".Vision-bgCircle", {scale:"1"}, {scale:"0.8"}, "<0");
-                }
-
-                {// initial motion into the animation
-                    let init_tl = gsap.timeline({
-                        defaults:{
-
-                        },
-                        scrollTrigger:{
-                            trigger: ".Vision-bg",
-                            scroller: page_scroller,
-                            start: "top top+=20%",
-                            end: "top top",
-                            scrub: true,
-                            // markers: true
-                        }
-                    })
-
-                    if ( window.innerWidth >= 1024){
-
-                        init_tl
-                            .fromTo(".Vision-bgAnimatedLogoVideo", {scale:"0.0146"}, {scale:"1"} ) // not visible currently( display: none )
-                            .fromTo(".Vision-bg", { opacity: 0.9 }, { opacity: 0.9 }, "<0")
-                            .fromTo(".Vision-bgCircle", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 0.1 }, "<0")
-                            .fromTo(".Vision .BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.3 }, "<0");
+                        end_tl
+                            // .fromTo(".Vision-bg", { opacity: 0.9 }, { opacity: 0.9 }, "<0")
+                            .to(".Vision-bgCircle", { opacity: 0 })
+                            .to(".Vision .BackgroundCross-inner", { opacity: 0 }, "<0");
 
                         // forcing the values, as they get distrupted by above one
-                        gsap.set(".Vision-bgCircle", { scale: 2, opacity: 0 });
+                        // gsap.set(".Vision-bgCircle", { scale: 2, opacity: 0 });
 
                     }
 
-                }
+                    {// image poping animation
 
-                {// while scrolling through the section
+                        // checks if last time an element was played or not, to avoid infinite plays
+                        let prev_pl_state = [false, false, false, false]
 
-                // let limits = [55, 115+11] // (>= 1024)
-                // if (document.body.clientWidth <= 1023) { limits = [55, 65+11] }
+                        let scroll_vec = +1;
+                        let prev_prog = 0;
+                        let scroll_prog = 0;
 
-                // changes, as the things change
-                let limits = [55, 85+26.66*3-30] // (>= 1024)
+                        // image animating function
+                        const anim_img = (img_index_N, range_N)=> {
 
-                if ( (document.body.clientWidth >= 1024) ) gsap.set(".Vision-bg", {transform:"translate3d(0px, calc(-57.6vh * 0.69), 0px)"});
-                gsap.fromTo(".Vision-bg",
-                    { opacity: 0.9, },
-                    {
-                        opacity: 1,
-                        scrollTrigger:{
-                            trigger: ".Vision-bg",
-                            scroller: page_scroller,
-                            start: "top top",
-                            end: "top top-=h%".replace("h", limits[0] + limits[1]),
-                            scrub: true,
-                            pin: (document.body.clientWidth >= 1024),
+                            if ( window.location.pathname !== "/" ) return;
+
+                            let this_index = img_index_N // index in natural number
+                            let index_by_array = this_index-1
+
+                            let prev_class = undefined, next_class = undefined;
+
+                            if ( img_index_N != range_N[0] ) { prev_class = ".Vision-item:nth-child("+(this_index-1)+")"} // avoid first image
+                            let this_class = ".Vision-item:nth-child("+this_index+")"
+                            if ( img_index_N != range_N[range_N.length-1] ) { next_class = ".Vision-item:nth-child("+(this_index+1)+")"} // avoid last image
+
+                            try { // as to counter any senseless error
+
+                                // let an_prog_val = document.querySelector(this_class.replace("-item", "-bgItem")).style.getPropertyValue("--val") // being set while animation playes through
+                                let an_prog_val = (scroll_prog*4 - index_by_array)*100
+                                if ( an_prog_val < 0  ){ an_prog_val = 0;}
+                                else if ( an_prog_val > 100 ){ an_prog_val = 100; }
+
+                                if ( an_prog_val <= 5 || (an_prog_val >= 100 && img_index_N == range_N[range_N.length-1]) ){ // in the initial range the image this make it remain invisible or // when animation is fully completed the
+
+                                    // putting current img to zero state
+                                    gsap.to(this_class.replace("-item", "-bgItem"), {scale: 0.6, opacity:0});
+                                    document.querySelector(this_class).classList.remove("active");
+
+                                    prev_pl_state[index_by_array] = false;
+
+                                } else { // playes for once when entering the range
+
+                                    if ( prev_pl_state[index_by_array] ) return; // doesn't playes if already played and has not yet changed image.
+
+                                    gsap.to(
+                                        `${ ( prev_class != undefined ) ? prev_class.replace("-item", "-bgItem") : "" } ${ ( prev_class != undefined && next_class != undefined) ? ", " : "" } ${ ( next_class != undefined ) ? next_class.replace("-item", "-bgItem") : "" }`,
+                                        { // setting the previous element to invisible state, then
+                                            scale: 0.6,
+                                            opacity:0,
+                                            duration: ( (img_index_N == range_N[0] && !prev_pl_state[index_by_array+1] && scroll_vec == +1) || (img_index_N == range_N[range_N.length-1] && !prev_pl_state[index_by_array-1] && scroll_vec == -1) ) ? 0 : 0.5, // as to avoid too much delay while the first scroll happens into the animation
+                                            onComplete: ()=> { // setting up the current image as the visible
+
+                                                let Vision_bgItem = document.querySelectorAll(".Vision-bgItem")
+                                                for (let i = 0; i < range_N[1]; i++) {
+                                                    if ( i != index_by_array ){
+                                                        gsap.to(Vision_bgItem[i], {scale: 0.6, opacity:0, duration:0.5} )
+                                                    }
+                                                }
+
+                                                // to be made fluent
+                                                gsap.fromTo(this_class.replace("-item", "-bgItem"), {scale: 1.2, opacity:0}, {scale: 1, opacity:1 }); // scale in
+                                                gsap.fromTo(this_class.replace("-item", "-bgItem")+" .Vision-bgItemWrapImage", {scale: 1}, {scale: 1.2}); // scale out
+
+                                                // swaping the ending dash
+                                                if ( prev_class != undefined ) { document.querySelector(prev_class).classList.remove("active"); }
+                                                document.querySelector(this_class).classList.add("active");
+                                                if ( next_class != undefined ) { document.querySelector(next_class).classList.remove("active"); }
+
+                                            }
+                                    });
+
+                                    if ( prev_class != undefined ) { prev_pl_state[index_by_array-1] = false; }
+                                    prev_pl_state[index_by_array] = true;
+                                    if ( next_class != undefined ) { prev_pl_state[index_by_array+1] = false; }
+
+
+                                }
+
+                            } catch (error) {}
+
                         }
-                    }
-                );
 
-                gsap.set(".Vision .BackgroundCross-inner", {transform:"translate3d(0px, calc(-14vw*0.69), 0px)"});
-                gsap.fromTo(".Vision .BackgroundCross-inner",
-                    {
-                        opacity: 0.3,
-                        scale: 0.95
-                    },
-                    {
-                        opacity: 1,
-                        scale: 0.8744,
-                        scrollTrigger:{
-                            trigger: ".Vision .BackgroundCross-inner",
-                            scroller: page_scroller,
-                            start: "top top",
-                            end: "bottom top",
-                            scrub: true,
-                            pin: (document.body.clientWidth >= 1024)
-                        }
-                    }
-                );
+                        // let limits = [55, 85 + 26.66*3] // (>= 1024)
+                        let limits = [55, percen_vision] // (>= 1024)
 
-                gsap.fromTo(".Vision-bgCircle",
-                    {
-                        opacity: 0.1,
-                        scale: 1
-                    },
-                    {
-                        opacity: 0.3,
-                        scale: 1.1,
-                        scrollTrigger:{
-                            trigger: ".Vision .BackgroundCross-inner",
-                            scroller: page_scroller,
-                            start: "top top",
-                            end: "bottom top",
-                            scrub: true,
-                            pin: (document.body.clientWidth >= 1024)
-                        }
-                    }
-                );
-                gsap.set(".Vision-bgCircle", {opacity: 0, scale: 0});
-                }
+                        // if (document.body.clientWidth <= 1023) { limits = [55, 65] }
 
-                {// texts poping animation on initial look
-                    [...document.querySelectorAll(".Vision-item")].forEach((el, index) => {
+                        let visionItem_tl = gsap.timeline({
+                            defaults:{
+                                duration: 0.25
+                            },
+                            scrollTrigger:{
+                                trigger: ".Vision-item:first-child",
+                                scroller: page_scroller,
+                                start: "top top+=up%".replace("up", limits[0]), // It is (limits[0] + limits[1])% of scrubbing area with
+                                end: "top top-=low%".replace("low", limits[1]), // 0, 0.25, 0.5, 0.75 triggering spots of four animations in (limits[0] + limits[1])% of screen
+                                scrub: true, // to give a lag of 1 second.
+                                onUpdate : self => {
+                                    scroll_vec = (self.progress.toFixed(3) - prev_prog) // measuring the change
+                                    scroll_vec = scroll_vec/Math.sign(scroll_vec)*scroll_vec  // getting the direction
+                                    prev_prog = scroll_vec + prev_prog // remembering what was the progress
 
-                        // On Scroll Texts Animation
-                        let visionItem1Text_a = gsap.timeline({
-                            defaults: { duration:0.7, ease:"sine" },
-                            scrollTrigger: {
-                                trigger: el,
-                                scroller: "[data-scroll-container]",
-                                start: "top top+=50%",
-                                end: "top top+=40%",
+                                    scroll_prog = self.progress.toFixed(3);
+                                }
                             }
                         });
 
-                        let index_condition = (((index+2)%2)?-1:1)
+                        // line bt line animation of each Image
+                        visionItem_tl
+                            .fromTo(".Vision-bgItem:first-child", {
+                                // "--val":0
+                            }, {
+                                // "--val":100,
+                                onUpdate: ()=> {
+                                    anim_img(1, [1, 4])
+                                }
 
-                        gsap.set(el.querySelector(".Vision-itemTitle"), {x:`${index_condition*20*0.69}vw`, y:`${15*0.69}vw`, opacity:0})
-                        gsap.set(el.querySelector(".Vision-itemSubtitle"), {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`})
-                        gsap.set(el.querySelector(".Vision-itemKeyFigures"), {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`})
+                            }, 0)
+                            .fromTo(".Vision-bgItem:nth-child(2)", {}, {
+                                onUpdate: ()=> {
+                                    anim_img(2, [1, 4])
+                                }
+                            }, 0.25)
+                            .fromTo(".Vision-bgItem:nth-child(3)", {}, {
+                                onUpdate: ()=> {
 
-                        visionItem1Text_a
-                            .fromTo(el.querySelector(".Vision-itemTitle"),      {x:`${index_condition*20*0.69}vw`, y:`${15*0.69}vw`, opacity:0}, {transform:"translate3d(0px, 0px, 0px)", opacity:1}, 0)
-                            .fromTo(el.querySelector(".Vision-itemSubtitle"),   {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`, opacity:0},  {transform:"translate3d(0px, 0px, 0px)", opacity:1}, "<0.3")
-                            .fromTo(el.querySelector(".Vision-itemKeyFigures"), {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`, opacity:0},  {transform:"translate3d(0px, 0px, 0px)", opacity:1}, "<0.3")
+                                    anim_img(3, [1, 4])
 
-                    });
-                }
-            }
+                                }
+                            }, 0.5)
+                            .fromTo(".Vision-bgItem:nth-child(4)", {}, {
+                                onUpdate: ()=> {
+                                    anim_img(4, [1, 4])
+                                }
+                            }, 0.75)
 
-            {// animation of ideasBehind
+                        // nullifyinh errors caused by code above
+                        let last_index = 4;
+                        gsap.to(".Vision-bgItem:nth-child(index)".replace("index", last_index),
+                            { // setting last element as not visible, as being made visible by above code
+                                scale: 0.6,
+                                opacity:0,
+                                onComplete:()=>{
+                                        gsap.to(".Vision-bgItem:nth-child(index)".replace("index", last_index), {scale: 0.6, opacity:0});
 
-                // reference to be used in scroll trigger attributes
-                let page_scroller = document.querySelector("[data-scroll-container]");
+                                        document.querySelector(".Vision-item:first-child").classList.remove("active");
+                                        document.querySelector(".Vision-item:nth-child(index)".replace("index", last_index)).classList.remove("active");
+                                    }
+                            }
+                        );
 
-                {// initial motion into the animation
-                    let init_tl = gsap.timeline({
-                        defaults:{
+                    }
 
-                        },
-                        scrollTrigger:{
-                            trigger: ".ideasBehind-wrapper",
-                            scroller: page_scroller,
-                            start: "top top+=50%",
-                            end: "top top+=20%",
-                            scrub: true,
-                            // markers: true
+                    {// (not in use) changes in the animation elements( circle ) on the mentioned position
+                        // let sec_tl = gsap.timeline({
+                        // defaults:{
+                        //     ease: "sine"
+                        // },
+                        // scrollTrigger:{
+                        //     trigger: ".Vision",
+                        //     scroller: page_scroller,
+                        //     start: "top top",
+                        //     end: "top top-=30%",
+                        //     // end: "top top-=30%",
+                        //     scrub: true
+                        // }
+                        // });
+
+                        // deprecated currently
+                        // sec_tl
+                        //     .fromTo(".Vision-bgAnimatedLogoVideo", {scale:"1"}, {scale:"0"})
+                        //     .fromTo(".Vision-bgCircle", {scale:"1"}, {scale:"0.8"}, "<0");
+                    }
+
+                    {// initial motion into the animation
+                        let init_tl = gsap.timeline({
+                            defaults:{
+
+                            },
+                            scrollTrigger:{
+                                trigger: ".Vision-bg",
+                                scroller: page_scroller,
+                                start: "top top+=20%",
+                                end: "top top",
+                                scrub: true,
+                                // markers: true
+                            }
+                        })
+
+                        if ( window.innerWidth >= 1024){
+
+                            init_tl
+                                .fromTo(".Vision-bgAnimatedLogoVideo", {scale:"0.0146"}, {scale:"1"} ) // not visible currently( display: none )
+                                .fromTo(".Vision-bg", { opacity: 0.9 }, { opacity: 0.9 }, "<0")
+                                .fromTo(".Vision-bgCircle", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 0.1 }, "<0")
+                                .fromTo(".Vision .BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.3 }, "<0");
+
+                            // forcing the values, as they get distrupted by above one
+                            gsap.set(".Vision-bgCircle", { scale: 2, opacity: 0 });
+
                         }
-                    })
 
-                    init_tl
-                        .fromTo(".ideasBehind-wrapper .BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.5 });
+                    }
 
-                }
+                    {// while scrolling through the section
 
-                {// while scrolling through the section
+                    // changes, as the things change
+                    let limits = [55, percen_vision-30] // (>= 1024)
 
-                    gsap.set(".ideasBehind-wrapper .BackgroundCross-inner", {transform:"translate3d(0px, calc(-14vw*0.69), 0px)"});
-                    gsap.fromTo(".ideasBehind-wrapper .BackgroundCross-inner",
+                    if ( (document.body.clientWidth >= 1024) ) gsap.set(".Vision-bg", {transform:"translate3d(0px, calc(-57.6vh * 0.69), 0px)"});
+                    gsap.fromTo(".Vision-bg",
+                        { opacity: 0.9, },
                         {
-                            opacity: 0.5,
+                            opacity: 1,
+                            scrollTrigger:{
+                                trigger: ".Vision-bg",
+                                scroller: page_scroller,
+                                start: "top top",
+                                end: "top top-=h%".replace("h", limits[0] + limits[1]),
+                                scrub: true,
+                                pin: (document.body.clientWidth >= 1024),
+                            }
+                        }
+                    );
+
+                    gsap.set(".Vision .BackgroundCross-inner", {transform:"translate3d(0px, calc(-14vw*0.69), 0px)"});
+                    gsap.fromTo(".Vision .BackgroundCross-inner",
+                        {
+                            opacity: 0.3,
                             scale: 0.95
                         },
                         {
                             opacity: 1,
                             scale: 0.8744,
                             scrollTrigger:{
-                                trigger: ".ideasBehind-wrapper .BackgroundCross-inner",
+                                trigger: ".Vision .BackgroundCross-inner",
                                 scroller: page_scroller,
                                 start: "top top",
-                                end: "top+=67% top",
+                                end: "bottom top",
                                 scrub: true,
                                 pin: (document.body.clientWidth >= 1024)
                             }
                         }
                     );
 
+                    gsap.fromTo(".Vision-bgCircle",
+                        {
+                            opacity: 0.1,
+                            scale: 1
+                        },
+                        {
+                            opacity: 0.3,
+                            scale: 1.1,
+                            scrollTrigger:{
+                                trigger: ".Vision .BackgroundCross-inner",
+                                scroller: page_scroller,
+                                start: "top top",
+                                end: "bottom top",
+                                scrub: true,
+                                pin: (document.body.clientWidth >= 1024)
+                            }
+                        }
+                    );
+                    gsap.set(".Vision-bgCircle", {opacity: 0, scale: 0});
+                    }
+
+                    {// texts poping animation on initial look
+                        [...document.querySelectorAll(".Vision-item")].forEach((el, index) => {
+
+                            // On Scroll Texts Animation
+                            let visionItem1Text_a = gsap.timeline({
+                                defaults: { duration:0.7, ease:"sine" },
+                                scrollTrigger: {
+                                    trigger: el,
+                                    scroller: "[data-scroll-container]",
+                                    start: "top top+=50%",
+                                    end: "top top+=40%",
+                                }
+                            });
+
+                            let index_condition = (((index+2)%2)?-1:1)
+
+                            gsap.set(el.querySelector(".Vision-itemTitle"), {x:`${index_condition*20*0.69}vw`, y:`${15*0.69}vw`, opacity:0})
+                            gsap.set(el.querySelector(".Vision-itemSubtitle"), {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`})
+                            gsap.set(el.querySelector(".Vision-itemKeyFigures"), {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`})
+
+                            visionItem1Text_a
+                                .fromTo(el.querySelector(".Vision-itemTitle"),      {x:`${index_condition*20*0.69}vw`, y:`${15*0.69}vw`, opacity:0}, {transform:"translate3d(0px, 0px, 0px)", opacity:1}, 0)
+                                .fromTo(el.querySelector(".Vision-itemSubtitle"),   {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`, opacity:0},  {transform:"translate3d(0px, 0px, 0px)", opacity:1}, "<0.3")
+                                .fromTo(el.querySelector(".Vision-itemKeyFigures"), {x:`${index_condition*10*0.69}vw`, y:`${0*0.69}vw`, opacity:0},  {transform:"translate3d(0px, 0px, 0px)", opacity:1}, "<0.3")
+
+                        });
+                    }
+                }
+
+                {// animation of ideasBehind
+
+                    // reference to be used in scroll trigger attributes
+                    let page_scroller = document.querySelector("[data-scroll-container]");
+
+                    {// initial motion into the animation
+                        let init_tl = gsap.timeline({
+                            defaults:{
+
+                            },
+                            scrollTrigger:{
+                                trigger: ".ideasBehind-wrapper",
+                                scroller: page_scroller,
+                                start: "top top+=50%",
+                                end: "top top+=20%",
+                                scrub: true,
+                                // markers: true
+                            }
+                        })
+
+                        init_tl
+                            .fromTo(".ideasBehind-wrapper .BackgroundCross-inner", { scale: 1, opacity: 0 }, { scale: 0.95, opacity: 0.5 });
+
+                    }
+
+                    {// while scrolling through the section
+
+                        gsap.set(".ideasBehind-wrapper .BackgroundCross-inner", {transform:"translate3d(0px, calc(-14vw*0.69), 0px)"});
+                        gsap.fromTo(".ideasBehind-wrapper .BackgroundCross-inner",
+                            {
+                                opacity: 0.5,
+                                scale: 0.95
+                            },
+                            {
+                                opacity: 1,
+                                scale: 0.8744,
+                                scrollTrigger:{
+                                    trigger: ".ideasBehind-wrapper .BackgroundCross-inner",
+                                    scroller: page_scroller,
+                                    start: "top top",
+                                    end: "top+=67% top",
+                                    scrub: true,
+                                    pin: (document.body.clientWidth >= 1024)
+                                }
+                            }
+                        );
+
+                    }
                 }
             }
+
 
         }
     }

@@ -77,7 +77,7 @@ export default function Team(){
         ["./assets/team_profiles/smaran_gandhi.JPG", "Smaran Gandhi", "Executive Producer"],
         ["./assets/team_profiles/srushti_iyer.JPG", "Shruti Iyer", "Senior Producer"],
         ["./assets/team_profiles/nidhi_gandhi.jpg", "Nidhi Gandhi", "Senior Producer"],
-        ["./assets/team_profiles/ishaandeep_awasty.JPEG", "Ishaandeep Awasty", "Producer"],
+        ["./assets/team_profiles/ishaandeep_awasty.JPEG", "Ishaan Deep Awasty", "Producer"],
         ["./assets/team_profiles/anindita_mukherjee.jpg", "Anindita Mukherjee", "Producer"],
         ["./assets/team_profiles/natasha_agarwal_jagtap.jpg", "Natasha Agarwal Jagtap", "Associate Producer"],
         ["./assets/team_profiles/manish_chougule.jpg", "Manish Chougule", "Post Producer"],
@@ -123,13 +123,14 @@ export default function Team(){
 
             var canvas = document.querySelector(".ExpertItem-canvas-large canvas"),
             canvasContainer = document.querySelector(".ExpertItem-canvas-large"),
-            // pseudoContainers = document.querySelector(".OtherDirectors-ListItem"),
             mainContainer = document.querySelector(".OnBoard-wrapper"),
             ctx = canvas.getContext("2d"),
             particles = [],
             amount = 0,
             mouse = {x:0,y:0},
-            radius = 1;
+            radius = 2,
+            friction = 0.5;
+
 
             var colors = ["#fff","#5541F8","#373737"];
             var amount = 100;
@@ -143,19 +144,28 @@ export default function Team(){
                 this.dest = {
                     x: x*100,
                     y: y*100
-                    // x: Math.round(x*100)/100,
-                    // y: Math.round(y*100)/100
                 };
+
+                if ( this.x > ww*0.95 ){
+                    this.x = ww*0.95
+                }
+                else if ( this.x < ww*0.05 ){
+                    this.x = ww*0.05
+                }
+                if ( this.y > wh*0.95 ){
+                    this.y = wh*0.95
+                }
+                else if ( this.y < wh*0.05 ){
+                    this.y = wh*0.05
+                }
 
                 this.r =  (Math.random()*4 + 2);
                 this.vx = ((Math.random()-0.5));
                 this.vy = ((Math.random()-0.5));
 
-                this.ivx = this.vx
-                this.ivy = this.vx
+                this.ivx = this.vx;
+                this.ivy = this.vy;
 
-                // this.accX = ((Math.random()-0.5));
-                // this.accY = ((Math.random()-0.5));
                 this.accX = 0;
                 this.accY = 0;
 
@@ -164,18 +174,21 @@ export default function Team(){
 
             Particle.prototype.render = function() {
 
-                if ( this.x + this.vx > ww ){
-                    this.vx = -this.vx;
-                } else if ( this.x + this.vx < 0 ) {
-                    this.vx = -this.vx;
-                }
-                if ( this.y + this.vy > wh ){
-                    this.vy = -this.vy;
-                } else if ( this.y + this.vy < 0 ) {
-                    this.vy = -this.vy;
-                }
+                // if ( Math.sqrt(this.ivx**2 + this.ivy**2) != Math.sqrt(this.vx**2 + this.vy**2) ){
+                //     this.vx = this.vx + Math.sign(this.ivx - this.vx)*friction;
+                //     this.vy = this.vy + Math.sign(this.ivy - this.vy)*friction;
+                // }
 
-                // if ( this.ivx )
+                if ( this.x + this.vx > ww - this.r ){
+                    this.vx = -this.vx;
+                } else if ( this.x + this.vx < 0 + this.r ) {
+                    this.vx = -this.vx;
+                }
+                if ( this.y + this.vy > wh - this.r  ){
+                    this.vy = -this.vy;
+                } else if ( this.y + this.vy < 0 + this.r ) {
+                    this.vy = -this.vy;
+                }
 
                 this.x += this.vx;
                 this.y += this.vy;
@@ -191,25 +204,10 @@ export default function Team(){
 
                 // var distance = Math.sqrt( a*a + b*b );
                 // if(distance<(radius*70)){
-                //     // // this.accX = (this.x - mouse.x)/100;
-                //     // // this.accY = (this.y - mouse.y)/100;
-                //     // this.vx = Math.sign((this.x - mouse.x)/100)*this.vx;
-                //     // this.vy = Math.sign((this.y - mouse.y)/100)*this.vx;
                 //     this.accX = (this.x - mouse.x)/100;
                 //     this.accY = (this.y - mouse.y)/100;
                 //     this.vx += this.accX;
                 //     this.vy += this.accY;
-                // }
-
-                // random motion
-                // const g_li = ( val ) => {
-                //     return Math.round(val/10)*10
-                // }
-                // if ( g_li(this.x) == g_li(this.dest.x) && g_li(this.y) == g_li(this.dest.y) ){
-                //     this.dest = {
-                //         x : Math.random()*ww,
-                //         y : Math.random()*wh
-                //     }
                 // }
 
             }
@@ -230,8 +228,10 @@ export default function Team(){
 
             function onMouseMove(e){
                 // adjusted to take it relative to canvas
-                mouse.x = ww * Math.floor(1000*(e.clientX - canvas.getBoundingClientRect().left)/canvasContainer.clientWidth)/1000;
-                mouse.y = wh * Math.floor(1000*(e.clientY - canvas.getBoundingClientRect().top)/canvasContainer.clientHeight)/1000;
+                // mouse.x = ww * Math.floor(1000*(e.clientX - canvas.getBoundingClientRect().left)/canvasContainer.clientWidth)/1000;
+                // mouse.y = wh * Math.floor(1000*(e.clientY - canvas.getBoundingClientRect().top)/canvasContainer.clientHeight)/1000;
+                mouse.x = ww * Math.floor(1000*(e.clientX - mainContainer.getBoundingClientRect().left)/canvasContainer.clientWidth)/1000;
+                mouse.y = wh * Math.floor(1000*(e.clientY - mainContainer.getBoundingClientRect().top)/canvasContainer.clientHeight)/1000;
             }
 
             // this function is called repeatedly many times
@@ -243,7 +243,7 @@ export default function Team(){
                 }
             };
 
-            // canvas.addEventListener("mousemove", onMouseMove);
+            // mainContainer.addEventListener("mousemove", onMouseMove);
             initScene();
             requestAnimationFrame(render);
 

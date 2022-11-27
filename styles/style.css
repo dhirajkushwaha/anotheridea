@@ -3248,7 +3248,7 @@ button.FormButton .AppButton-label{
 @media only screen and (min-width: 1024px){
 
 	.Vision {
-		margin: calc(22vw * var(--scale_f)) auto calc(30vw * var(--scale_f));
+		margin: calc(22vw * var(--scale_f)) auto calc(40vw * var(--scale_f));
 	}
 
 	.Vision-title{
@@ -3785,7 +3785,7 @@ button.FormButton .AppButton-label{
 	.ExpertItem-canvas {
 		position: absolute;
 		left: -5%;
-		top: -10%;
+		top: calc(-0.14 * 30 *var(--scale_f) * 1vw);
 		width: 110%;
 		height: calc(1.2 * 30 *var(--scale_f) * 1vw);
 		z-index: -1;

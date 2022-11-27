@@ -362,8 +362,6 @@ function WorksSliderItem(props) {
 						document.querySelector(cl_name).classList.remove("popup-hidden");
 						document.querySelector(".Header").classList.add("Header-under-element");
 						e.preventDefault();
-
-						console.log(".Works-SlideItem-"+props.index+" .Works-slideContent")
 					})
 
 					// popup remove fn
@@ -594,7 +592,6 @@ export default function Home(props) {
 		popup_instances.current = [...popup_instances.current, popup];
 
 		if ( slides_slided.current == num_slides ){
-			console.log(popup_instances.current)
 			setPopupList(popup_instances.current);
 		}
 

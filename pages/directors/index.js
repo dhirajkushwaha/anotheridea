@@ -24,10 +24,12 @@ function OnBoardItem(props){
             radius = 3;
 
             var colors = ["#fff","#5541F8","#373737"];
-            var amount = 40;
+            var amount = 20;
 
-            var ww = 1152;
-            var wh = 1152;
+            let canvas_ratio = canvasContainer.clientWidth/canvasContainer.clientHeight
+
+            var ww = canvas.width = 1152;
+            var wh = canvas.height = 1152/canvas_ratio;
 
             function Particle(x,y){
                 this.x =  (Math.random()*ww);
@@ -35,16 +37,24 @@ function OnBoardItem(props){
                 this.dest = {
                     x: x,
                     y: y
-                    // x: Math.round(x*100)/100,
-                    // y: Math.round(y*100)/100
                 };
+
+                if ( this.x > ww*0.95 ){
+                    this.x = ww*0.95
+                }
+                else if ( this.x < ww*0.05 ){
+                    this.x = ww*0.05
+                }
+                if ( this.y > wh*0.95 ){
+                    this.y = wh*0.95
+                }
+                else if ( this.y < wh*0.05 ){
+                    this.y = wh*0.05
+                }
 
                 this.r =  (Math.random()*14 + 5);
                 this.vx = ((Math.random()-0.5));
                 this.vy = ((Math.random()-0.5));
-
-                this.ivx = this.vx
-                this.ivy = this.vx
 
                 this.accX = 0;
                 this.accY = 0;
@@ -54,14 +64,14 @@ function OnBoardItem(props){
 
             Particle.prototype.render = function() {
 
-                if ( this.x + this.vx > ww ){
+                if ( this.x + this.vx > ww - this.r ){
                     this.vx = -this.vx;
-                } else if ( this.x + this.vx < 0 ) {
+                } else if ( this.x + this.vx < 0 + this.r ) {
                     this.vx = -this.vx;
                 }
-                if ( this.y + this.vy > wh ){
+                if ( this.y + this.vy > wh - this.r  ){
                     this.vy = -this.vy;
-                } else if ( this.y + this.vy < 0 ) {
+                } else if ( this.y + this.vy < 0 + this.r ) {
                     this.vy = -this.vy;
                 }
 
