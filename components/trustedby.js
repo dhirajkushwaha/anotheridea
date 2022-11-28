@@ -107,21 +107,6 @@ export default function Trustedby(props) {
                             modules={[Pagination]}
                             className="trustedBy-slider"
                         >
-                            {/* <SwiperSlide>
-                                <div className="trusterSlideWrapper">
-                                    { trusters.slice(0, 3) }
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <div className="trusterSlideWrapper">
-                                    { trusters.slice(3, 6) }
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <div className="trusterSlideWrapper">
-                                    { trusters.slice(6, 9) }
-                                </div>
-                            </SwiperSlide> */}
                             { slides }
                             <Left_click/>
                             <Right_click/>

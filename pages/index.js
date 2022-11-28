@@ -205,7 +205,6 @@ class Slider {
 				}
 			}
 
-
 			if ( 0 <= (translationVal/this.slideWidth) && (translationVal/this.slideWidth) <= 5 )
 				slide.style.setProperty("visibility", "visible")
 			else slide.style.setProperty("visibility", "hidden")
@@ -515,9 +514,11 @@ function Ideasbehindtextitem(props) {
 			ref={rootElementRef}
 		>
 			<div
-				data-label={label_left.replace(/"/g, '\\"').replace(/\n/g, '\\00000a') }
+				data-label={
+					label_left+" "+label_left //.replace(/"/g, '\\"').replace(/\n/g, '\\00000a')
+				}
 				data-label-secondary={
-					label_right.replace(/"/g, '\\"').replace(/\n/g, '\\00000a')
+					label_right+" "+label_left //.replace(/"/g, '\\"').replace(/\n/g, '\\00000a')
 				}
 				className="ideasBehind-labelWrapper"
 			>
@@ -745,7 +746,7 @@ export default function Home(props) {
 						className="vimeo-fullscreenVideo"
 						style={{ width: "1920px", height: "1080px" }}
 					>
-						{/* <iframe
+						<iframe
 							src="https://player.vimeo.com/video/772717266?h=a297e390d4&amp;title=0&amp;portrait=0&amp;muted=1&amp;autoplay=1&amp;controls=0&amp;dnt=1&amp;loop=1&amp;transparent=0&amp;background=1&amp;quality=240p&amp;app_id=122963"
 							width="640"
 							height="360"
@@ -754,7 +755,7 @@ export default function Home(props) {
 							allowFullScreen=""
 							title="Another Idea"
 							data-ready="true"
-						></iframe> */}
+						></iframe>
 					</div>
 				</div>
 			</section>
@@ -857,7 +858,7 @@ export default function Home(props) {
 
 					<div className="Vision-bg" style={{"opacity": 1}}>
 						<div className="Vision-bgAnimatedLogo">
-							<video loop={"loop"} muted={"muted"} preload={"auto"} playsInline={"true"} autoPlay
+							<video loop={true} muted={true} preload={"auto"} playsInline={true} autoPlay
 								className="Video Vision-bgAnimatedLogoVideo gifLike in-view"
 								style={{"transform": "translate3d(0px, 0px, 0px)"}}>
 								<source src="https://www.mediakeys-experience.com/_nuxt/videos/black-balls.4cc7be5.mp4"
@@ -998,8 +999,8 @@ export default function Home(props) {
 					></Ideasbehindtextitem>
 					<Ideasbehindtextitem
 						label="Post Production"
-						label_left={"Post \n Production"}
-						label_right={"Post \n Production"}
+						label_left={"Post Production"}
+						label_right={"Post Production"}
 						href="/work"
 						color="#3b33b3"
 						// skill="Lorem Ipsum"

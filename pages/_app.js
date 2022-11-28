@@ -108,8 +108,7 @@ function MyApp({ Component, pageProps }) {
             locomotiveScrollInstance.current = new LocomotiveScroll.default({
                 el: document.querySelector("[data-scroll-container]"),
                 smooth: true,
-                // lerp: 0.11
-                lerp: 0.10
+                lerp: 0.11
             });
         });
 
@@ -212,12 +211,12 @@ function MyApp({ Component, pageProps }) {
         let iframe, player;
 
         // to be uncommented
-        // if ( router.asPath == "/" ){
-        //     iframe = document.querySelector('.homeHeadSection iframe');
-        //     player = new Player(iframe);
+        if ( router.asPath == "/" ){
+            iframe = document.querySelector('.homeHeadSection iframe');
+            player = new Player(iframe);
 
-        //     player.play()
-        // }
+            player.play()
+        }
 
 
         let toggleMenuState = () => {
@@ -226,6 +225,8 @@ function MyApp({ Component, pageProps }) {
                 if ( player != undefined ) player.pause(); // pausing the home page video
 
                 let menuSecDelay = 0;
+                // let menuSecDuration = 1.5;
+                let menuSecDuration = 0.7;
 
                 if ( headerTriggerStart.current == "scroll" ){
                     locomotiveScrollInstance.current.scrollTo("top");
@@ -236,17 +237,21 @@ function MyApp({ Component, pageProps }) {
                 menuContainerRef.style.removeProperty("display");
                 gsap.set((document.body || window), { overflowY:"hidden" });
 
-                const gsapTimelineAnimation = gsap.timeline({ defaults:{ duration: 0.5, ease:"power1" } });
+                const gsapTimelineAnimation = gsap.timeline({ defaults:{
+                    duration: 0.7,
+                    // ease:"power1"
+                    ease: "power3.out"
+                 } });
 
                 let menuButtonBoundingRect = menuButtonRef.getBoundingClientRect();
 
                 gsap.set(menuContainerRef, { "--x": ((menuButtonBoundingRect.left + (menuButtonBoundingRect.width)/2).toString() + "px"), "--y": ((menuButtonBoundingRect.top + (menuButtonBoundingRect.height)/2).toString() + "px")})
-                gsap.fromTo(menuContainerRef, { "--r":"0px" }, { duration:1.5, "--r":(((window.innerWidth >= window.innerHeight ? window.innerWidth : window.innerHeight)*1.3).toString() + "px"), ease:"power3", delay:menuSecDelay });
+                gsap.fromTo(menuContainerRef, { "--r":"0px" }, { duration:menuSecDuration, "--r":(((window.innerWidth >= window.innerHeight ? window.innerWidth : window.innerHeight)*1.3).toString() + "px"), ease:"none", delay:menuSecDelay });
 
                 menuNavItem.forEach((element, index) => {
                     let delay;
                     if ( index < 1 ){
-                        delay = "<0.25"
+                        delay = "<0.2" //"<0.25"
                         if ( headerTriggerStart.current == "scroll" )
                             delay = "<0.75"
                     }
@@ -254,7 +259,7 @@ function MyApp({ Component, pageProps }) {
                         delay = "<0.01"
 
                     gsapTimelineAnimation
-                        .fromTo(element.querySelector(".Menu-navItemNum"), { x: element.querySelector(".Menu-navItemNum").clientWidth*7, opacity:0 }, { x: 0, opacity:1 }, delay)
+                        .fromTo(element.querySelector(".Menu-navItemNum"), { x: element.querySelector(".Menu-navItemNum").clientWidth*14, opacity:0.1 }, { x: 0, opacity:1 }, delay)
                         .fromTo(element.querySelector(".Menu-navItemLinkInner"), { x: element.querySelector(".Menu-navItemLinkInner").clientWidth }, { x: 0, opacity:1 }, "<0.1");
                 });
 
@@ -293,7 +298,7 @@ function MyApp({ Component, pageProps }) {
             gsap.set(element, { "--r":"0px" });
 
             var max_radius = element.clientWidth*1.1;
-            var easeValueIn = "sine";
+            var easeValueIn = "none";
             var easeValueOut = "circ";
             var easeValueOutTime = 1;
 
@@ -314,18 +319,20 @@ function MyApp({ Component, pageProps }) {
 
             element.addEventListener("mousemove", (e)=>{
 
-                // if ( !mouse_hov ) return;
+                if ( !mouse_hov ) return;
 
                 let relativePos = getRelativePos(e.target);
-
                 gsap.to(element, {duration: 1, "--x": (relativePos[0]).toString() + "px", "--y": (relativePos[1]).toString() + "px" });
                 // if ( anim_state == true ) gsap.to(e.target, { duration: 0.7, "--r":`${max_radius}px`, ease: easeValueIn});
-                // gsap.to(e.target, { duration: 0.7, "--r":`${max_radius}px`, ease: easeValueIn});
 
 
             })
 
             element.addEventListener("mouseenter", (e)=>{
+
+                let relativePos = getRelativePos(e.target);
+                gsap.to(element, {duration: 0, "--x": (relativePos[0]).toString() + "px", "--y": (relativePos[1]).toString() + "px" });
+
                 if ( !once_hov ) max_radius = element.clientWidth*1.4;
                 gsap.fromTo(e.target, { "--r":"0px", ease: easeValueOut}, { duration: 0.7, "--r":`${max_radius}px`, ease: easeValueIn, onComplete: ()=>{ anim_state = true; } })
 
@@ -1003,6 +1010,8 @@ function MyApp({ Component, pageProps }) {
                         let prev_prog = 0;
                         let scroll_prog = 0;
 
+                        let Vision_bgItem = document.querySelectorAll(".Vision-bgItem")
+
                         // image animating function
                         const anim_img = (img_index_N, range_N)=> {
 
@@ -1044,10 +1053,11 @@ function MyApp({ Component, pageProps }) {
                                             duration: ( (img_index_N == range_N[0] && !prev_pl_state[index_by_array+1] && scroll_vec == +1) || (img_index_N == range_N[range_N.length-1] && !prev_pl_state[index_by_array-1] && scroll_vec == -1) ) ? 0 : 0.5, // as to avoid too much delay while the first scroll happens into the animation
                                             onComplete: ()=> { // setting up the current image as the visible
 
-                                                let Vision_bgItem = document.querySelectorAll(".Vision-bgItem")
+                                                if ( (scroll_prog*4 - index_by_array) > 1 ) return;
+
                                                 for (let i = 0; i < range_N[1]; i++) {
                                                     if ( i != index_by_array ){
-                                                        gsap.to(Vision_bgItem[i], {scale: 0.6, opacity:0, duration:0.5} )
+                                                        gsap.to(Vision_bgItem[i], {scale: 0.6, opacity:0, duration:0.5} );
                                                     }
                                                 }
 
@@ -1088,7 +1098,7 @@ function MyApp({ Component, pageProps }) {
                                 scroller: page_scroller,
                                 start: "top top+=up%".replace("up", limits[0]), // It is (limits[0] + limits[1])% of scrubbing area with
                                 end: "top top-=low%".replace("low", limits[1]), // 0, 0.25, 0.5, 0.75 triggering spots of four animations in (limits[0] + limits[1])% of screen
-                                scrub: true, // to give a lag of 1 second.
+                                scrub: 2.5, // to give a lag of 1 second.
                                 onUpdate : self => {
                                     scroll_vec = (self.progress.toFixed(3) - prev_prog) // measuring the change
                                     scroll_vec = scroll_vec/Math.sign(scroll_vec)*scroll_vec  // getting the direction
@@ -1421,7 +1431,12 @@ function MyApp({ Component, pageProps }) {
                 router.events.on("routeChangeStart", (route)=>{
                     if ( pageMicroHistory.current.currentPage !== route ){
                         f_load_s();
-                        gsap.fromTo(".Load-screen", { y:"100vh" }, { duration:1, y:"0vh", ease:"power3"});
+                        gsap.fromTo(".Load-screen", { y:"100vh" }, {
+                            // duration:1,
+                            duration:1.4,
+                            y:"0vh",
+                            // ease:"power3"
+                        });
                     }
                     m_cursor_states("color", {color: "default"});
                 });
@@ -1459,11 +1474,16 @@ function MyApp({ Component, pageProps }) {
                     setTimeout(() => {
                         let loadingScreenInterval = setInterval(() => {
                             if ( router.isReady === true )
-                                gsap.to(".Load-screen", { duration:1, y:"-100vh", ease:"power3", onComplete:()=>{
+                                gsap.to(".Load-screen", {
+                                    // duration:1,
+                                    duration:0.7,
+                                    y:"-100vh",
+                                    // ease:"power3",
+                                    onComplete:()=>{
 
-                                    document.querySelector(".Load-screen").classList.add("--is-hidden");
+                                        document.querySelector(".Load-screen").classList.add("--is-hidden");
 
-                                }});
+                                    }});
                                 clearInterval(loadingScreenInterval);
                         }, 0);
 

@@ -198,9 +198,7 @@ function OnBoardItem(props){
 export default function Directors(){
 
     const executed = useRef(0);
-
     const [random_pos, set_random_pos] = useState([]);
-
 
     useEffect(() => {
 		if (typeof window === "undefined") { return; }
