@@ -15,122 +15,126 @@ function OnBoardItem(props){
     useEffect(() => {
 		if (typeof window === "undefined") { return; }
         if ( !executed.current){
-            var canvas = document.querySelector(".ExpertItem-canvas-"+props.index+" canvas"),
-            canvasContainer = document.querySelector(".ExpertItem-canvas-"+props.index),
-            ctx = canvas.getContext("2d"),
-            particles = [],
-            amount = 0,
-            mouse = {x:0,y:0},
-            radius = 3;
 
-            var colors = ["#fff","#5541F8","#373737"];
-            var amount = 20;
+            { // particles
+                var canvas = document.querySelector(".ExpertItem-canvas-"+props.index+" canvas"),
+                canvasContainer = document.querySelector(".ExpertItem-canvas-"+props.index),
+                ctx = canvas.getContext("2d"),
+                particles = [],
+                amount = 0,
+                mouse = {x:0,y:0},
+                radius = 3;
 
-            let canvas_ratio = canvasContainer.clientWidth/canvasContainer.clientHeight
+                var colors = ["#fff","#5541F8","#373737"];
+                var amount = 20;
 
-            var ww = canvas.width = 1152;
-            var wh = canvas.height = 1152/canvas_ratio;
+                let canvas_ratio = canvasContainer.clientWidth/canvasContainer.clientHeight
 
-            function Particle(x,y){
-                this.x =  (Math.random()*ww);
-                this.y =  (Math.random()*wh);
-                this.dest = {
-                    x: x,
-                    y: y
+                var ww = canvas.width = 1152;
+                var wh = canvas.height = 1152/canvas_ratio;
+
+                function Particle(x,y){
+                    this.x =  (Math.random()*ww);
+                    this.y =  (Math.random()*wh);
+                    this.dest = {
+                        x: x,
+                        y: y
+                    };
+
+                    if ( this.x > ww*0.95 ){
+                        this.x = ww*0.95
+                    }
+                    else if ( this.x < ww*0.05 ){
+                        this.x = ww*0.05
+                    }
+                    if ( this.y > wh*0.95 ){
+                        this.y = wh*0.95
+                    }
+                    else if ( this.y < wh*0.05 ){
+                        this.y = wh*0.05
+                    }
+
+                    this.r =  (Math.random()*14 + 5);
+                    this.vx = ((Math.random()-0.5));
+                    this.vy = ((Math.random()-0.5));
+
+                    this.accX = 0;
+                    this.accY = 0;
+
+                    this.color = colors[Math.floor(Math.random()*(colors.length+1))];
+                }
+
+                Particle.prototype.render = function() {
+
+                    if ( this.x + this.vx > ww - this.r ){
+                        this.vx = -this.vx;
+                    } else if ( this.x + this.vx < 0 + this.r ) {
+                        this.vx = -this.vx;
+                    }
+                    if ( this.y + this.vy > wh - this.r  ){
+                        this.vy = -this.vy;
+                    } else if ( this.y + this.vy < 0 + this.r ) {
+                        this.vy = -this.vy;
+                    }
+
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
+                    ctx.fill();
+
+                    // mouse avoiding
+                    // var a = this.x - mouse.x;
+                    // var b = this.y - mouse.y;
+
+                    // var distance = Math.sqrt( a*a + b*b );
+                    // if(distance<(radius*70)){
+                    //     this.accX = (this.x - mouse.x)/100;
+                    //     this.accY = (this.y - mouse.y)/100;
+                    //     this.vx += this.accX;
+                    //     this.vy += this.accY;
+                    // }
+
+                }
+
+                function initScene(){
+                    var ww = 1152;
+                    var wh = 1152;
+
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.globalCompositeOperation = "screen";
+
+                    particles = [];
+
+                    for (let i = 0; i < amount; i++) {
+                        particles.push(new Particle( Math.round(Math.random()*ww), Math.round(Math.random()*wh)));
+                    }
+                }
+
+                function onMouseMove(e){
+                    // adjusted to take it relative to canvas
+                    mouse.x = ww * Math.floor(1000*(e.clientX - canvas.getBoundingClientRect().left)/canvasContainer.clientWidth)/1000;
+                    mouse.y = wh * Math.floor(1000*(e.clientY - canvas.getBoundingClientRect().top)/canvasContainer.clientWidth)/1000;
+                }
+
+                // this function is called repeatedly many times
+                function render(a) {
+                    requestAnimationFrame(render);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (var i = 0; i < amount; i++) {
+                        particles[i].render();
+                    }
                 };
 
-                if ( this.x > ww*0.95 ){
-                    this.x = ww*0.95
-                }
-                else if ( this.x < ww*0.05 ){
-                    this.x = ww*0.05
-                }
-                if ( this.y > wh*0.95 ){
-                    this.y = wh*0.95
-                }
-                else if ( this.y < wh*0.05 ){
-                    this.y = wh*0.05
-                }
-
-                this.r =  (Math.random()*14 + 5);
-                this.vx = ((Math.random()-0.5));
-                this.vy = ((Math.random()-0.5));
-
-                this.accX = 0;
-                this.accY = 0;
-
-                this.color = colors[Math.floor(Math.random()*(colors.length+1))];
+                // canvas.addEventListener("mousemove", onMouseMove);
+                // initScene();
+                // requestAnimationFrame(render);
             }
 
-            Particle.prototype.render = function() {
 
-                if ( this.x + this.vx > ww - this.r ){
-                    this.vx = -this.vx;
-                } else if ( this.x + this.vx < 0 + this.r ) {
-                    this.vx = -this.vx;
-                }
-                if ( this.y + this.vy > wh - this.r  ){
-                    this.vy = -this.vy;
-                } else if ( this.y + this.vy < 0 + this.r ) {
-                    this.vy = -this.vy;
-                }
-
-                this.x += this.vx;
-                this.y += this.vy;
-
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.r, Math.PI * 2, false);
-                ctx.fill();
-
-                // mouse avoiding
-                // var a = this.x - mouse.x;
-                // var b = this.y - mouse.y;
-
-                // var distance = Math.sqrt( a*a + b*b );
-                // if(distance<(radius*70)){
-                //     this.accX = (this.x - mouse.x)/100;
-                //     this.accY = (this.y - mouse.y)/100;
-                //     this.vx += this.accX;
-                //     this.vy += this.accY;
-                // }
-
-            }
-
-            function initScene(){
-                var ww = 1152;
-                var wh = 1152;
-
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.globalCompositeOperation = "screen";
-
-                particles = [];
-
-                for (let i = 0; i < amount; i++) {
-                    particles.push(new Particle( Math.round(Math.random()*ww), Math.round(Math.random()*wh)));
-                }
-            }
-
-            function onMouseMove(e){
-                // adjusted to take it relative to canvas
-                mouse.x = ww * Math.floor(1000*(e.clientX - canvas.getBoundingClientRect().left)/canvasContainer.clientWidth)/1000;
-                mouse.y = wh * Math.floor(1000*(e.clientY - canvas.getBoundingClientRect().top)/canvasContainer.clientWidth)/1000;
-            }
-
-            // this function is called repeatedly many times
-            function render(a) {
-                requestAnimationFrame(render);
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (var i = 0; i < amount; i++) {
-                    particles[i].render();
-                }
-            };
-
-            // canvas.addEventListener("mousemove", onMouseMove);
-            // initScene();
-            // requestAnimationFrame(render);
-
-
+            console.log(props.G_El_prop[2])
             executed.current = 1;
         }
     }, [])
@@ -164,8 +168,7 @@ function OnBoardItem(props){
                             </defs>
                         </svg>
                         <div className="ExpertItem-blob"
-                            style={{"transform": props.G_El_prop[2]}}>
-                            {/* {G_EL_anim.current[0]} */}
+                            style={{"transform": props.G_El_prop[2], "--hov-transform":props.G_El_prop[3]}}>
                             <svg width="600" height="600" viewBox="0 0 600 600" className="ExpertItem-blobSvg">
                                 <path>
                                     <animate attributeName="d" dur="47s" repeatCount="indefinite"
@@ -200,6 +203,8 @@ export default function Directors(){
     const executed = useRef(0);
     const [random_pos, set_random_pos] = useState([]);
 
+    const [profiles, set_profiles] = useState([]);
+
     useEffect(() => {
 		if (typeof window === "undefined") { return; }
         if ( !executed.current){
@@ -210,21 +215,58 @@ export default function Directors(){
             for (let i = 0; i < 3; i++) {
                 let random_set = Math.floor(Math.random()*4)
 
-                let random_orientation = Math.random()*180
+                let random_orientation = (Math.random()*180)
                 let random_pos_hov = [(pos_set[random_set][0] - Math.random()*3), (pos_set[random_set][1] - Math.random()*3)]
-                // [`translate3d(calc(${pos_set[random_set][0] - Math.random()*3} * var(--scale_f) * 1vw), calc(${pos_set[random_set][1] - Math.random()*3} * var(--scale_f) * 1vw), 0px) rotate(${random_orientation}}deg)`]
-
-                let random_pos = [  ]
+                // let random_pos_n_hov = [random_pos_hov[0] + random_pos_hov[0]*1.8 , random_pos_hov[1] + random_pos_hov[1]*1.8]
+                // let random_pos_n_hov = [Math.sign(pos_set[random_set][0])*random_pos_hov[0]*2.8 , Math.sign(pos_set[random_set][1])**random_pos_hov[1]*2.8]
+                let random_pos_n_hov = [random_pos_hov[0]*2.8 , random_pos_hov[1]*2.8]
 
                 positions.push(
-                    `translate3d(calc(${pos_set[random_set][0] - Math.random()*3} * var(--scale_f) * 1vw), calc(${pos_set[random_set][1] - Math.random()*3} * var(--scale_f) * 1vw), 0px) rotate(${random_orientation}}deg)`
+                    {
+                        not_hov:`translate3d(calc(${random_pos_n_hov[0]} * var(--scale_f) * 1vw), calc(${random_pos_n_hov[1]} * var(--scale_f) * 1vw), 0px) rotate(${random_orientation}deg)`,
+                        hov:`translate3d(calc(${random_pos_hov[0]} * var(--scale_f) * 1vw), calc(${random_pos_hov[1]} * var(--scale_f) * 1vw), 0px) rotate(${random_orientation}deg)`,
+                    }
                 )
             }
             set_random_pos(positions)
 
             executed.current = 1;
         }
-    }, [])
+    }, []);
+
+    useEffect(() => {
+
+        if ( random_pos.length > 1 ){
+
+            set_profiles(
+                [<OnBoardItem
+                    index={1}
+                    imgSrc = "./assets/prosit_roy.png"
+                    name = "Prosit Roy"
+                    G_El_prop = {["#5541f8", "47s", random_pos[0].not_hov, random_pos[0].hov]}
+                    about = {<>The king of nuances and backstories.<br/><br/>One of the main reasons Prosit&apos;s work is identifiable as his own is due to his ability to get to the root of every story, deep-diving into cultures and making the characters memorable and relatable.<br/><br/>He internalizes the script and beautifully decodes it on screen. Whether it is Patal Lok or a Pampers advertisement, Prosit has the expertise to evoke emotion from all audiences.<br/><br/>He&apos;s the most incredible support system for a team but an even better Director.</>}
+                />,
+                <OnBoardItem
+                    index={2}
+                    imgSrc = "./assets/jeet.png"
+                    name = "Jeet Lotia"
+                    G_El_prop = {["#5541f8", "43s", random_pos[1].not_hov, random_pos[1].hov]}
+                    about = {<>One that brings words to life.<br/>Our resident magician.<br/><br/>The sheer ease with which Jeet can tell a story off-screen translates directly to his work on screen with an innate ability to bring out the desired emotion impactfully.<br/><br/>An ad film director who&apos;s worked on over 150 commercials in the last seven years and earned all his tricks on-set, somewhere between reel life and real life<br/><br/>Jeet is a dire cinema addict obsessed with doing justice to every script.</>}
+                />,
+                <OnBoardItem
+                    index={3}
+                    imgSrc = "./assets/thea.png"
+                    name = "Teodora Chingarova"
+                    G_El_prop = {["#5541f8", "44s", random_pos[2].not_hov, random_pos[2].hov]}
+                    about = {<>The one that wore many hats until she tried on the director one, and never let that go.<br/><br/>With a foundation that required her to relocate constantly, Thea has the infinite ability to organize chaos and has mastered the art of understanding complex human emotions, which makes her dazzle brilliantly as a director. <br/><br/>In her quest to bring her favorite three weapons - music, words, and visuals together, Thea has conquered the craftwork of imagination and pulling references for everything!</>}
+                />]
+            )
+
+        }
+
+
+    }, [random_pos])
+
 
     return (
         <div className="Directors-page" data-scroll-container>
@@ -236,31 +278,9 @@ export default function Directors(){
                 </div>
                 <div className="OnBoard-wrapper">
                     <div className="OnBoard-listItems">
-                        <OnBoardItem
-                            index={1}
-                            imgSrc = "./assets/prosit_roy.png"
-                            name = "Prosit Roy"
-                            G_El_prop = {["#5541f8", "47s", random_pos[0]]}
-                            about = {<>The king of nuances and backstories.<br/><br/>One of the main reasons Prosit&apos;s work is identifiable as his own is due to his ability to get to the root of every story, deep-diving into cultures and making the characters memorable and relatable.<br/><br/>He internalizes the script and beautifully decodes it on screen. Whether it is Patal Lok or a Pampers advertisement, Prosit has the expertise to evoke emotion from all audiences.<br/><br/>He&apos;s the most incredible support system for a team but an even better Director.</>}
-                        />
-                        <OnBoardItem
-                            index={2}
-                            imgSrc = "./assets/jeet.png"
-                            name = "Jeet Lotia"
-                            G_El_prop = {["#5541f8", "43s", random_pos[1]]}
-                            about = {<>One that brings words to life.<br/>Our resident magician.<br/><br/>The sheer ease with which Jeet can tell a story off-screen translates directly to his work on screen with an innate ability to bring out the desired emotion impactfully.<br/><br/>An ad film director who&apos;s worked on over 150 commercials in the last seven years and earned all his tricks on-set, somewhere between reel life and real life<br/><br/>Jeet is a dire cinema addict obsessed with doing justice to every script.</>}
-                        />
-                        <OnBoardItem
-                            index={3}
-                            imgSrc = "./assets/thea.png"
-                            name = "Teodora Chingarova"
-                            G_El_prop = {["#5541f8", "44s", random_pos[2]]}
-                            about = {<>The one that wore many hats until she tried on the director one, and never let that go.<br/><br/>With a foundation that required her to relocate constantly, Thea has the infinite ability to organize chaos and has mastered the art of understanding complex human emotions, which makes her dazzle brilliantly as a director. <br/><br/>In her quest to bring her favorite three weapons - music, words, and visuals together, Thea has conquered the craftwork of imagination and pulling references for everything!</>}
-                        />
+                        { profiles }
 
                         {/* Other Directors */}
-
-
                     </div>
                 </div>
             </section>
