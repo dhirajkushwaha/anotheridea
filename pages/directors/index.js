@@ -209,7 +209,16 @@ export default function Directors(){
             let positions = [];
             for (let i = 0; i < 3; i++) {
                 let random_set = Math.floor(Math.random()*4)
-                positions.push(`translate3d(calc(${pos_set[random_set][0] - Math.random()*3} * var(--scale_f) * 1vw), calc(${pos_set[random_set][1] - Math.random()*3} * var(--scale_f) * 1vw), 0px) rotate(${Math.random()*180}deg)`)
+
+                let random_orientation = Math.random()*180
+                let random_pos_hov = [(pos_set[random_set][0] - Math.random()*3), (pos_set[random_set][1] - Math.random()*3)]
+                // [`translate3d(calc(${pos_set[random_set][0] - Math.random()*3} * var(--scale_f) * 1vw), calc(${pos_set[random_set][1] - Math.random()*3} * var(--scale_f) * 1vw), 0px) rotate(${random_orientation}}deg)`]
+
+                let random_pos = [  ]
+
+                positions.push(
+                    `translate3d(calc(${pos_set[random_set][0] - Math.random()*3} * var(--scale_f) * 1vw), calc(${pos_set[random_set][1] - Math.random()*3} * var(--scale_f) * 1vw), 0px) rotate(${random_orientation}}deg)`
+                )
             }
             set_random_pos(positions)
 

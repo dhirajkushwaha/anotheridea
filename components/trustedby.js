@@ -48,12 +48,14 @@ export default function Trustedby(props) {
 
                 let t_logos = [];
 
+                let no_of_logos = 41;
+
                 for (let layer_n = 1; layer_n <= Math.round( 45/n_logos ); layer_n++) {
 
                     let oneLayer_logos = [];
                     for (let num = 1; num <= n_logos; num++) {
 
-                        if ( ((layer_n-1)*n_logos + num) > 45 ){
+                        if ( ((layer_n-1)*n_logos + num) > no_of_logos ){
                             continue;
                         }
                         let trustedSliderItem = (<div className="trusterSliderItem">
