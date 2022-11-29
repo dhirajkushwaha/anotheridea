@@ -3583,7 +3583,7 @@ button.FormButton .AppButton-label{
 	transition: transform 0.7s ease;
 }
 
-.ExpertItem.large:hover .ExpertItem-blob{
+.ExpertItem:hover .ExpertItem-blob{
 	transform: var(--hov-transform) !important;
 }
 
@@ -3592,6 +3592,8 @@ button.FormButton .AppButton-label{
     height: calc(40 * var(--scale_f) * 1vw);
     margin-top: calc(-20 * var(--scale_f) * 1vw);
     margin-left: calc(-20 * var(--scale_f) * 1vw);
+
+	transition: transform 0.7s ease;
 }
 
 .ExpertItem-blobSvg {

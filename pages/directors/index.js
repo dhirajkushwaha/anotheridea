@@ -205,11 +205,11 @@ export default function Directors(){
 
     const [profiles, set_profiles] = useState([]);
 
+    let pos_set = [[-10, -10], [10, -10], [10, 10], [-10, 10]];
+
     useEffect(() => {
 		if (typeof window === "undefined") { return; }
         if ( !executed.current){
-
-            let pos_set = [[-10, -10], [10, -10], [10, 10], [-10, 10]];
 
             let positions = [];
             for (let i = 0; i < 3; i++) {
@@ -217,8 +217,6 @@ export default function Directors(){
 
                 let random_orientation = (Math.random()*180)
                 let random_pos_hov = [(pos_set[random_set][0] - Math.random()*3), (pos_set[random_set][1] - Math.random()*3)]
-                // let random_pos_n_hov = [random_pos_hov[0] + random_pos_hov[0]*1.8 , random_pos_hov[1] + random_pos_hov[1]*1.8]
-                // let random_pos_n_hov = [Math.sign(pos_set[random_set][0])*random_pos_hov[0]*2.8 , Math.sign(pos_set[random_set][1])**random_pos_hov[1]*2.8]
                 let random_pos_n_hov = [random_pos_hov[0]*2.8 , random_pos_hov[1]*2.8]
 
                 positions.push(
@@ -243,21 +241,21 @@ export default function Directors(){
                     index={1}
                     imgSrc = "./assets/prosit_roy.png"
                     name = "Prosit Roy"
-                    G_El_prop = {["#5541f8", "47s", random_pos[0].not_hov, random_pos[0].hov]}
+                    G_El_prop = {["#5541f8", `${20 + 50*Math.random()}s`, random_pos[0].not_hov, random_pos[0].hov]}
                     about = {<>The king of nuances and backstories.<br/><br/>One of the main reasons Prosit&apos;s work is identifiable as his own is due to his ability to get to the root of every story, deep-diving into cultures and making the characters memorable and relatable.<br/><br/>He internalizes the script and beautifully decodes it on screen. Whether it is Patal Lok or a Pampers advertisement, Prosit has the expertise to evoke emotion from all audiences.<br/><br/>He&apos;s the most incredible support system for a team but an even better Director.</>}
                 />,
                 <OnBoardItem
                     index={2}
                     imgSrc = "./assets/jeet.png"
                     name = "Jeet Lotia"
-                    G_El_prop = {["#5541f8", "43s", random_pos[1].not_hov, random_pos[1].hov]}
+                    G_El_prop = {["#5541f8", `${20 + 50*Math.random()}s`, random_pos[1].not_hov, random_pos[1].hov]}
                     about = {<>One that brings words to life.<br/>Our resident magician.<br/><br/>The sheer ease with which Jeet can tell a story off-screen translates directly to his work on screen with an innate ability to bring out the desired emotion impactfully.<br/><br/>An ad film director who&apos;s worked on over 150 commercials in the last seven years and earned all his tricks on-set, somewhere between reel life and real life<br/><br/>Jeet is a dire cinema addict obsessed with doing justice to every script.</>}
                 />,
                 <OnBoardItem
                     index={3}
                     imgSrc = "./assets/thea.png"
                     name = "Teodora Chingarova"
-                    G_El_prop = {["#5541f8", "44s", random_pos[2].not_hov, random_pos[2].hov]}
+                    G_El_prop = {["#5541f8", `${20 + 50*Math.random()}s`, random_pos[2].not_hov, random_pos[2].hov]}
                     about = {<>The one that wore many hats until she tried on the director one, and never let that go.<br/><br/>With a foundation that required her to relocate constantly, Thea has the infinite ability to organize chaos and has mastered the art of understanding complex human emotions, which makes her dazzle brilliantly as a director. <br/><br/>In her quest to bring her favorite three weapons - music, words, and visuals together, Thea has conquered the craftwork of imagination and pulling references for everything!</>}
                 />]
             )

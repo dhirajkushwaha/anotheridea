@@ -37,7 +37,7 @@ function OtherDirectorItem(props){
                         </defs>
                     </svg>
                     <div className="ExpertItem-blob"
-                        style={{"transform": props.G_El_prop[2]}}>
+                        style={{"transform": props.G_El_prop[2], "--hov-transform":props.G_El_prop[3]}}>
                         {/* {G_EL_anim.current[0]} */}
                         <svg width="600" height="600" viewBox="0 0 600 600" className="ExpertItem-blobSvg">
                             <path>
@@ -97,6 +97,10 @@ export default function Team(){
                 for (let i = 0; i < profiles.length; i++) {
                     let random_set = Math.floor(Math.random()*4)
 
+                    let random_orientation = (Math.random()*180)
+                    let random_pos_hov = [(pos_set[random_set][0] - Math.random()*3), (pos_set[random_set][1] - Math.random()*3)]
+                    let random_pos_n_hov = [random_pos_hov[0]*2.8 , random_pos_hov[1]*2.8]
+
                     profiles_comp_copy.push(
                         <OtherDirectorItem
                             imgSrc = {profiles[i][0]}
@@ -105,7 +109,9 @@ export default function Team(){
                             G_El_prop = {["#5541f8",
                                         // `${49 - Math.random()*5 + Math.random()*10}s`,
                                         `${20 + 50*Math.random()}s`,
-                                        `translate3d(calc(${pos_set[random_set][0] - Math.random()*3} * var(--scale_f) * 1vw), calc(${pos_set[random_set][1] - Math.random()*3} * var(--scale_f) * 1vw), 0px) rotate(${Math.random()*180}deg)`]}
+                                        `translate3d(calc(${random_pos_n_hov[0]} * var(--scale_f) * 1vw), calc(${random_pos_n_hov[1]} * var(--scale_f) * 1vw), 0px) rotate(${random_orientation}deg)`,
+                                        `translate3d(calc(${random_pos_hov[0]} * var(--scale_f) * 1vw), calc(${random_pos_hov[1]} * var(--scale_f) * 1vw), 0px) rotate(${random_orientation}deg)`]
+                                    }
                         />)
                 }
 
@@ -119,7 +125,7 @@ export default function Team(){
 
     useEffect(() => {
 
-        {// Particles
+        if (false){// Particles
 
             var canvas = document.querySelector(".ExpertItem-canvas-large canvas"),
             canvasContainer = document.querySelector(".ExpertItem-canvas-large"),
