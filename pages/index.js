@@ -796,7 +796,7 @@ export default function Home(props) {
 							/>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Minal-Murli-khali.jpg"
-								label="MINAL MURLI"
+								label="MINNAL MURLI"
 								dirName="Vasan Bala"
 								videoSrc="https://player.vimeo.com/video/674292817?h=8b0a629b30&amp;quality=240p"
 								addPopup={addPopup}

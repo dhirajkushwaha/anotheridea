@@ -8,7 +8,7 @@ export default function Appbutton(props, { children }) {
                                 (props.className === undefined ? "" : props.className)
                             }
                             style={{
-                                "--ease": "expo",
+                                "--ease": "none",
                                 "--ease-end": "power3",
                                 "--buttonColor":
                                     props.bgColor != undefined ? props.bgColor : "#5542F7",

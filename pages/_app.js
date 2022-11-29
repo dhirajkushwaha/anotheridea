@@ -687,7 +687,7 @@ function MyApp({ Component, pageProps }) {
         //  "<route>": {main_target:"<root_class_cont or just el>", head_obj:"<main_heading>", opacity_obj:"<>", lower_part:"<>", button:"<button_root_class>"}
             "/" : {main_target: [".ideasTitle", ".footerLearnMore", ".ideasBehind-wrapper", ".Works-slider", ".ideasImageCarousel", ".footerTrustedBy", ".Vision-title",        ".Vision-title",        ".Vision-title"],
                     head_obj:   [".ideasTitle > h1", ".footerLearnMore > h4, .footerLearnMore > h1", "", "", "", "",                                    ".HomeTitle-surtitle",  ".HomeTitle-title--l1", ".HomeTitle-title--l2" ],
-                    opacity_obj:["", " > p", ".ideasBehind-item", "", ".swiper", "h2, .trusterSliderItem", "", "", ""],
+                    opacity_obj:["", " > p", ".ideasBehind-item", "", ".swiper", "h2, .swiper-slide-active .trusterSliderItem, .swiper-pagination-bullets", "", "", ""], //.trusterSlider:nth-child(-n+3) .trusterSliderItem
                     // slide_obj:["", "", "", ".Works-wrapper", "", ""],
                     opacity_dur:["undef", "undef", "0.5", "0.5", "0.5", "0.5", "", "", ""],
                     button_obj: ["", ".AppButton", "", "", "", "", "", "", ""],
@@ -844,9 +844,15 @@ function MyApp({ Component, pageProps }) {
 
                                         sc_anim_tl
                                             .to( el,
-                                                { stagger: 0.05, opacity: 1, duration:( c_p_l.opacity_dur[index] !== "undef" ) ? c_p_l.opacity_dur[index] : "1", ease:( c_p_l.opacity_dur[index] !== "undef" ) ? "none" : "power3" },
+                                                { stagger: 0.05, opacity: 1,
+                                                    duration:( c_p_l.opacity_dur[index] !== "undef" ) ? c_p_l.opacity_dur[index] : "1",
+                                                    // ease:( c_p_l.opacity_dur[index] !== "undef" ) ? "none" : "power3"
+                                                },
                                                 ( c_p_l.opacity_dur[index] !== "undef" ) ? undefined : "<0.5"
                                             )
+                                        if ( el.indexOf(".trusterSliderItem") != -1 )
+                                            sc_anim_tl
+                                                .fromTo(".swiper-slide-active .trusterSliderItem", { scale: 0 }, { stagger: 0.05, scale: 1 }, "<0" )
                                     }
 
                                     // button_obj
@@ -1433,7 +1439,7 @@ function MyApp({ Component, pageProps }) {
                         f_load_s();
                         gsap.fromTo(".Load-screen", { y:"100vh" }, {
                             // duration:1,
-                            duration:1.4,
+                            duration:0.95,
                             y:"0vh",
                             // ease:"power3"
                         });

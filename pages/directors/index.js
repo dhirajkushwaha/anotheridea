@@ -127,8 +127,8 @@ function OnBoardItem(props){
             };
 
             // canvas.addEventListener("mousemove", onMouseMove);
-            initScene();
-            requestAnimationFrame(render);
+            // initScene();
+            // requestAnimationFrame(render);
 
 
             executed.current = 1;

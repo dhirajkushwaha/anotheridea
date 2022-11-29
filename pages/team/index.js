@@ -75,11 +75,11 @@ export default function Team(){
     const profiles = [
         ["./assets/team_profiles/gaurav_gandhi.jpg", "Gaurav Gandhi", "Executive Producer"],
         ["./assets/team_profiles/smaran_gandhi.JPG", "Smaran Gandhi", "Executive Producer"],
-        ["./assets/team_profiles/srushti_iyer.JPG", "Shruti Iyer", "Senior Producer"],
         ["./assets/team_profiles/nidhi_gandhi.jpg", "Nidhi Gandhi", "Senior Producer"],
+        ["./assets/team_profiles/srushti_iyer.JPG", "Shruti Iyer", "Senior Producer"],
         ["./assets/team_profiles/ishaandeep_awasty.JPEG", "Ishaan Deep Awasty", "Producer"],
         ["./assets/team_profiles/anindita_mukherjee.jpg", "Anindita Mukherjee", "Producer"],
-        ["./assets/team_profiles/natasha_agarwal_jagtap.jpg", "Natasha Agarwal Jagtap", "Associate Producer"],
+        ["./assets/team_profiles/natasha_agarwal_jagtap.jpg", "Natasha Jagtap", "Associate Producer"],
         ["./assets/team_profiles/manish_chougule.jpg", "Manish Chougule", "Post Producer"],
         ["./assets/team_profiles/a_aakash_rao.jpg", "A Aakash Rao", "Post Producer"],
         ["./assets/team_profiles/nadeem_shaikh_.jpg", "Nadeem Shaikh", "Admin Executive"],
@@ -132,7 +132,7 @@ export default function Team(){
             friction = 0.5;
 
 
-            var colors = ["#fff","#5541F8","#373737"];
+            var colors = ["#fff", "#5541F8", "#373737", "#3ab8c9", "#f2ad45"];
             var amount = 100;
 
             var ww = canvas.width = mainContainer.getBoundingClientRect().width;
@@ -160,8 +160,8 @@ export default function Team(){
                 }
 
                 this.r =  (Math.random()*4 + 2);
-                this.vx = ((Math.random()-0.5));
-                this.vy = ((Math.random()-0.5));
+                this.vx = ((Math.random()-0.5))/10;
+                this.vy = ((Math.random()-0.5))/4;
 
                 this.ivx = this.vx;
                 this.ivy = this.vy;
@@ -244,8 +244,8 @@ export default function Team(){
             };
 
             // mainContainer.addEventListener("mousemove", onMouseMove);
-            initScene();
-            requestAnimationFrame(render);
+            // initScene();
+            // requestAnimationFrame(render);
 
         }
 
