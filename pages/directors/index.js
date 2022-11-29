@@ -133,8 +133,6 @@ function OnBoardItem(props){
                 // requestAnimationFrame(render);
             }
 
-
-            console.log(props.G_El_prop[2])
             executed.current = 1;
         }
     }, [])
@@ -238,6 +236,7 @@ export default function Directors(){
 
             set_profiles(
                 [<OnBoardItem
+                    key={1}
                     index={1}
                     imgSrc = "./assets/prosit_roy.png"
                     name = "Prosit Roy"
@@ -245,6 +244,7 @@ export default function Directors(){
                     about = {<>The king of nuances and backstories.<br/><br/>One of the main reasons Prosit&apos;s work is identifiable as his own is due to his ability to get to the root of every story, deep-diving into cultures and making the characters memorable and relatable.<br/><br/>He internalizes the script and beautifully decodes it on screen. Whether it is Patal Lok or a Pampers advertisement, Prosit has the expertise to evoke emotion from all audiences.<br/><br/>He&apos;s the most incredible support system for a team but an even better Director.</>}
                 />,
                 <OnBoardItem
+                    key={2}
                     index={2}
                     imgSrc = "./assets/jeet.png"
                     name = "Jeet Lotia"
@@ -252,6 +252,7 @@ export default function Directors(){
                     about = {<>One that brings words to life.<br/>Our resident magician.<br/><br/>The sheer ease with which Jeet can tell a story off-screen translates directly to his work on screen with an innate ability to bring out the desired emotion impactfully.<br/><br/>An ad film director who&apos;s worked on over 150 commercials in the last seven years and earned all his tricks on-set, somewhere between reel life and real life<br/><br/>Jeet is a dire cinema addict obsessed with doing justice to every script.</>}
                 />,
                 <OnBoardItem
+                    key={3}
                     index={3}
                     imgSrc = "./assets/thea.png"
                     name = "Teodora Chingarova"
