@@ -956,58 +956,7 @@ export default function Home(props) {
 					</div>
 				</div>
 
-				<div className="ideasBehind-wrapper">
-
-					<div className="ideasBehind-bgCross">
-						<div className="BackgroundCross in-view">
-							<div className="BackgroundCross-wrapper">
-								{/* <div className="BackgroundCross-inner" style={{"opacity": 0, "transform": "translate3d(0px, -318.188px, 0px)"}}></div> */}
-								<div className="BackgroundCross-inner" style={{"opacity": 0}}></div>
-							</div>
-						</div>
-					</div>
-
-					<Ideasbehindtextitem
-						label="Advertisements"
-						href="/work"
-						color="#af37d9"
-						skill=""
-						slidemag="2vw"
-					></Ideasbehindtextitem>
-					<Ideasbehindtextitem
-						label="Promos"
-						href="/work"
-						color="#de477e"
-						skill=""
-						slidemag="14vw"
-					></Ideasbehindtextitem>
-					<Ideasbehindtextitem
-						label="Print"
-						href="/work"
-						color="#f2ad45"
-						// skill="Bringing ideas to focus"
-						skill=""
-						slidemag="35vw"
-					></Ideasbehindtextitem>
-					<Ideasbehindtextitem
-						label="Animation"
-						href="/work"
-						color="#3ab8c9"
-						// skill="Lorem Ipsum"
-						skill=""
-						slidemag="20vw"
-					></Ideasbehindtextitem>
-					<Ideasbehindtextitem
-						label="Post Production"
-						label_left={"Post Production"}
-						label_right={"Post Production"}
-						href="/work"
-						color="#3b33b3"
-						// skill="Lorem Ipsum"
-						skill=""
-						slidemag="0.7vw"
-					></Ideasbehindtextitem>
-				</div>
+				{/* ideasBehind-wrapper */}
 
 			</section>
 
