@@ -76,7 +76,7 @@ export default function Team(){
         ["./assets/team_profiles/gaurav_gandhi.jpg", "Gaurav Gandhi", "Executive Producer"],
         ["./assets/team_profiles/smaran_gandhi.JPG", "Smaran Gandhi", "Executive Producer"],
         ["./assets/team_profiles/nidhi_gandhi.jpg", "Nidhi Gandhi", "Senior Producer"],
-        ["./assets/team_profiles/srushti_iyer.JPG", "Shruti Iyer", "Senior Producer"],
+        ["./assets/team_profiles/srushti_iyer.JPG", "Shrusti Iyer", "Senior Producer"],
         ["./assets/team_profiles/ishaandeep_awasty.jpg", "Ishaan Deep Awasty", "Producer"],
         ["./assets/team_profiles/anindita_mukherjee.jpg", "Anindita Mukherjee", "Producer"],
         ["./assets/team_profiles/natasha_agarwal_jagtap.jpg", "Natasha Jagtap", "Associate Producer"],
