@@ -796,7 +796,7 @@ export default function Home(props) {
 							/>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Minal-Murli-khali.jpg"
-								label="MINNAL MURLI"
+								label="MINNAL MURALI"
 								dirName="Vasan Bala"
 								videoSrc="https://player.vimeo.com/video/674292817?h=8b0a629b30&amp;quality=240p"
 								addPopup={addPopup}
@@ -812,7 +812,7 @@ export default function Home(props) {
 							/>
 							<WorksSliderItem
 								src="./assets/work_slider_thumbnail/Ola_Proximity.jpg"
-								label="OLA PROXIMITY UNLOCKED"
+								label="OLA PROXIMITY UNLOCK"
 								dirName="Ken Rolston"
 								videoSrc="https://player.vimeo.com/video/765214457?h=b5716ad29c&amp;quality=240p"
 								addPopup={addPopup}

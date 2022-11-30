@@ -114,7 +114,7 @@ function WorksList(props){
                                 ["/", "/assets/works_thumbnail/Ola-Electric-MoveOS3--.jpg", "Ola Proximity Unlock", "Ken Rolston", "", "https://player.vimeo.com/video/765214457?h=b5716ad29c&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/TATA-YODHA-Cement.jpg", "Tata Yodha 2.0", "Lloyd Baptista", "", "https://player.vimeo.com/video/757567353?h=48603657bf&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Amazon-Rakhi.jpg", "Amazon Kheer", "Prosit Roy", "", "https://player.vimeo.com/video/674290692?h=6042c3a705&amp;quality=240p"],
-                                ["/", "/assets/works_thumbnail/Minnal-Murali-Promo--.jpg", "Minnal Murli ft. Khali", "Vasan Bala", "", "https://player.vimeo.com/video/674292817?h=8b0a629b30&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Minnal-Murali-Promo--.jpg", "Minnal Murali ft. Khali", "Vasan Bala", "", "https://player.vimeo.com/video/674292817?h=8b0a629b30&amp;quality=240p"],
 
                                 ["/", "/assets/works_thumbnail/Sensodyne---Multi-Care.jpg", "Sensodyne Multi Care", "Cherine Khoury", "", "https://player.vimeo.com/video/770176075?h=1c32d68f28&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Amazon-Prime-Day.jpg", "Amazon Prime Day", "Vikrant Yadav", "", "https://player.vimeo.com/video/748676041?h=f88346ac9f&amp;quality=240p"],
@@ -128,8 +128,8 @@ function WorksList(props){
 
                                 ["/", "/assets/works_thumbnail/GOA-Tourism.jpg", "Goa Tourism", "Jeet Lotia", "", "https://player.vimeo.com/video/674301748?h=76d37c804d&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Bajaj-Allianz-Father_s-Day.jpg", "Bajaj Allianz Father’s Day", "Jeet Lotia", "", "https://player.vimeo.com/video/674306213?h=e692543fcc&amp;quality=240p"],
-                                ["/", "/assets/works_thumbnail/Ola-Electric-MoveOS3--005.jpg", "Ola Party Mood", "Ken Rolston", "", "https://player.vimeo.com/video/765214430?h=51f34f2e86&amp;quality=240p"],
-                                ["/", "/assets/works_thumbnail/Minnal-Murali-Promo-Khali.jpg", "Minnal Murli ft. Yuvraj Singh", "Vasan Bala", "", "https://player.vimeo.com/video/674295179?h=a9531fbb58&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Ola-Electric-MoveOS3--005.jpg", "Ola Party Mode", "Ken Rolston", "", "https://player.vimeo.com/video/765214430?h=51f34f2e86&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Minnal-Murali-Promo-Khali.jpg", "Minnal Murali ft. Yuvraj Singh", "Vasan Bala", "", "https://player.vimeo.com/video/674295179?h=a9531fbb58&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/TATA-YODHA-Water.jpg", "Tata Yodha 2.0", "Lloyd Baptista", "", "https://player.vimeo.com/video/757724269?h=2e1be31da2&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Reliance-Smart-Tyohar-.jpg", "Reliance Smart Tyohaar", "Jeet Lotia", "", "https://player.vimeo.com/video/674314923?h=35de1ffe29&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/JioMart-FPVS--SOAP.jpg", "Jio Mart FPVS", "Vibhu Puri", "", "https://player.vimeo.com/video/754205045?h=4c0fe88ff1&amp;quality=240p"],
@@ -147,9 +147,9 @@ function WorksList(props){
                                 ["/", "/assets/works_thumbnail/TATA-YODHA-MILK.jpg", "Tata Yodha 2.0", "Lloyd Baptista", "", "https://player.vimeo.com/video/757722678?h=2e1be31da2&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Sensodyne-Deep-Clean- Philipines.jpg", "Sensodyne Deep Clean", "Cherine Khoury", "", "https://player.vimeo.com/video/770175299?h=4b256b6d9a&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Glucond-Mango-DCUT.jpg", "GLUCON-D", "Vibhu Puri", "", "https://player.vimeo.com/video/674323442?h=76d37c804d&amp;quality=240p"],
-                                ["/", "/assets/works_thumbnail/Ola-Electric-MoveOS3--000.jpg", "OLA BOLT MOOD", "Ken Rolston", "", "https://player.vimeo.com/video/765214389?h=4c0fe88ff1&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Ola-Electric-MoveOS3--000.jpg", "OLA BOLT MODE", "Ken Rolston", "", "https://player.vimeo.com/video/765214389?h=4c0fe88ff1&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/TATA-YODHA-Fruit.jpg", "Tata Yodha 2.0", "Lloyd Baptista", "", "https://player.vimeo.com/video/757718298?h=a9531fbb58&amp;quality=240p"],
-                                ["/", "/assets/works_thumbnail/Minnal-Murali-Promo---Youvraj-Singh.jpg", "Minnal Murli", "Vasan Bala", "", "https://player.vimeo.com/video/674296676?h=f2c9e7e7ca&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Minnal-Murali-Promo---Youvraj-Singh.jpg", "Minnal Murali", "Vasan Bala", "", "https://player.vimeo.com/video/674296676?h=f2c9e7e7ca&amp;quality=240p"],
 
                                 ["/", "/assets/works_thumbnail/Sensodyne Fresh Mint - Indoneshia.jpg", "Sensodyne Fresh Mint", "Cherine Khoury", "", "https://player.vimeo.com/video/770175081?h=a9531fbb58&amp;quality=240p"],
                             ];
