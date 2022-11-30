@@ -1534,8 +1534,8 @@ h4 {
 
 	object-fit: contain;
 
-	filter: grayscale(1);
-	filter: gray;
+	/* filter: grayscale(1);
+	filter: gray; */
 
 	opacity: 0.5;
 
@@ -1551,6 +1551,78 @@ h4 {
 .trusterSliderItem:hover img{
 	opacity: 1;
 }
+
+/* size according to the  size */
+.swiper-slide:nth-child(1) .trusterSlider:nth-child(1) .trusterSliderItem:nth-child(1) img{
+	width: 65%;
+}
+
+.swiper-slide:nth-child(1) .trusterSlider:nth-child(1) .trusterSliderItem:nth-child(5) img{
+	width: 70%;
+}
+
+.swiper-slide:nth-child(1) .trusterSlider:nth-child(2) .trusterSliderItem:nth-child(3) img{
+	width: 80%;
+}
+
+.swiper-slide:nth-child(1) .trusterSlider:nth-child(3) .trusterSliderItem:nth-child(1) img{
+	width: 80%;
+}
+
+.swiper-slide:nth-child(2) .trusterSlider:nth-child(1) .trusterSliderItem:nth-child(2) img{
+	width: 70%;
+}
+
+.swiper-slide:nth-child(2) .trusterSlider:nth-child(1) .trusterSliderItem:nth-child(3) img{
+	height: 60%;
+	width: 60%;
+}
+
+.swiper-slide:nth-child(2) .trusterSlider:nth-child(1) .trusterSliderItem:nth-child(4) img{
+	width: 65%;
+}
+
+.swiper-slide:nth-child(2) .trusterSlider:nth-child(1) .trusterSliderItem:nth-child(5) img{
+	width: 60%;
+}
+
+.swiper-slide:nth-child(2) .trusterSlider:nth-child(3) .trusterSliderItem:nth-child(2) img{
+	height: 60%;
+	width: 60%;
+}
+
+.swiper-slide:nth-child(2) .trusterSlider:nth-child(3) .trusterSliderItem:nth-child(4) img{
+	width: 70%;
+}
+
+.swiper-slide:nth-child(3) .trusterSlider:nth-child(1) .trusterSliderItem:nth-child(3) img{
+	width: 65%;
+}
+
+.swiper-slide:nth-child(3) .trusterSlider:nth-child(1) .trusterSliderItem:nth-child(5) img{
+	width: 65%;
+}
+
+.swiper-slide:nth-child(3) .trusterSlider:nth-child(2) .trusterSliderItem:nth-child(1) img{
+	width: 60%;
+}
+
+.swiper-slide:nth-child(3) .trusterSlider:nth-child(2) .trusterSliderItem:nth-child(3) img{
+	width: 70%;
+}
+
+.swiper-slide:nth-child(3) .trusterSlider:nth-child(2) .trusterSliderItem:nth-child(4) img{
+	width: 60%;
+}
+
+.swiper-slide:nth-child(3) .trusterSlider:nth-child(2) .trusterSliderItem:nth-child(5) img{
+	width: 60%;
+}
+
+.swiper-slide:nth-child(3) .trusterSlider:nth-child(3) .trusterSliderItem:nth-child(1) img{
+	width: 65%;
+}
+
 
 .trusterSliderItemDummy {
 	position: absolute;
