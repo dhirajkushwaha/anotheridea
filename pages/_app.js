@@ -1104,8 +1104,7 @@ function MyApp({ Component, pageProps }) {
                                 scroller: page_scroller,
                                 start: "top top+=up%".replace("up", limits[0]), // It is (limits[0] + limits[1])% of scrubbing area with
                                 end: "top top-=low%".replace("low", limits[1]), // 0, 0.25, 0.5, 0.75 triggering spots of four animations in (limits[0] + limits[1])% of screen
-                                // scrub: 2.5, // to give a lag of 1 second.
-                                scrub: 1, // to give a lag of 1 second.
+                                scrub: 2.5, // to give a lag of 1 second.
                                 onUpdate : self => {
                                     scroll_vec = (self.progress.toFixed(3) - prev_prog) // measuring the change
                                     scroll_vec = scroll_vec/Math.sign(scroll_vec)*scroll_vec  // getting the direction
