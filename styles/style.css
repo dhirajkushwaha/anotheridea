@@ -2372,7 +2372,6 @@ footer {
 	.WorksListItem-title {
 		opacity: 0;
 		font-weight: 500;
-		opacity: 1;
 		color: #fff;
 		margin-bottom: calc(1vw * 3);
 		transition: color 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -2748,6 +2747,12 @@ button.FormButton .AppButton-label{
 }
 
 @media only screen and (max-width: 1023px){
+
+	.ContactDetailsInfo img {
+		height: calc( (18 / var(--vw-size-px)) * 1vw );
+		margin-left: calc( (10 /  var(--vw-size-px)) * 1vw );
+	}
+
 	/* Contact page */
 	.ContactForm{
 		margin-top: calc( (50 / var(--vw-size-px)) * 1vw );
@@ -3564,7 +3569,7 @@ button.FormButton .AppButton-label{
 	}
 
 	.Popup-video{
-		border-radius: calc(1vw * 1 * 2.677/var(--scale_f));
+		border-radius: calc(1vw * 1 * 2.677/0.69);
 	}
 
 	.Popup-video iframe{
@@ -3575,13 +3580,13 @@ button.FormButton .AppButton-label{
 	.Popup-cross{
 		font-size: calc(14/var(--vw-size-px) * 1vw);
 
-		padding: calc(1vw * 0.5 * 2.677/var(--scale_f)) calc(1vw * 2.677/var(--scale_f));
+		padding: calc(1vw * 0.5 * 2.677/0.69) calc(1vw * 2.677/0.69);
 
-		margin-right: calc(1vw * 1 * 2.677/var(--scale_f));
+		margin-right: calc(1vw * 1 * 2.677/0.69);
 
-		border-radius: calc(1vw * 1.2 * 2.677/var(--scale_f));
+		border-radius: calc(1vw * 1.2 * 2.677/0.69);
 
-		margin-bottom: calc(1vw * 0.5 * 2.677/var(--scale_f));
+		margin-bottom: calc(1vw * 0.5 * 2.677/0.69);
 	}
 }
 

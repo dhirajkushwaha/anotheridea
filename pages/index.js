@@ -231,7 +231,9 @@ class Slider {
 
 	on(e) {
 		this.isDragging = true;
-		this.onX = (window.innerWidth >= 1024 ? e.clientX : e.touches[0].clientX );
+		try {
+			this.onX = (window.innerWidth >= 1024 ? e.clientX : e.touches[0].clientX );
+		} catch (error) {}
 		this.slider.style.setProperty('cursor', "grabbing");
 
 		this.m_cursor_states("move-slide-click");
@@ -585,6 +587,8 @@ export default function Home(props) {
 	const num_slides = 6; // count of slides
 	const slides_slided = useRef(0); // slides that are added to html
 
+	// const only_desk =
+
 	const addPopup = (popup, cb_fn)=>{
 		slides_slided.current += 1
 
@@ -844,13 +848,12 @@ export default function Home(props) {
 					</div>
 				</div>
 
-				<div className="Vision">
+				{/* { window.innerWidth >= 1024 && */}
+					<div className="Vision">
 
-					{/* BG Cross Marks */}
 					<div className="Vision-bgCross">
 						<div className="BackgroundCross in-view">
 							<div className="BackgroundCross-wrapper">
-								{/* <div className="BackgroundCross-inner" style={{"opacity": 0, "transform": "translate3d(0px, -318.188px, 0px)"}}></div> */}
 								<div className="BackgroundCross-inner" style={{"opacity": 0}}></div>
 							</div>
 						</div>
@@ -885,7 +888,6 @@ export default function Home(props) {
 					</h2>
 
 					<div className="Vision-wrapper">
-						{/* Towards Left */}
 						<div className="Vision-item">
 							<div className="Vision-itemInner">
 								<div className="Vision-itemHead">
@@ -893,18 +895,13 @@ export default function Home(props) {
 										Visual
 									</h2>
 									<div className="Vision-itemSubtitle app-text--large">
-										{/* <p><strong>Stratégie</strong> et vision</p> */}
 										<p>storytelling</p>
 									</div>
-									{/* <div className="Vision-itemKeyFigures app-text--small">
-										+ 60 consultants en stratégie
-									</div> */}
 								</div>
 								<div className="Vision-itemSkills"></div>
 							</div>
 						</div>
 
-						{/* Towards right */}
 						<div className="Vision-item">
 							<div className="Vision-itemInner">
 								<div className="Vision-itemHead">
@@ -919,7 +916,6 @@ export default function Home(props) {
 							</div>
 						</div>
 
-						{/* Towards Left */}
 						<div className="Vision-item">
 							<div className="Vision-itemInner">
 								<div className="Vision-itemHead">
@@ -927,18 +923,13 @@ export default function Home(props) {
 										Dynamism
 									</h2>
 									<div className="Vision-itemSubtitle app-text--large">
-										{/* <p><strong>Stratégie</strong> et vision</p> */}
 										<p>that transcends</p>
 									</div>
-									{/* <div className="Vision-itemKeyFigures app-text--small">
-										+ 60 consultants en stratégie
-									</div> */}
 								</div>
 								<div className="Vision-itemSkills"></div>
 							</div>
 						</div>
 
-						{/* Towards right */}
 						<div className="Vision-item">
 							<div className="Vision-itemInner">
 								<div className="Vision-itemHead">
@@ -954,9 +945,11 @@ export default function Home(props) {
 						</div>
 
 					</div>
-				</div>
+					</div>
+				{/* } */}
 
-				<div className="ideasBehind-wrapper">
+				{/* { window.innerWidth >= 1024 && */}
+					<div className="ideasBehind-wrapper">
 
 					<div className="ideasBehind-bgCross">
 						<div className="BackgroundCross in-view">
@@ -1006,7 +999,8 @@ export default function Home(props) {
 						skill=""
 						slidemag="0.7vw"
 					></Ideasbehindtextitem>
-				</div>
+					</div>
+				{/* } */}
 
 			</section>
 

@@ -85,6 +85,8 @@ function MyApp({ Component, pageProps }) {
 
     const [headerVisibilityState, setHeaderVisibilityState] = useState(0);
 
+    const scroll_trigger_scroller = useRef("[data-scroll-container]")
+
     function getSwiperInstance(instance_left, instance_right){
         swiper_instance_left.current = instance_left;
         swiper_instance_right.current = instance_right;
@@ -104,19 +106,32 @@ function MyApp({ Component, pageProps }) {
 
     // Functions
     const locomotiveInit = () => {
-        import("locomotive-scroll").then((LocomotiveScroll) => {
-            locomotiveScrollInstance.current = new LocomotiveScroll.default({
-                el: document.querySelector("[data-scroll-container]"),
-                smooth: true,
-                lerp: 0.11
+        if (window.innerWidth >= 1024) {
+
+            import("locomotive-scroll").then((LocomotiveScroll) => {
+                locomotiveScrollInstance.current = new LocomotiveScroll.default({
+                    el: document.querySelector("[data-scroll-container]"),
+                    smooth: true,
+                    lerp: 0.11,
+                    smartphone: {
+                      smooth: true
+                    },
+                    tablet: {
+                      smooth: true
+                    }
+                    // inertia: 0.8,
+                });
             });
-        });
+
+        } else {
+            locomotiveScrollInstance.current = {}
+        }
 
     }
 
     // for Header
     const scrollTrigger = () => {
-        var scroller = document.querySelector("[data-scroll-container]");
+        var scroller = document.querySelector(scroll_trigger_scroller.current);
         var scrollMag, prevScrollMag, headerTrigDist; // header animation
 
         headerTrigDist = document.querySelector(".Header").clientHeight*1.2;
@@ -168,11 +183,14 @@ function MyApp({ Component, pageProps }) {
         }
 
         if ( document.body.clientWidth <= 1023 ){
-            (window).addEventListener("scroll", ()=>{
+
+            const scroll_listener = ()=>{
                 scrollMag = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 
                 scrollMagSet(scrollMag, prevScrollMag);
-                prevScrollMag = scrollMag;
+                prevScrollMag = scrollMag.toFixed(2);
+
+                console.log(prevScrollMag)
 
                 // popups
                 if ( router.asPath == "/work" ) { gsap.set(".List-popup", {y:scrollMag}); }
@@ -197,8 +215,8 @@ function MyApp({ Component, pageProps }) {
 
                 }
 
-
-            })
+            }
+            (window).addEventListener("scroll", scroll_listener);
         }
     }
 
@@ -765,7 +783,7 @@ function MyApp({ Component, pageProps }) {
                                 },
                                 scrollTrigger:{
                                     trigger: start_el,
-                                    scroller: "[data-scroll-container]",
+                                    scroller: scroll_trigger_scroller.current,
                                     start: "top top+=start%".replace("start", limit),
                                     end: "top top",
                                 }
@@ -911,7 +929,7 @@ function MyApp({ Component, pageProps }) {
             ease: "power1",
             scrollTrigger:{
                 trigger: ".Footer-wrapper",
-                scroller: "[data-scroll-container]",
+                scroller: scroll_trigger_scroller.current,
                 start: "top bottom",
                 end: "top 30%",
             }
@@ -933,7 +951,7 @@ function MyApp({ Component, pageProps }) {
                         },
                         scrollTrigger:{
                             trigger: ".Works-slider",
-                            scroller: "[data-scroll-container]",
+                            scroller: scroll_trigger_scroller.current,
                             start: "top 67%",
                             end: "top 0%"
                         }
@@ -951,9 +969,6 @@ function MyApp({ Component, pageProps }) {
                             currentX: 0,
                             duration: 1.5,
                             ease: "circ",
-                            // ease: "power.inOut",
-                            // ease: "sine.in",
-                            // ease: "none",
                             onComplete: ()=>{
                                 s_ref.current.snappingState = 1
                             }
@@ -972,7 +987,7 @@ function MyApp({ Component, pageProps }) {
                 {// animation of vision sections
 
                     // reference to be used in scroll trigger attributes
-                    let page_scroller = document.querySelector("[data-scroll-container]");
+                    // let page_scroller = document.querySelector(scroll_trigger_scroller.current);
 
                     let el_vision = document.querySelector(".Vision")
                     let percen_vision = ((el_vision.clientHeight + parseInt((window.getComputedStyle(el_vision).marginTop).replace("px")) + 0.07*parseInt((window.getComputedStyle(el_vision).marginBottom).replace("px")))/window.innerHeight)*100 - 55;
@@ -991,7 +1006,7 @@ function MyApp({ Component, pageProps }) {
                             defaults:{ duration:0.7, ease:"sine" },
                             scrollTrigger:{
                                 trigger: ".Vision",
-                                scroller: page_scroller,
+                                scroller: scroll_trigger_scroller.current,
                                 start: "bottom top+=20%",
                                 end: "bottom top",
                                 scrub: true,
@@ -1102,7 +1117,7 @@ function MyApp({ Component, pageProps }) {
                             },
                             scrollTrigger:{
                                 trigger: ".Vision-item:first-child",
-                                scroller: page_scroller,
+                                scroller: scroll_trigger_scroller.current,
                                 start: "top top+=up%".replace("up", limits[0]), // It is (limits[0] + limits[1])% of scrubbing area with
                                 end: "top top-=low%".replace("low", limits[1]), // 0, 0.25, 0.5, 0.75 triggering spots of four animations in (limits[0] + limits[1])% of screen
                                 scrub: 2.5, // to give a lag of 1 second.
@@ -1169,7 +1184,7 @@ function MyApp({ Component, pageProps }) {
                         // },
                         // scrollTrigger:{
                         //     trigger: ".Vision",
-                        //     scroller: page_scroller,
+                        //     scroller: scroll_trigger_scroller.current,
                         //     start: "top top",
                         //     end: "top top-=30%",
                         //     // end: "top top-=30%",
@@ -1190,7 +1205,7 @@ function MyApp({ Component, pageProps }) {
                             },
                             scrollTrigger:{
                                 trigger: ".Vision-bg",
-                                scroller: page_scroller,
+                                scroller: scroll_trigger_scroller.current,
                                 start: "top top+=20%",
                                 end: "top top",
                                 scrub: true,
@@ -1225,7 +1240,7 @@ function MyApp({ Component, pageProps }) {
                             opacity: 1,
                             scrollTrigger:{
                                 trigger: ".Vision-bg",
-                                scroller: page_scroller,
+                                scroller: scroll_trigger_scroller.current,
                                 start: "top top",
                                 end: "top top-=h%".replace("h", limits[0] + limits[1]),
                                 scrub: true,
@@ -1245,7 +1260,7 @@ function MyApp({ Component, pageProps }) {
                             scale: 0.8744,
                             scrollTrigger:{
                                 trigger: ".Vision .BackgroundCross-inner",
-                                scroller: page_scroller,
+                                scroller: scroll_trigger_scroller.current,
                                 start: "top top",
                                 end: "bottom top",
                                 scrub: true,
@@ -1264,7 +1279,7 @@ function MyApp({ Component, pageProps }) {
                             scale: 1.1,
                             scrollTrigger:{
                                 trigger: ".Vision .BackgroundCross-inner",
-                                scroller: page_scroller,
+                                scroller: scroll_trigger_scroller.current,
                                 start: "top top",
                                 end: "bottom top",
                                 scrub: true,
@@ -1283,7 +1298,7 @@ function MyApp({ Component, pageProps }) {
                                 defaults: { duration:0.7, ease:"sine" },
                                 scrollTrigger: {
                                     trigger: el,
-                                    scroller: "[data-scroll-container]",
+                                    scroller: scroll_trigger_scroller.current,
                                     start: "top top+=50%",
                                     end: "top top+=40%",
                                 }
@@ -1307,7 +1322,7 @@ function MyApp({ Component, pageProps }) {
                 {// animation of ideasBehind
 
                     // reference to be used in scroll trigger attributes
-                    let page_scroller = document.querySelector("[data-scroll-container]");
+                    // let page_scroller = document.querySelector(scroll_trigger_scroller.current);
 
                     {// initial motion into the animation
                         let init_tl = gsap.timeline({
@@ -1316,7 +1331,7 @@ function MyApp({ Component, pageProps }) {
                             },
                             scrollTrigger:{
                                 trigger: ".ideasBehind-wrapper",
-                                scroller: page_scroller,
+                                scroller: scroll_trigger_scroller.current,
                                 start: "top top+=50%",
                                 end: "top top+=20%",
                                 scrub: true,
@@ -1342,7 +1357,7 @@ function MyApp({ Component, pageProps }) {
                                 scale: 0.8744,
                                 scrollTrigger:{
                                     trigger: ".ideasBehind-wrapper .BackgroundCross-inner",
-                                    scroller: page_scroller,
+                                    scroller: scroll_trigger_scroller.current,
                                     start: "top top",
                                     end: "top+=67% top",
                                     scrub: true,
@@ -1362,29 +1377,34 @@ function MyApp({ Component, pageProps }) {
     const s_trigger_anim = ( callBack ) =>{
         let inter_ref = setInterval(() => {
 
-            if ( locomotiveScrollInstance.current === undefined ) return;
+            if ( locomotiveScrollInstance.current === undefined && window.innerWidth >= 1024 ) return;
 
-            // Setting up Scroll Trigger with locomotive
-            locomotiveScrollInstance.current.on("scroll", ScrollTrigger.update);
-            ScrollTrigger.scrollerProxy("[data-scroll-container]", {
-                scrollTop(value) {
-                    return arguments.length ? locomotiveScrollInstance.current.scrollTo(value, 0, 0) : locomotiveScrollInstance.current.scroll.instance.scroll.y;
-                },
-                getBoundingClientRect() {
-                    return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
-                },
+            // if ( true ){
+            if ( window.innerWidth >= 1024 ){
 
-                pinType: document.querySelector("[data-scroll-container]").style.transform ? "transform" : "fixed"
-            });
+                // Setting up Scroll Trigger with locomotive
+                locomotiveScrollInstance.current.on("scroll", ScrollTrigger.update);
+                ScrollTrigger.scrollerProxy("[data-scroll-container]", {
+                    scrollTop(value) {
+                        return arguments.length ? locomotiveScrollInstance.current.scrollTo(value, 0, 0) : locomotiveScrollInstance.current.scroll.instance.scroll.y;
+                    },
+                    getBoundingClientRect() {
+                        return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
+                    },
+
+                    pinType: document.querySelector("[data-scroll-container]").style.transform ? "transform" : "fixed"
+                });
+
+            } else {
+
+                scroll_trigger_scroller.current = undefined;
+
+            }
 
             if ( callBack !== undefined ) callBack();
-            p_scroll_trigger()
+            p_scroll_trigger();
 
-            // ScrollTrigger.addEventListener("refresh", () => locomotiveScrollInstance.current.update()); //locomotive-scroll
-
-            // ScrollTrigger.refresh();
-
-            if ( locomotiveScrollInstance.current !== undefined ) clearInterval(inter_ref);
+            if ( locomotiveScrollInstance.current !== undefined || !(window.innerWidth >= 1024) ) clearInterval(inter_ref);
 
         }, 0);
     }
@@ -1481,7 +1501,6 @@ function MyApp({ Component, pageProps }) {
                     setTimeout(() => {
                         let loadingScreenInterval = setInterval(() => {
                             if ( router.isReady === true )
-                                locomotiveInit();
                                 gsap.to(".Load-screen", {
                                     // duration:1,
                                     duration:0.7,
@@ -1501,6 +1520,7 @@ function MyApp({ Component, pageProps }) {
                             if ( locomotiveScrollInstance.current !== undefined ){
                                 locomotiveScrollInstance.current.destroy();
                             }
+                            locomotiveInit();
                         }
 
                         // Onscroll Animation
@@ -1527,8 +1547,6 @@ function MyApp({ Component, pageProps }) {
                         setHeaderVisibilityState(executed.current);
                     }
                 }
-
-
 
                 // colorFill Animation
                 if ( true && document.body.clientWidth >= 1023 ){
