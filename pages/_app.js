@@ -211,12 +211,12 @@ function MyApp({ Component, pageProps }) {
         let iframe, player;
 
         // to be uncommented
-        if ( router.asPath == "/" ){
-            iframe = document.querySelector('.homeHeadSection iframe');
-            player = new Player(iframe);
+        // if ( router.asPath == "/" ){
+        //     iframe = document.querySelector('.homeHeadSection iframe');
+        //     player = new Player(iframe);
 
-            player.play()
-        }
+        //     player.play()
+        // }
 
 
         let toggleMenuState = () => {
@@ -341,7 +341,8 @@ function MyApp({ Component, pageProps }) {
             })
 
             element.addEventListener("mouseleave", (e)=>{
-                gsap.fromTo(e.target, { "--r":`${max_radius}px`, ease: easeValueIn}, { duration: easeValueOutTime, "--r":"0px", ease: easeValueOut, onComplete: ()=>{ anim_state = false; }})
+                // gsap.fromTo(e.target, { "--r":`${max_radius}px`, ease: easeValueIn}, { duration: easeValueOutTime, "--r":"0px", ease: easeValueOut, onComplete: ()=>{ anim_state = false; }})
+                gsap.to(e.target, { duration: easeValueOutTime, "--r":"0px", ease: easeValueOut, onComplete: ()=>{ anim_state = false; }});
 
                 mouse_hov = false;
             })
@@ -1480,6 +1481,7 @@ function MyApp({ Component, pageProps }) {
                     setTimeout(() => {
                         let loadingScreenInterval = setInterval(() => {
                             if ( router.isReady === true )
+                                locomotiveInit();
                                 gsap.to(".Load-screen", {
                                     // duration:1,
                                     duration:0.7,
@@ -1499,13 +1501,17 @@ function MyApp({ Component, pageProps }) {
                             if ( locomotiveScrollInstance.current !== undefined ){
                                 locomotiveScrollInstance.current.destroy();
                             }
-                            locomotiveInit();
                         }
 
                         // Onscroll Animation
                         if ( true ){
                             // Making web gsap scroll trigger compatible
                             s_trigger_anim(()=>{});
+                        }
+
+                        // on scroll triggers header changes
+                        if ( true ){
+                            scrollTrigger();
                         }
 
                     }, load_s_t);
@@ -1522,10 +1528,7 @@ function MyApp({ Component, pageProps }) {
                     }
                 }
 
-                // on scroll triggers header changes
-                if ( true ){
-                    scrollTrigger();
-                }
+
 
                 // colorFill Animation
                 if ( true && document.body.clientWidth >= 1023 ){
