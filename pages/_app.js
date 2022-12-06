@@ -229,12 +229,12 @@ function MyApp({ Component, pageProps }) {
         let iframe, player;
 
         // to be uncommented
-        // if ( router.asPath == "/" ){
-        //     iframe = document.querySelector('.homeHeadSection iframe');
-        //     player = new Player(iframe);
+        if ( router.asPath == "/" ){
+            iframe = document.querySelector('.homeHeadSection iframe');
+            player = new Player(iframe);
 
-        //     player.play()
-        // }
+            player.play()
+        }
 
 
         let toggleMenuState = () => {
