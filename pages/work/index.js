@@ -162,6 +162,7 @@ function WorksList(props){
 
     // Functions
     const makeListItemsAnimated = () => {
+
         document.querySelectorAll(".List-item").forEach((listItemEl) => {
 
 
@@ -172,7 +173,7 @@ function WorksList(props){
             const worksItemScrollTimeLine = gsap.timeline({ defaults:{ },
                 scrollTrigger:{
                     trigger: listItemEl,
-                    scroller: "[data-scroll-container]",
+                    scroller: (window.innerWidth > 1024 ? "[data-scroll-container]" : undefined),
                     start: "top bottom-=15%",
                     end: "top 30%",
                 }
@@ -185,7 +186,11 @@ function WorksList(props){
                     }})
                 }})
                 .fromTo(listItemEl.querySelector(".WorksListItem-title"), { opacity:0, x:"20%" }, { opacity:1, x:"0%" }, "<0.05")
-                .fromTo(listItemEl.querySelector(".WorksListItem-details"), { opacity:0, x:"20%" }, { opacity:1, x:"0%" }, "<0.1")
+                .fromTo(listItemEl.querySelector(".WorksListItem-details"), { opacity:0, x:"20%" }, { opacity:1, x:"0%" }, "<0.1");
+
+            // gsap.set(listItemEl.querySelector(".AppImage-overlay"), { x:"0%" });
+            // gsap.set(listItemEl.querySelector(".WorksListItem-title"), { opacity:0, x:"20%" });
+            // gsap.set(listItemEl.querySelector(".WorksListItem-details"), { opacity:0, x:"20%" });
         })
     }
 
@@ -194,6 +199,7 @@ function WorksList(props){
         props.s_trigger_anim(() => {
 
             let l_s = document.querySelector(".Load-screen");
+            let load_s_t = 2520; // loading screen time
 
             let intervalRef = setInterval(() => {
 
@@ -210,10 +216,20 @@ function WorksList(props){
                     s_t_a = true;
                 }
 
-                if ( c_s_t === "none"  ) return;
-                if ( props.locomotiveScrollInstance.current === undefined || !( s_t_a ) ) return;
+                if (window.innerWidth > 1024){
 
-                props.locomotiveScrollInstance.current.update();
+                    if ( c_s_t === "none"  ) return;
+                    if ( props.locomotiveScrollInstance.current === undefined || !( s_t_a ) ) return;
+
+                    props.locomotiveScrollInstance.current.update();
+
+                } else {
+
+                    if ( c_s_t === "none"  ) return;
+                    if ( !( s_t_a ) ) return;
+
+                }
+
 
                 // Adding the animation
                 makeListItemsAnimated();
@@ -221,6 +237,7 @@ function WorksList(props){
                 work_el_added_count.current++;
                 if ( props.locomotiveScrollInstance.current !== undefined ) clearInterval(intervalRef);
 
+            // }, (window.innerWidth > 1024) ? 0 : load_s_t*0.5);
             }, 0);
 
         });

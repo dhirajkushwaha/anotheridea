@@ -1515,7 +1515,7 @@ function MyApp({ Component, pageProps }) {
                         // Locomotive
                         if ( true ){
                             window.scroll(0, 0);
-                            if ( locomotiveScrollInstance.current !== undefined ){
+                            if ( locomotiveScrollInstance.current !== undefined && window.innerWidth > 1024 ){
                                 locomotiveScrollInstance.current.destroy();
                             }
                             locomotiveInit();

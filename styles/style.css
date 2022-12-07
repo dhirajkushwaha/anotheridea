@@ -511,10 +511,10 @@
 @media only screen and ( max-width: 1023px ){
 
 	.MenuButton-cross {
-		width: 20px;
-		height: 20px;
-		margin-left: -10px;
-		margin-top: -10px;
+		width: 18px;
+		height: 18px;
+		margin-left: -9px;
+		margin-top: -9px;
 	}
 
 }
@@ -2341,7 +2341,7 @@ video::-webkit-media-controls-start-playback-button {
 
 @media only screen and (max-width: 1023px) {
 	.Work-page {
-		padding-top: 35vw;
+		padding-top: 27vw;
 	}
 
 	/* List Filter */
