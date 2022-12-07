@@ -757,7 +757,7 @@ export default function Home(props) {
 						style={{ width: "1920px", height: "1080px" }}
 					>
 						<iframe
-							src="https://player.vimeo.com/video/777311602?h=a297e390d4&amp;title=0&amp;portrait=0&amp;muted=1&amp;autoplay=1&amp;controls=0&amp;dnt=1&amp;loop=1&amp;transparent=0&amp;background=1&amp;quality=180p&amp;app_id=122963"
+							src="https://player.vimeo.com/video/777311602?h=a297e390d4&amp;title=0&amp;portrait=0&amp;muted=1&amp;autoplay=1&amp;controls=0&amp;dnt=1&amp;loop=1&amp;transparent=0&amp;background=1&amp;quality=480p&amp;app_id=122963"
 							width="640"
 							height="360"
 							frameBorder="0"
