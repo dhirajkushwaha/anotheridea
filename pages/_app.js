@@ -190,8 +190,6 @@ function MyApp({ Component, pageProps }) {
                 scrollMagSet(scrollMag, prevScrollMag);
                 prevScrollMag = scrollMag.toFixed(2);
 
-                console.log(prevScrollMag)
-
                 // popups
                 if ( router.asPath == "/work" ) { gsap.set(".List-popup", {y:scrollMag}); }
                 if ( router.asPath == "/" ) { gsap.set(".Slide-popup", {y:scrollMag}); }

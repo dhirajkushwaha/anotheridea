@@ -1311,6 +1311,7 @@ section.homeHeadSection {
 
 	.Works-slider, .Works-wrapper{
 		height: calc(45vw *var(--scale_f));
+		margin-top: calc(14vw * var(--scale_f));
 	}
 
 	.Works-slideImage {
@@ -1911,7 +1912,7 @@ video::-webkit-media-controls-start-playback-button {
 	}
 
 	.footerLearnMore {
-		padding-top: calc(14vw * var(--scale_f));
+		padding-top: calc(7vw * var(--scale_f));
 		border-top: none;
 	}
 
