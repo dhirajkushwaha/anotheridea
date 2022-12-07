@@ -1312,6 +1312,7 @@ section.homeHeadSection {
 	.Works-slider, .Works-wrapper{
 		height: calc(45vw *var(--scale_f));
 		margin-top: calc(14vw * var(--scale_f));
+		
 	}
 
 	.Works-slideImage {
