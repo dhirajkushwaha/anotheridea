@@ -23,11 +23,11 @@ export default function Footer(){
                     />
                 </div>
                 <div className="Footer-planetbg">
-                    <video loop={"loop"} muted={true} preload={"auto"} playsInline={true} autoPlay={true} className="Video Footer-planetbgVideo gifLike in-view">
-                        {/* <source src="https://www.mediakeys-experience.com/_nuxt/videos/planet.d4ca9e7.webm" data-src="https://www.mediakeys-experience.com/_nuxt/videos/planet.d4ca9e7.webm" type="video/webm" /> */}
-                        <source src="/assets/planet.ebe16bb2.mp4" data-src="/assets/planet.ebe16bb2.mp4" type="video/mp4" />
-                        {/* <source src="https://www.mediakeys-experience.com/_nuxt/videos/planet.d4ca9e7.webm" data-src="https://www.mediakeys-experience.com/_nuxt/videos/planet.d4ca9e7.webm" type="video/webm" />
-                        <source src="https://www.mediakeys-experience.com/_nuxt/videos/planet.ebe16bb.mp4" data-src="https://www.mediakeys-experience.com/_nuxt/videos/planet.ebe16bb.mp4" type="video/mp4" /> */}
+                    <video loop={"loop"} muted={true} preload={"auto"} playsInline={true} autoPlay={true} className="lazy Video Footer-planetbgVideo gifLike in-view">
+                        <source data-src="/assets/planet.ebe16bb2.webm" type="video/webm" />
+                        <source data-src="/assets/planet.ebe16bb2.mp4" type="video/mp4" />
+                        {/* <source src="/assets/planet.ebe16bb2.webm" data-src="/assets/planet.ebe16bb2.webm" type="video/webm" />
+                        <source src="/assets/planet.ebe16bb2.mp4" data-src="/assets/planet.ebe16bb2.mp4" type="video/mp4" /> */}
                     </video>
                 </div>
             </div>

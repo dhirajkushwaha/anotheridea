@@ -1444,6 +1444,37 @@ function MyApp({ Component, pageProps }) {
         }, 0);
     }
 
+    const lazy_load = () => {
+
+        // video lazy loading
+        document.addEventListener("DOMContentLoaded", function() {
+            var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+
+            if ("IntersectionObserver" in window) {
+              var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(video) {
+                  if (video.isIntersecting) {
+                    for (var source in video.target.children) {
+                      var videoSource = video.target.children[source];
+                      if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+                        videoSource.src = videoSource.dataset.src;
+                      }
+                    }
+
+                    video.target.load();
+                    video.target.classList.remove("lazy");
+                    lazyVideoObserver.unobserve(video.target);
+                  }
+                });
+              });
+
+              lazyVideos.forEach(function(lazyVideo) {
+                lazyVideoObserver.observe(lazyVideo);
+              });
+            }
+          });
+    }
+
     useEffect(() => {
         if (typeof window === "undefined") { return; }
 
@@ -1535,15 +1566,19 @@ function MyApp({ Component, pageProps }) {
 
                         let locomotice_interv = setInterval(() => {
                             // Locomotive
-                            if ( true ){ //  && ( document.readyState === 'complete' || document.readyState === "interactive" )
+                            if ( true ){
                                 window.scroll(0, 0);
                                 if ( locomotiveScrollInstance.current !== undefined && window.innerWidth > 1024 ){
                                     locomotiveScrollInstance.current.destroy();
                                 }
                                 locomotiveInit();
-
-                                clearInterval(locomotice_interv);
                             }
+
+                            { // applying lazy loading code
+                                lazy_load()
+                            }
+
+                            clearInterval(locomotice_interv);
 
                         }, load_s_t/10);
 
