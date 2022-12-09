@@ -61,6 +61,7 @@ export default function Trustedby(props) {
                         }
                         let trustedSliderItem = (<div className="trusterSliderItem">
                                                     <img
+                                                        loading="lazy"
                                                         src={`/assets/truster/logo (${(layer_n-1)*n_logos + num}).png`}
                                                         alt=""
                                                         key={(layer_n-1)*n_logos + num}
