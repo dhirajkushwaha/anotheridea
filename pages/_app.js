@@ -1498,7 +1498,7 @@ function MyApp({ Component, pageProps }) {
 
                         setTimeout(() => {
                             let loadingScreenInterval = setInterval(() => {
-                                if ( router.isReady === true && document.readyState === 'complete' )
+                                if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
                                     gsap.to(".Load-screen", {
                                         // duration:1,
                                         duration:0.7,
@@ -1510,7 +1510,7 @@ function MyApp({ Component, pageProps }) {
 
                                         }});
                                     clearInterval(loadingScreenInterval);
-                            }, load_s_t/10);
+                            }, 0);
 
                             // Locomotive
                             if ( true ){
