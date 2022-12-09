@@ -1493,46 +1493,49 @@ function MyApp({ Component, pageProps }) {
 
                 // Loading Screen and Locomotive setup
                 if ( true ){
+                    const load_fn = () => {
+                        let load_s_t = 2520; // loading screen time
 
-                    let load_s_t = 2520; // loading screen time
+                        setTimeout(() => {
+                            let loadingScreenInterval = setInterval(() => {
+                                if ( router.isReady === true && document.readyState === 'complete' )
+                                    gsap.to(".Load-screen", {
+                                        // duration:1,
+                                        duration:0.7,
+                                        y:"-100vh",
+                                        // ease:"power3",
+                                        onComplete:()=>{
 
-                    setTimeout(() => {
-                        let loadingScreenInterval = setInterval(() => {
-                            if ( router.isReady === true )
-                                gsap.to(".Load-screen", {
-                                    // duration:1,
-                                    duration:0.7,
-                                    y:"-100vh",
-                                    // ease:"power3",
-                                    onComplete:()=>{
+                                            document.querySelector(".Load-screen").classList.add("--is-hidden");
 
-                                        document.querySelector(".Load-screen").classList.add("--is-hidden");
+                                        }});
+                                    clearInterval(loadingScreenInterval);
+                            }, load_s_t/10);
 
-                                    }});
-                                clearInterval(loadingScreenInterval);
-                        }, 0);
-
-                        // Locomotive
-                        if ( true ){
-                            window.scroll(0, 0);
-                            if ( locomotiveScrollInstance.current !== undefined && window.innerWidth > 1024 ){
-                                locomotiveScrollInstance.current.destroy();
+                            // Locomotive
+                            if ( true ){
+                                window.scroll(0, 0);
+                                if ( locomotiveScrollInstance.current !== undefined && window.innerWidth > 1024 ){
+                                    locomotiveScrollInstance.current.destroy();
+                                }
+                                locomotiveInit();
                             }
-                            locomotiveInit();
-                        }
 
-                        // Onscroll Animation
-                        if ( true ){
-                            // Making web gsap scroll trigger compatible
-                            s_trigger_anim(()=>{});
-                        }
+                            // Onscroll Animation
+                            if ( true ){
+                                // Making web gsap scroll trigger compatible
+                                s_trigger_anim(()=>{});
+                            }
 
-                        // on scroll triggers header changes
-                        if ( true ){
-                            scrollTrigger();
-                        }
+                            // on scroll triggers header changes
+                            if ( true ){
+                                scrollTrigger();
+                            }
 
-                    }, load_s_t);
+                        }, load_s_t);
+                    }
+
+                    load_fn();
                 }
 
                 // Contact Page Header Change
