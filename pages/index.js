@@ -342,7 +342,7 @@ function WorksSliderItem(props) {
 
 				(<div className={"Slide-popup popup-hidden Slide-Popup-"+props.index}>
 					<div className="Popup-frame">
-						<div className="Popup-cross">close <Image layout="fill" alt="cross button" src="/assets/delete-sign--v2.png"/> </div>
+						<div className="Popup-cross">close <img alt="cross button" src="/assets/delete-sign--v2.png"/> </div>
 						<div className="Popup-video">
 							<iframe src={props.videoSrc} width="640" height="360" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen></iframe>
 						</div>

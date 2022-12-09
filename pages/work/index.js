@@ -97,7 +97,7 @@ function WorksListItem(props){
 
             <div className="List-popup popup-hidden">
                 <div className="Popup-frame">
-                    <div className="Popup-cross">close <Image layout="fill" alt="cross" src="https://img.icons8.com/ios-filled/18/FFFFFF/delete-sign--v2.png"/> </div>
+                    <div className="Popup-cross">close <img alt="cross" src="/assets/delete-sign--v2.png"/> </div>
                     <div className="Popup-video">
                         <iframe src={props.videoSrc} width="640" height="360" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                     </div>

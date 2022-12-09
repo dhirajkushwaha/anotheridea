@@ -74,17 +74,17 @@ export default function Team(){
     const [profiles_comp, set_profiles_comp] = useState([]);
 
     const profiles = [
-        ["./assets/team_profiles/gaurav_gandhi.jpg", "Gaurav Gandhi", "Executive Producer"],
-        ["./assets/team_profiles/smaran_gandhi.JPG", "Smaran Gandhi", "Executive Producer"],
-        ["./assets/team_profiles/nidhi_gandhi.jpg", "Nidhi Gandhi", "Senior Producer"],
-        ["./assets/team_profiles/srushti_iyer.JPG", "Srushti Iyer", "Senior Producer"],
-        ["./assets/team_profiles/ishaandeep_awasty.jpg", "Ishaan Deep Awasty", "Producer"],
-        ["./assets/team_profiles/anindita_mukherjee.jpg", "Anindita Mukherjee", "Producer"],
-        ["./assets/team_profiles/natasha_agarwal_jagtap.jpg", "Natasha Jagtap", "Associate Producer"],
-        ["./assets/team_profiles/manish_chougule.jpg", "Manish Chougule", "Post Producer"],
-        ["./assets/team_profiles/a_aakash_rao.jpg", "A Aakash Rao", "Post Producer"],
-        ["./assets/team_profiles/nadeem_shaikh_.jpg", "Nadeem Shaikh", "Admin Executive"],
-        ["./assets/team_profiles/inigo_nadar.jpg", "Inigo Nadar", "Online Artist"],
+        ["/assets/team_profiles/gaurav_gandhi.jpg", "Gaurav Gandhi", "Executive Producer"],
+        ["/assets/team_profiles/smaran_gandhi.JPG", "Smaran Gandhi", "Executive Producer"],
+        ["/assets/team_profiles/nidhi_gandhi.jpg", "Nidhi Gandhi", "Senior Producer"],
+        ["/assets/team_profiles/srushti_iyer.JPG", "Srushti Iyer", "Senior Producer"],
+        ["/assets/team_profiles/ishaandeep_awasty.jpg", "Ishaan Deep Awasty", "Producer"],
+        ["/assets/team_profiles/anindita_mukherjee.jpg", "Anindita Mukherjee", "Producer"],
+        ["/assets/team_profiles/natasha_agarwal_jagtap.jpg", "Natasha Jagtap", "Associate Producer"],
+        ["/assets/team_profiles/manish_chougule.jpg", "Manish Chougule", "Post Producer"],
+        ["/assets/team_profiles/a_aakash_rao.jpg", "A Aakash Rao", "Post Producer"],
+        ["/assets/team_profiles/nadeem_shaikh_.jpg", "Nadeem Shaikh", "Admin Executive"],
+        ["/assets/team_profiles/inigo_nadar.jpg", "Inigo Nadar", "Online Artist"],
     ]
 
 
