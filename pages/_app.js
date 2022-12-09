@@ -142,9 +142,12 @@ function MyApp({ Component, pageProps }) {
         // to be uncommented
         if ( router.asPath == "/" ){
             iframe = document.querySelector('.homeHeadSection iframe');
-            player = new Player(iframe);
 
-            player.play()
+            if ( iframe != undefined ){
+                player = new Player(iframe);
+
+                player.play()
+            }
         }
 
         const scrollMagSet = (scrollMag, prevScrollMag) => {
@@ -189,11 +192,15 @@ function MyApp({ Component, pageProps }) {
                     // if ( router.asPath == "/" ) { gsap.set(".Slide-popup:not(.popup-hidden)", {y:scrollMag-window.innerHeight}); }
 
                     // video pausing
-                    if ( scrollMag >= window.innerHeight*0.7 ){
-                        player.pause();
-                    } else {player.getPaused().then(function(paused) {
-                        if ( paused ) player.play();
-                      });
+                    if ( player != undefined ){
+
+                        if ( scrollMag >= window.innerHeight*0.7 ){
+                            player.pause();
+                        } else {player.getPaused().then(function(paused) {
+                            if ( paused ) player.play();
+                          });
+                        }
+
                     }
                 })
             })
@@ -232,6 +239,16 @@ function MyApp({ Component, pageProps }) {
 
                 }
 
+                // video pausing
+                if ( player != undefined ){
+                    if ( scrollMag >= window.innerHeight*0.7 ){
+                        player.pause();
+                    } else {player.getPaused().then((paused) => {
+                        if ( paused ) player.play();
+                      });
+                    }
+                }
+
             }
             (window).addEventListener("scroll", scroll_listener);
         }
@@ -248,9 +265,10 @@ function MyApp({ Component, pageProps }) {
         // to be uncommented
         if ( router.asPath == "/" ){
             iframe = document.querySelector('.homeHeadSection iframe');
-            player = new Player(iframe);
-
-            player.play()
+            if ( iframe != undefined ){
+                player = new Player(iframe);
+                player.play()
+            }
         }
 
 
@@ -1544,6 +1562,36 @@ function MyApp({ Component, pageProps }) {
                                         }});
                                     clearInterval(loadingScreenInterval);
                             }, 0);
+
+                            if ( router.asPath == "/" ){ // vimeo video
+
+                                if ( window.navigator.onLine ){
+
+
+                                    console.log( window.navigator.onLine )
+
+
+                                    var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHttp');
+                                    xhr.onload = function(){
+                                        document.querySelector(".vimeo-fullscreenVideo").innerHTML = `<iframe
+                                            src="https://player.vimeo.com/video/777311602?h=0a152e67e9&title=0&portrait=0&muted=1&autoplay=1&controls=0&dnt=1&loop=1&transparent=0&background=1&app_id=000001"
+                                            width="640"
+                                            height="360"
+                                            frameBorder="0"
+                                            allow="autoplay; fullscreen; picture-in-picture"
+                                            allowFullScreen=""
+                                            title="Another Idea"
+                                            data-ready="true"
+                                        ></iframe>`;
+                                    }
+                                    xhr.onerror = function(){
+
+                                    }
+                                    xhr.open("GET","https://api.publicapis.org/entries",true);
+                                    xhr.send();
+                                }
+
+                            }
 
 
                             // Onscroll Animation
