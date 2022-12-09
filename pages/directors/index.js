@@ -3,6 +3,7 @@ import { React, useEffect, useRef, useState } from "react";
 
 // Nextjs components
 import Head from "next/head";
+import Image from "next/image";
 
 
 // Custom Components

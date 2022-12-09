@@ -3,7 +3,7 @@ import { React, useEffect, useRef, useState } from "react";
 
 // Nextjs components
 import Head from "next/head";
-import Link from "next/link";
+import Image from "next/image";
 
 import { gsap } from "gsap/dist/gsap"; // GSAP animation took
 

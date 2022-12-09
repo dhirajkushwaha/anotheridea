@@ -3,7 +3,7 @@ import { React, useEffect, useRef, useState } from "react";
 
 // Nextjs components
 import Head from "next/head";
-import Link from "next/link";
+import Image from "next/image";
 
 // External Libraries
 // import {Curtains, Plane} from 'curtainsjs'; // Cloth Waving effect

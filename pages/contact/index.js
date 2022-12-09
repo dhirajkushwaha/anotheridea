@@ -4,6 +4,7 @@ import { React, useEffect, useRef } from "react";
 // Nextjs components
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 
 // Custom Components
 import Appbutton from "../../components/button/appbutton";
