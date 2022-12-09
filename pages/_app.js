@@ -1497,22 +1497,24 @@ function MyApp({ Component, pageProps }) {
                         let load_s_t = 2520; // loading screen time
 
                         setTimeout(() => {
+                            // Locomotive
+                            if ( true ){
+                                window.scroll(0, 0);
+                                if ( locomotiveScrollInstance.current !== undefined && window.innerWidth > 1024 ){
+                                    locomotiveScrollInstance.current.destroy();
+                                }
+                                locomotiveInit();
+                            }
+
+                        }, load_s_t/2);
+
+                        setTimeout(() => {
                             let loadingScreenInterval = setInterval(() => {
                                 if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
                                     gsap.to(".Load-screen", {
                                         // duration:1,
                                         duration:0.7,
                                         y:"-100vh",
-                                        onStart: ()=> {
-                                            // Locomotive
-                                            if ( true ){
-                                                window.scroll(0, 0);
-                                                if ( locomotiveScrollInstance.current !== undefined && window.innerWidth > 1024 ){
-                                                    locomotiveScrollInstance.current.destroy();
-                                                }
-                                                locomotiveInit();
-                                            }
-                                        },
                                         // ease:"power3",
                                         onComplete:()=>{
 
@@ -1522,8 +1524,7 @@ function MyApp({ Component, pageProps }) {
                                     clearInterval(loadingScreenInterval);
                             }, 0);
 
-
-
+                            
                             // Onscroll Animation
                             if ( true ){
                                 // Making web gsap scroll trigger compatible
