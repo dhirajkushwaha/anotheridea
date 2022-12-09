@@ -1506,7 +1506,7 @@ function MyApp({ Component, pageProps }) {
                                 locomotiveInit();
                             }
 
-                        }, load_s_t/2);
+                        }, load_s_t/10);
 
                         setTimeout(() => {
                             let loadingScreenInterval = setInterval(() => {
@@ -1524,7 +1524,7 @@ function MyApp({ Component, pageProps }) {
                                     clearInterval(loadingScreenInterval);
                             }, 0);
 
-                            
+
                             // Onscroll Animation
                             if ( true ){
                                 // Making web gsap scroll trigger compatible
