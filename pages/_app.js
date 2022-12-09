@@ -1753,7 +1753,7 @@ function MyApp({ Component, pageProps }) {
                             </svg>
                             <span className="MenuButton-bg" ></span>
                             <div className="MenuButton-label" >
-                                <span data-v-2cdfcd8e="">Menu</span>
+                                <span>Menu</span>
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="MenuButton-cross" >
                                 <path d="M0 8.6h20v2.7H0V8.6z" ></path>
