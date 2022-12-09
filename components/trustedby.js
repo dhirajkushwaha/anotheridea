@@ -1,6 +1,5 @@
 // React component
 import { React, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 
 // swiper slider
 import { useSwiper } from 'swiper/react';
@@ -61,7 +60,7 @@ export default function Trustedby(props) {
                             continue;
                         }
                         let trustedSliderItem = (<div className="trusterSliderItem">
-                                                    <Image
+                                                    <img
                                                         src={`/assets/truster/logo (${(layer_n-1)*n_logos + num}).png`}
                                                         alt=""
                                                         key={(layer_n-1)*n_logos + num}

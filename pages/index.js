@@ -342,7 +342,7 @@ function WorksSliderItem(props) {
 
 				(<div className={"Slide-popup popup-hidden Slide-Popup-"+props.index}>
 					<div className="Popup-frame">
-						<div className="Popup-cross">close <Image alt="cross button" src="https://img.icons8.com/ios-filled/18/FFFFFF/delete-sign--v2.png"/> </div>
+						<div className="Popup-cross">close <Image layout="fill" alt="cross button" src="/assets/delete-sign--v2.png"/> </div>
 						<div className="Popup-video">
 							<iframe src={props.videoSrc} width="640" height="360" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen></iframe>
 						</div>
@@ -437,6 +437,7 @@ function WorksSliderItem(props) {
 							>
 
 								<Image
+								 	layout="fill"
 									draggable="false"
 									data-src={ props.srcSet }
 									alt={ props.label }
@@ -556,6 +557,7 @@ function VisionbgItem(props) {
 					</div>
 					<picture >
 						<Image
+						 	layout="fill"
 							draggable="false"
 							data-src={props.imgSrc}
 							alt={props.alt} className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
@@ -781,7 +783,7 @@ export default function Home(props) {
 							}}
 						>
 							<WorksSliderItem
-								src="./assets/work_slider_thumbnail/Scram.jpg"
+								src="/assets/work_slider_thumbnail/Scram.jpg"
 								label="SCRAM 411"
 								dirName="Lloyd Baptista"
 								overlayColor="#777799"
@@ -790,7 +792,7 @@ export default function Home(props) {
 								index="0"
 							/>
 							<WorksSliderItem
-								src="./assets/work_slider_thumbnail/yodha-cement.jpg"
+								src="/assets/work_slider_thumbnail/yodha-cement.jpg"
 								label="YODHA 2.0"
 								dirName="Lloyd Baptista"
 								videoSrc="https://player.vimeo.com/video/757567353?h=48603657bf&amp;quality=240p"
@@ -798,7 +800,7 @@ export default function Home(props) {
 								index="1"
 							/>
 							<WorksSliderItem
-								src="./assets/work_slider_thumbnail/Minal-Murli-khali.jpg"
+								src="/assets/work_slider_thumbnail/Minal-Murli-khali.jpg"
 								label="MINNAL MURALI"
 								dirName="Vasan Bala"
 								videoSrc="https://player.vimeo.com/video/674292817?h=8b0a629b30&amp;quality=240p"
@@ -806,7 +808,7 @@ export default function Home(props) {
 								index="2"
 							/>
 							<WorksSliderItem
-								src="./assets/work_slider_thumbnail/Amazon-Rakhi.jpg"
+								src="/assets/work_slider_thumbnail/Amazon-Rakhi.jpg"
 								label="AMAZON KHEER"
 								dirName="Prosit Roy"
 								videoSrc="https://player.vimeo.com/video/674290692?h=6042c3a705&amp;quality=240p"
@@ -814,7 +816,7 @@ export default function Home(props) {
 								index="3"
 							/>
 							<WorksSliderItem
-								src="./assets/work_slider_thumbnail/Ola_Proximity.jpg"
+								src="/assets/work_slider_thumbnail/Ola_Proximity.jpg"
 								label="OLA PROXIMITY UNLOCK"
 								dirName="Ken Rolston"
 								videoSrc="https://player.vimeo.com/video/765214457?h=b5716ad29c&amp;quality=240p"
@@ -822,7 +824,7 @@ export default function Home(props) {
 								index="4"
 							/>
 							<WorksSliderItem
-								src="./assets/work_slider_thumbnail/MiTV.jpg"
+								src="/assets/work_slider_thumbnail/MiTV.jpg"
 								label="Mi TV"
 								dirName="Adam Johnson"
 								videoSrc="https://player.vimeo.com/video/674301398?h=515f40e64f&amp;quality=240p"
