@@ -1503,6 +1503,16 @@ function MyApp({ Component, pageProps }) {
                                         // duration:1,
                                         duration:0.7,
                                         y:"-100vh",
+                                        onStart: ()=> {
+                                            // Locomotive
+                                            if ( true ){
+                                                window.scroll(0, 0);
+                                                if ( locomotiveScrollInstance.current !== undefined && window.innerWidth > 1024 ){
+                                                    locomotiveScrollInstance.current.destroy();
+                                                }
+                                                locomotiveInit();
+                                            }
+                                        },
                                         // ease:"power3",
                                         onComplete:()=>{
 
@@ -1512,14 +1522,7 @@ function MyApp({ Component, pageProps }) {
                                     clearInterval(loadingScreenInterval);
                             }, 0);
 
-                            // Locomotive
-                            if ( true ){
-                                window.scroll(0, 0);
-                                if ( locomotiveScrollInstance.current !== undefined && window.innerWidth > 1024 ){
-                                    locomotiveScrollInstance.current.destroy();
-                                }
-                                locomotiveInit();
-                            }
+
 
                             // Onscroll Animation
                             if ( true ){
