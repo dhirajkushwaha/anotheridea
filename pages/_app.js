@@ -1496,7 +1496,7 @@ function MyApp({ Component, pageProps }) {
                     const load_fn = () => {
                         let load_s_t = 2520; // loading screen time
 
-                        setInterval(() => {
+                        let locomotice_interv = setInterval(() => {
                             // Locomotive
                             if ( true && ( document.readyState === 'complete' || document.readyState === "interactive" ) ){
                                 window.scroll(0, 0);
@@ -1504,6 +1504,8 @@ function MyApp({ Component, pageProps }) {
                                     locomotiveScrollInstance.current.destroy();
                                 }
                                 locomotiveInit();
+
+                                clearInterval(locomotice_interv);
                             }
 
                         }, load_s_t/10);

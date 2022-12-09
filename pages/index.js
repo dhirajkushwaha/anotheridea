@@ -4,12 +4,11 @@ import { React, useEffect, useRef, useState } from "react";
 // Next Components
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 
 // External Libraries
-import { Swiper, SwiperSlide } from "swiper/react"; // Swiper
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper"; // swiper internal module
 
 import { gsap } from "gsap/dist/gsap"; // GSAP animation took
 
@@ -343,7 +342,7 @@ function WorksSliderItem(props) {
 
 				(<div className={"Slide-popup popup-hidden Slide-Popup-"+props.index}>
 					<div className="Popup-frame">
-						<div className="Popup-cross">close <img src="https://img.icons8.com/ios-filled/18/FFFFFF/delete-sign--v2.png"/> </div>
+						<div className="Popup-cross">close <Image alt="cross button" src="https://img.icons8.com/ios-filled/18/FFFFFF/delete-sign--v2.png"/> </div>
 						<div className="Popup-video">
 							<iframe src={props.videoSrc} width="640" height="360" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen></iframe>
 						</div>
@@ -437,10 +436,10 @@ function WorksSliderItem(props) {
 								style={{ touchAction: "pan-y" }}
 							>
 
-								<img
+								<Image
 									draggable="false"
 									data-src={ props.srcSet }
-									alt="Mitsubishi - Lancement du nouveau SUV"
+									alt={ props.label }
 									className="AppImage-image"
 									style={{ "objectFit": "cover", "objectPosition": "center center", "touchAction": "pan-y" }}
 									src={ props.src }
@@ -556,17 +555,10 @@ function VisionbgItem(props) {
 					<div className="AppImage-placeholder"  style={{"background-color": "rgb(68, 68, 151)"}}>
 					</div>
 					<picture >
-						{/* <source
-							data-srcset="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360 360w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800 800w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w, https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
-							sizes="(min-width: 768px) 50vw, 100vw"  srcSet="
-							https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=360   360w,
-							https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=800   800w,
-							https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1200 1200w,
-							https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress%2Cformat&amp;rect=0%2C0%2C1360%2C1360&amp;w=1600 1600w"
-						/> */}
-						<img draggable="false"
+						<Image
+							draggable="false"
 							data-src={props.imgSrc}
-							alt="Think" className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
+							alt={props.alt} className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}
 							// src="https://images.prismic.io/mediakeys/49e59d11-583c-4362-8014-7869e063b69e_think.jpg?auto=compress,format&amp;rect=0,0,1360,1360&amp;w=800&amp;h=800"
 							src={props.imgSrc}
 						/>
@@ -881,18 +873,18 @@ export default function Home(props) {
 						"transform": "translate3d(0px, 0px, 0px) scale(2, 2)"
 						}}></div>
 						<div className="Vision-bgItems" >
-							<VisionbgItem imgSrc = "/assets/text_slides_thumbnail/Amazon Rakhi.png" />
-							<VisionbgItem imgSrc = "/assets/text_slides_thumbnail/Scram 411 - Royal Enfield.png" />
-							<VisionbgItem imgSrc = "/assets/text_slides_thumbnail/OLA Electric MoveSO3 -3.png" />
-							<VisionbgItem imgSrc = "/assets/text_slides_thumbnail/TATA YODHA 2.0 -04.png" />
+							<VisionbgItem alt="Visual" imgSrc = "/assets/text_slides_thumbnail/Amazon Rakhi.png" />
+							<VisionbgItem alt="Art" imgSrc = "/assets/text_slides_thumbnail/Scram 411 - Royal Enfield.png" />
+							<VisionbgItem alt="Dynamism" imgSrc = "/assets/text_slides_thumbnail/OLA Electric MoveSO3 -3.png" />
+							<VisionbgItem alt="Excellence" imgSrc = "/assets/text_slides_thumbnail/TATA YODHA 2.0 -04.png" />
 						</div>
 					</div>
 
-					<h2 className="SplitText-component HomeTitle Vision-title">
+					{/* <h2 className="SplitText-component HomeTitle Vision-title">
 						<span className="HomeTitle-surtitle app-title--small">Nous associons</span>
 						<span className="HomeTitle-title HomeTitle-title--l1 app-title--regular">stratégie &amp;</span>
 						<span className="HomeTitle-title HomeTitle-title--l2 app-title--regular">exécution</span>
-					</h2>
+					</h2> */}
 
 					<div className="Vision-wrapper">
 						<div className="Vision-item">
