@@ -1498,7 +1498,7 @@ function MyApp({ Component, pageProps }) {
 
                         let locomotice_interv = setInterval(() => {
                             // Locomotive
-                            if ( true && ( document.readyState === 'complete' || document.readyState === "interactive" ) ){
+                            if ( true ){ //  && ( document.readyState === 'complete' || document.readyState === "interactive" ) 
                                 window.scroll(0, 0);
                                 if ( locomotiveScrollInstance.current !== undefined && window.innerWidth > 1024 ){
                                     locomotiveScrollInstance.current.destroy();
