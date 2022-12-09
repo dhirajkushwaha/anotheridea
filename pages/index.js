@@ -338,47 +338,47 @@ function WorksSliderItem(props) {
 		if (typeof window === "undefined") { return; }
         if ( !executed.current){
 
-			props.addPopup(
+			// props.addPopup(
 
-				(<div className={"Slide-popup popup-hidden Slide-Popup-"+props.index}>
-					<div className="Popup-frame">
-						<div className="Popup-cross">close <img alt="cross button" src="/assets/delete-sign--v2.png"/> </div>
-						<div className="Popup-video">
-							<iframe src={props.videoSrc} width="640" height="360" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen></iframe>
-						</div>
-					</div>
-            	</div>),
+			// 	(<div className={"Slide-popup popup-hidden Slide-Popup-"+props.index}>
+			// 		<div className="Popup-frame">
+			// 			<div className="Popup-cross">close <img alt="cross button" src="/assets/delete-sign--v2.png"/> </div>
+			// 			<div className="Popup-video">
+			// 				<iframe src={props.videoSrc} width="640" height="360" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen></iframe>
+			// 			</div>
+			// 		</div>
+            // 	</div>),
 
-				()=>{
+			// 	()=>{
 
-					// console.log(cl_name);
+			// 		// console.log(cl_name);
 
-					let iframe = document.querySelector(cl_name+' iframe');
-					let player = new Player(iframe);
+			// 		let iframe = document.querySelector(cl_name+' iframe');
+			// 		let player = new Player(iframe);
 
 
-					// adding the popup
-					document.querySelector(".Works-SlideItem-"+props.index+" .Works-slideContent").addEventListener("click", (e)=>{
-						document.querySelector(cl_name).classList.remove("popup-hidden");
-						document.querySelector(".Header").classList.add("Header-under-element");
-						e.preventDefault();
-					})
+			// 		// adding the popup
+			// 		document.querySelector(".Works-SlideItem-"+props.index+" .Works-slideContent").addEventListener("click", (e)=>{
+			// 			document.querySelector(cl_name).classList.remove("popup-hidden");
+			// 			document.querySelector(".Header").classList.add("Header-under-element");
+			// 			e.preventDefault();
+			// 		})
 
-					// popup remove fn
-					let popup_r_fn = (e)=>{
-						document.querySelector(cl_name).classList.add("popup-hidden");
-						document.querySelector(".Header").classList.remove("Header-under-element");
-						e.cancelBubble = true;
+			// 		// popup remove fn
+			// 		let popup_r_fn = (e)=>{
+			// 			document.querySelector(cl_name).classList.add("popup-hidden");
+			// 			document.querySelector(".Header").classList.remove("Header-under-element");
+			// 			e.cancelBubble = true;
 
-						player.pause();
-					}
+			// 			player.pause();
+			// 		}
 
-					// removing the popup
-					document.querySelector(cl_name+" .Popup-cross").addEventListener("click", popup_r_fn);
-					document.querySelector(cl_name).addEventListener("click", popup_r_fn);
+			// 		// removing the popup
+			// 		document.querySelector(cl_name+" .Popup-cross").addEventListener("click", popup_r_fn);
+			// 		document.querySelector(cl_name).addEventListener("click", popup_r_fn);
 
-				}
-			);
+			// 	}
+			// );
 
             executed.current += 1;
         }
@@ -593,7 +593,6 @@ export default function Home(props) {
 		if ( slides_slided.current == num_slides ){
 			setPopupList(popup_instances.current);
 		}
-
 	}
 
 	useEffect(() => {
@@ -751,6 +750,7 @@ export default function Home(props) {
 						style={{ width: "1920px", height: "1080px" }}
 					>
 						<iframe
+							// src="https://player.vimeo.com/video/777311602?h=a297e390d4&amp;title=0&amp;portrait=0&amp;muted=1&amp;autoplay=1&amp;controls=0&amp;dnt=1&amp;loop=1&amp;transparent=0&amp;background=1&amp;app_id=122963"
 							// src="https://player.vimeo.com/video/777311602?h=a297e390d4&amp;title=0&amp;portrait=0&amp;muted=1&amp;autoplay=1&amp;controls=0&amp;dnt=1&amp;loop=1&amp;transparent=0&amp;background=1&amp;quality=auto&amp;app_id=122963"
 							src="https://player.vimeo.com/video/711602?h=a297e390d4&amp;title=0&amp;portrait=0&amp;muted=1&amp;autoplay=1&amp;controls=0&amp;dnt=1&amp;loop=1&amp;transparent=0&amp;background=1&amp;quality=auto&amp;app_id=122963"
 							width="640"
@@ -862,13 +862,13 @@ export default function Home(props) {
 
 					<div className="Vision-bg" style={{"opacity": 1}}>
 						<div className="Vision-bgAnimatedLogo">
-							<video loop={true} muted={true} preload={"auto"} playsInline={true} autoPlay
+							{/* <video loop={true} muted={true} preload={"auto"} playsInline={true} autoPlay
 								className="Video Vision-bgAnimatedLogoVideo gifLike in-view"
 								style={{"transform": "translate3d(0px, 0px, 0px)"}}>
 								<source src="https://www.mediakeys-experience.com/_nuxt/videos/black-balls.4cc7be5.mp4"
 										data-src="https://www.mediakeys-experience.com/_nuxt/videos/black-balls.4cc7be5.mp4"
 										type="video/mp4" />
-							</video>
+							</video> */}
 						</div>
 						<div className="Vision-bgCircle" style={{
 						"opacity": 0,

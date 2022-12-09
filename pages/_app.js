@@ -112,14 +112,15 @@ function MyApp({ Component, pageProps }) {
                 locomotiveScrollInstance.current = new LocomotiveScroll.default({
                     el: document.querySelector("[data-scroll-container]"),
                     smooth: true,
-                    lerp: 0.11,
+                    // lerp: 0.11,
+                    disableLerp: true,
                     smartphone: {
                       smooth: true
                     },
                     tablet: {
                       smooth: true
-                    }
-                    // inertia: 0.8,
+                    },
+                    inertia: 0.9,
                 });
             });
 
@@ -135,6 +136,16 @@ function MyApp({ Component, pageProps }) {
         var scrollMag, prevScrollMag, headerTrigDist; // header animation
 
         headerTrigDist = document.querySelector(".Header").clientHeight*1.2;
+
+        let iframe, player;
+
+        // to be uncommented
+        if ( router.asPath == "/" ){
+            iframe = document.querySelector('.homeHeadSection iframe');
+            player = new Player(iframe);
+
+            player.play()
+        }
 
         const scrollMagSet = (scrollMag, prevScrollMag) => {
 
@@ -176,6 +187,14 @@ function MyApp({ Component, pageProps }) {
                     if ( router.asPath == "/" ) { gsap.set(".Slide-popup", {y:scrollMag}); }
                     // if ( router.asPath == "/work" ) { gsap.set(".List-popup:not(.popup-hidden)", {y:scrollMag}); }
                     // if ( router.asPath == "/" ) { gsap.set(".Slide-popup:not(.popup-hidden)", {y:scrollMag-window.innerHeight}); }
+
+                    // video pausing
+                    if ( scrollMag >= window.innerHeight*0.7 ){
+                        player.pause();
+                    } else {player.getPaused().then(function(paused) {
+                        if ( paused ) player.play();
+                      });
+                    }
                 })
             })
 
@@ -1498,7 +1517,7 @@ function MyApp({ Component, pageProps }) {
 
                         let locomotice_interv = setInterval(() => {
                             // Locomotive
-                            if ( true ){ //  && ( document.readyState === 'complete' || document.readyState === "interactive" ) 
+                            if ( true ){ //  && ( document.readyState === 'complete' || document.readyState === "interactive" )
                                 window.scroll(0, 0);
                                 if ( locomotiveScrollInstance.current !== undefined && window.innerWidth > 1024 ){
                                     locomotiveScrollInstance.current.destroy();
