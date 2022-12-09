@@ -1496,9 +1496,9 @@ function MyApp({ Component, pageProps }) {
                     const load_fn = () => {
                         let load_s_t = 2520; // loading screen time
 
-                        setTimeout(() => {
+                        setInterval(() => {
                             // Locomotive
-                            if ( true ){
+                            if ( true && ( document.readyState === 'complete' || document.readyState === "interactive" ) ){
                                 window.scroll(0, 0);
                                 if ( locomotiveScrollInstance.current !== undefined && window.innerWidth > 1024 ){
                                     locomotiveScrollInstance.current.destroy();
