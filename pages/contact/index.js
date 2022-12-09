@@ -69,7 +69,7 @@ export default function Directors(){
                                     <div className="ContactDetailsItem">
                                         <a href="https://goo.gl/maps/VjyPbnGvXj2SAmec7" target={"_blank"} rel="noreferrer">
                                             <span className="ContactDetailsInfo Contact-Map">
-                                                Brady Gladys Plaza <Image src="https://img.icons8.com/ios-filled/50/FFFFFF/marker.png" alt="" />
+                                                Brady Gladys Plaza <Image layout="fill" src="https://img.icons8.com/ios-filled/50/FFFFFF/marker.png" alt="" />
                                             </span>
                                         </a>
                                     </div>

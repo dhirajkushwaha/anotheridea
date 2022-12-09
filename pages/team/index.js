@@ -21,7 +21,7 @@ function OtherDirectorItem(props){
                         <div className="AppImage-overlay"></div>
                         <div className="AppImage-placeholder" style={{"background-color": "rgb(127, 128, 127)"}}></div>
                         <picture>
-                            <Image draggable="false"
+                            <Image  layout="fill" draggable="false"
                                 alt={props.name} className="AppImage-image OtherDirectors-Image"
                                 style={{"object-fit": "cover", "object-position": "center center"}}
                                 src={props.imgSrc} />

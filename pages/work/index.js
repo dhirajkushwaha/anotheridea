@@ -81,7 +81,7 @@ function WorksListItem(props){
                                 <div className="AppImage-overlay"></div>
                                 <picture>
                                     { props.source }
-                                    <Image src={ props.imgUrl } alt={ props.label } className="AppImage-image" />
+                                    <Image layout="fill" src={ props.imgUrl } alt={ props.label } className="AppImage-image" />
                                 </picture>
                             </div>
                         {/* </BasicPlane>
@@ -97,7 +97,7 @@ function WorksListItem(props){
 
             <div className="List-popup popup-hidden">
                 <div className="Popup-frame">
-                    <div className="Popup-cross">close <Image alt="cross" src="https://img.icons8.com/ios-filled/18/FFFFFF/delete-sign--v2.png"/> </div>
+                    <div className="Popup-cross">close <Image layout="fill" alt="cross" src="https://img.icons8.com/ios-filled/18/FFFFFF/delete-sign--v2.png"/> </div>
                     <div className="Popup-video">
                         <iframe src={props.videoSrc} width="640" height="360" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                     </div>
