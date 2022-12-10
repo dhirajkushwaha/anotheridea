@@ -1458,7 +1458,6 @@ function MyApp({ Component, pageProps }) {
                       var videoSource = video.target.children[source];
                       if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
                         videoSource.src = videoSource.dataset.src;
-                        console.log("changed")
                       }
                     }
 
