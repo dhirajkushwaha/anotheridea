@@ -81,7 +81,7 @@ function WorksListItem(props){
                                 <div className="AppImage-overlay"></div>
                                 <picture>
                                     { props.source }
-                                    <Image layout="fill" src={ props.imgUrl } alt={ props.label } className="AppImage-image" />
+                                    <Image fill src={ props.imgUrl } alt={ props.label } className="AppImage-image" />
                                 </picture>
                             </div>
                         {/* </BasicPlane>

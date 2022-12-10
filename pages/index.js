@@ -445,7 +445,7 @@ function WorksSliderItem(props) {
 							>
 
 								<Image
-								 	layout="fill"
+									fill
 									draggable="false"
 									data-src={ props.srcSet }
 									alt={ props.label }
@@ -565,7 +565,7 @@ function VisionbgItem(props) {
 					</div>
 					<picture >
 						<Image
-						 	layout="fill"
+						 	fill
 							draggable="false"
 							data-src={props.imgSrc}
 							alt={props.alt} className="AppImage-image" style={{"object-fit": "cover", "object-position": "center center"}}

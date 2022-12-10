@@ -19,11 +19,11 @@ function OtherDirectorItem(props){
                     <div className="AppImage ExpertItem-image loaded lazyload fit-cover"
                         style={{"--ratio": "0%"}}>
                         <div className="AppImage-overlay"></div>
-                        <div className="AppImage-placeholder" style={{"background-color": "rgb(127, 128, 127)"}}></div>
+                        <div className="AppImage-placeholder" style={{"backgroundColor": "rgb(127, 128, 127)"}}></div>
                         <picture>
-                            <Image  layout="fill" draggable="false"
+                            <Image  fill draggable="false"
                                 alt={props.name} className="AppImage-image OtherDirectors-Image"
-                                style={{"object-fit": "cover", "object-position": "center center"}}
+                                style={{objectFit: "cover", "object-position": "center center"}}
                                 src={props.imgSrc} />
                         </picture>
                     </div>

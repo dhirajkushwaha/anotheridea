@@ -1446,8 +1446,8 @@ function MyApp({ Component, pageProps }) {
 
     const lazy_load = () => {
 
-        // video lazy loading
-        document.addEventListener("DOMContentLoaded", function() {
+
+        { // video lazy loading
             var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
 
             if ("IntersectionObserver" in window) {
@@ -1458,6 +1458,7 @@ function MyApp({ Component, pageProps }) {
                       var videoSource = video.target.children[source];
                       if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
                         videoSource.src = videoSource.dataset.src;
+                        console.log("changed")
                       }
                     }
 
@@ -1472,7 +1473,7 @@ function MyApp({ Component, pageProps }) {
                 lazyVideoObserver.observe(lazyVideo);
               });
             }
-          });
+        }
     }
 
     useEffect(() => {
