@@ -1775,7 +1775,7 @@ function MyApp({ Component, pageProps }) {
             <>
                 {/* Custom Cursor */}
                 <div className="mouseCursorContainer">
-                    <div className="mouseCursor" style={{transform:"translate3d(0px, 0px, 0px) scale(0.2))", borderColor: "rgb(85, 65, 248)", backgroundColor: "rgb(85, 65, 248)"}}>
+                    <div className="mouseCursor" style={{transform:"translate3d(calc(50vw), calc(-50vh), 0px) scale(0.2))", borderColor: "rgb(85, 65, 248)", backgroundColor: "rgb(85, 65, 248)"}}>
                         <div className="mouseCursorContent">
                             <div className="mouseCursorIconWrapper">
                                 {m_content_icon}
