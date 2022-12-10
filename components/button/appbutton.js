@@ -2,7 +2,6 @@ import Link from "next/link";
 
 export default function Appbutton(props, { children }) {
     const htmlStructure = (<a
-                            href={props.href != undefined ? props.href : "/"}
                             className={
                                 "AppButton colorFill " +
                                 (props.className === undefined ? "" : props.className)
@@ -38,7 +37,7 @@ export default function Appbutton(props, { children }) {
     return (
         <>
             { props.hrefDir != false ?
-            <Link href={props.href != undefined ? props.href : "/"}>
+            <Link href={props.href != undefined ? props.href : "/"} passHref legacyBehavior>
                 { htmlStructure }
             </Link>
              : htmlStructure }

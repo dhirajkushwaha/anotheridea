@@ -40,8 +40,8 @@ function NavItem(props){
             <div className="Menu-navItemNum">
                 <span>{props.itemNum}</span>
             </div>
-            <Link href={props.href}>
-                <a href={props.href} className="Menu-navItemLink">
+            <Link href={props.href} passHref legacyBehavior>
+                <a className="Menu-navItemLink">
                     <div data-label={props.linkLabel} className="Menu-navItemLinkInner colorFill" style={{"--x":"0px","--y":"0px","--r":"0px"}}>
                         {props.linkLabel}
                         <span data-label={props.linkLabel} className="Menu-navItemLinkInnerHover" style={{"color":"rgb(85, 65, 248)"}}>
@@ -1805,7 +1805,7 @@ function MyApp({ Component, pageProps }) {
                                 </div>
                             ) }
                         </div>
-                        <Link href="/">
+                        <Link legacyBehavior href="/">
                             <a href="/" className="Header-logoContainer">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="372" height="38" viewBox="0 0 372 38" fill="none">
                                     <g clipPath="url(#clip0_6_14)">
@@ -1874,7 +1874,7 @@ function MyApp({ Component, pageProps }) {
                             <div className="Menu-secondNav">
                                 <div className="Menu-quickAccess">
                                     <div className="Menu-quickAccessItem">
-                                        <Link href={"/contact"}>
+                                        <Link legacyBehavior href={"/contact"}>
                                             <a href="/contact" className="Menu-quickAccessItemLink">
                                                 Contact us
                                             </a>
@@ -1883,8 +1883,8 @@ function MyApp({ Component, pageProps }) {
                                 </div>
                                 <div className="Menu-socials">
                                     <div className="Menu-socialsItem">
-                                        {/* <Link href={"https://www.instagram.com/anotheridea.productions/"}> */}
-                                            <a href="https://www.instagram.com/anotheridea.productions/" className="Menu-socialsItemLink" target={"_blank"} rel="noreferrer">
+                                        <Link href={"https://www.instagram.com/anotheridea.productions/"} passHref legacyBehavior>
+                                            <a className="Menu-socialsItemLink" target={"_blank"} rel="noopener noreferrer">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="Menu-socialsItemIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <g clipPath="url(#clip0_1_2)">
                                                         <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="white"/>
@@ -1902,11 +1902,11 @@ function MyApp({ Component, pageProps }) {
                                                     Instagram
                                                 </span>
                                             </a>
-                                        {/* </Link> */}
+                                        </Link>
                                     </div>
                                     <div className="Menu-socialsItem">
-                                        {/* <Link href={"https://vimeo.com/anotherideaproductions"}> */}
-                                            <a href="https://vimeo.com/anotherideaproductions" className="Menu-socialsItemLink" target={"_blank"} rel="noreferrer">
+                                        <Link href={"https://vimeo.com/anotherideaproductions"} passHref legacyBehavior>
+                                            <a className="Menu-socialsItemLink" target={"_blank"} rel="noopener noreferrer">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="Menu-socialsItemIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <g clipPath="url(#clip0_3_9)">
                                                         <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="white"/>
@@ -1922,12 +1922,12 @@ function MyApp({ Component, pageProps }) {
                                                     Vimeo
                                                 </span>
                                             </a>
-                                        {/* </Link> */}
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
-                            <Link href={"/"}>
-                                <a href="/" className="Menu-logoContainer onlyDesk">
+                            <Link href={"/"} passHref legacyBehavior>
+                                <a className="Menu-logoContainer onlyDesk">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="255" height="26" viewBox="0 0 255 26" fill="none">
                                         <g clipPath="url(#clip0_12_104)">
                                             <path d="M18.2104 21.7579H6.09577L4.34813 25.5621H0L12.0377 0H12.2754L24.3132 25.5621H19.958L18.2104 21.7579ZM16.6585 18.3847L12.1636 8.59368L7.68962 18.3847H16.6585Z" fill="white"/>
