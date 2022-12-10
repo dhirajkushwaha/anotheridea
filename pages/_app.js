@@ -1486,6 +1486,8 @@ function MyApp({ Component, pageProps }) {
             // Mouse Cursor Positioning
             if ( true ){
                 // Cursor Following
+
+                gsap.to(".mouseCursor", { duration: 0, x: `-5vw`, y:`-5vh`, opacity: 0 })
                 document.addEventListener("mousemove", (e) => {
 
                     let m_pos_l = [];
@@ -1501,7 +1503,7 @@ function MyApp({ Component, pageProps }) {
 
                     let mouseEase = "sine";
 
-                    gsap.to(".mouseCursor", { duration: 0.5, x: `${e.pageX + m_pos_l[0]}px`, y:`${(e.pageY - scrollY) + m_pos_l[1]}}px`, ease: mouseEase })
+                    gsap.to(".mouseCursor", { duration: 0.5, x: `${e.pageX + m_pos_l[0]}px`, y:`${(e.pageY - scrollY) + m_pos_l[1]}}px`, opacity: 1, ease: mouseEase })
                 })
 
             }
@@ -1574,10 +1576,6 @@ function MyApp({ Component, pageProps }) {
                                 locomotiveInit();
                             }
 
-                            { // applying lazy loading code
-                                lazy_load()
-                            }
-
                             clearInterval(locomotice_interv);
 
                         }, load_s_t/10);
@@ -1628,6 +1626,9 @@ function MyApp({ Component, pageProps }) {
 
                             }
 
+                            { // applying lazy loading code
+                                lazy_load()
+                            }
 
                             // Onscroll Animation
                             if ( true ){
@@ -1775,7 +1776,7 @@ function MyApp({ Component, pageProps }) {
             <>
                 {/* Custom Cursor */}
                 <div className="mouseCursorContainer">
-                    <div className="mouseCursor" style={{transform:"translate3d(calc(50vw), calc(-50vh), 0px) scale(0.2))", borderColor: "rgb(85, 65, 248)", backgroundColor: "rgb(85, 65, 248)"}}>
+                    <div className="mouseCursor" style={{transform:"translate3d(0px -50vh, 0px) scale(0.2)", borderColor: "rgb(85, 65, 248)", backgroundColor: "rgb(85, 65, 248)"}}>
                         <div className="mouseCursorContent">
                             <div className="mouseCursorIconWrapper">
                                 {m_content_icon}
