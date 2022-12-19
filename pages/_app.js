@@ -1668,6 +1668,23 @@ function MyApp({ Component, pageProps }) {
                                     xhr.send();
                                 }
 
+                            } else {
+
+                                let loadingScreenInterval = setInterval(() => {
+                                    if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
+                                        gsap.to(".Load-screen", {
+                                            // duration:1,
+                                            duration:0.7,
+                                            y:"-100vh",
+                                            // ease:"power3",
+                                            onComplete:()=>{
+
+                                                document.querySelector(".Load-screen").classList.add("--is-hidden");
+
+                                            }});
+                                        clearInterval(loadingScreenInterval);
+                                }, 0);
+
                             }
 
                             { // applying lazy loading code
@@ -1685,7 +1702,7 @@ function MyApp({ Component, pageProps }) {
                                 scrollTrigger();
                             }
 
-                        }, load_s_t*0.5);
+                        }, load_s_t);
                     }
 
                     load_fn();
