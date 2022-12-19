@@ -2528,8 +2528,8 @@ video::-webkit-media-controls-start-playback-button {
 	}
 
 	.app-text--small {
-		font-size: calc(1.5vw * 3);
-		line-height: calc(2vw * 3);
+		font-size: calc(1.2vw * 3);
+		line-height: calc(1.8vw * 3);
 	}
 
 	.readyToMake{
