@@ -1566,30 +1566,6 @@ function MyApp({ Component, pageProps }) {
                     const load_fn = () => {
                         let load_s_t = 2520; // loading screen time
 
-                        if ( router.asPath == "/" ){ // vimeo video
-
-                            if ( window.navigator.onLine ){
-
-                                var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHttp');
-                                xhr.onload = function(){
-                                    document.querySelector(".vimeo-fullscreenVideo").innerHTML = `<iframe
-                                        src="https://player.vimeo.com/video/777311602?h=0a152e67e9&title=0&portrait=0&muted=1&autoplay=1&controls=0&dnt=1&loop=1&transparent=0&background=1&app_id=000001"
-                                        width="640"
-                                        height="360"
-                                        frameBorder="0"
-                                        allow="autoplay; fullscreen; picture-in-picture"
-                                        allowFullScreen=""
-                                        title="Another Idea"
-                                        data-ready="true"
-                                    ></iframe>`;
-                                }
-                                xhr.onerror = function(){}
-                                xhr.open("GET","https://api.publicapis.org/entries",true);
-                                xhr.send();
-                            }
-
-                        }
-
                         let locomotice_interv = setInterval(() => {
                             // Locomotive
                             if ( true ){
@@ -1605,44 +1581,48 @@ function MyApp({ Component, pageProps }) {
                         }, load_s_t/10);
 
                         setTimeout(() => {
-                            let loadingScreenInterval = setInterval(() => {
-                                if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
-                                    gsap.to(".Load-screen", {
-                                        // duration:1,
-                                        duration:0.7,
-                                        y:"-100vh",
-                                        // ease:"power3",
-                                        onComplete:()=>{
+                            setTimeout(() => {
 
-                                            document.querySelector(".Load-screen").classList.add("--is-hidden");
+                                let loadingScreenInterval = setInterval(() => {
+                                    if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
+                                        gsap.to(".Load-screen", {
+                                            // duration:1,
+                                            duration:0.7,
+                                            y:"-100vh",
+                                            // ease:"power3",
+                                            onComplete:()=>{
 
-                                        }});
-                                    clearInterval(loadingScreenInterval);
-                            }, 0);
+                                                document.querySelector(".Load-screen").classList.add("--is-hidden");
 
-                            // if ( router.asPath == "/" ){ // vimeo video
+                                            }});
+                                        clearInterval(loadingScreenInterval);
+                                }, 0);
 
-                            //     if ( window.navigator.onLine ){
+                            }, load_s_t*0.5);
 
-                            //         var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHttp');
-                            //         xhr.onload = function(){
-                            //             document.querySelector(".vimeo-fullscreenVideo").innerHTML = `<iframe
-                            //                 src="https://player.vimeo.com/video/777311602?h=0a152e67e9&title=0&portrait=0&muted=1&autoplay=1&controls=0&dnt=1&loop=1&transparent=0&background=1&app_id=000001"
-                            //                 width="640"
-                            //                 height="360"
-                            //                 frameBorder="0"
-                            //                 allow="autoplay; fullscreen; picture-in-picture"
-                            //                 allowFullScreen=""
-                            //                 title="Another Idea"
-                            //                 data-ready="true"
-                            //             ></iframe>`;
-                            //         }
-                            //         xhr.onerror = function(){}
-                            //         xhr.open("GET","https://api.publicapis.org/entries",true);
-                            //         xhr.send();
-                            //     }
+                            if ( router.asPath == "/" ){ // vimeo video
 
-                            // }
+                                if ( window.navigator.onLine ){
+
+                                    var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHttp');
+                                    xhr.onload = function(){
+                                        document.querySelector(".vimeo-fullscreenVideo").innerHTML = `<iframe
+                                            src="https://player.vimeo.com/video/777311602?h=0a152e67e9&title=0&portrait=0&muted=1&autoplay=1&controls=0&dnt=1&loop=1&transparent=0&background=1&app_id=000001"
+                                            width="640"
+                                            height="360"
+                                            frameBorder="0"
+                                            allow="autoplay; fullscreen; picture-in-picture"
+                                            allowFullScreen=""
+                                            title="Another Idea"
+                                            data-ready="true"
+                                        ></iframe>`;
+                                    }
+                                    xhr.onerror = function(){}
+                                    xhr.open("GET","https://api.publicapis.org/entries",true);
+                                    xhr.send();
+                                }
+
+                            }
 
                             { // applying lazy loading code
                                 lazy_load()
