@@ -1581,7 +1581,7 @@ function MyApp({ Component, pageProps }) {
                         }, load_s_t/10);
 
                         setTimeout(() => {
-                            
+
                             // uncollapse to see the loading screen code
                             if ( router.asPath == "/" ){ // vimeo video
 
@@ -1595,31 +1595,72 @@ function MyApp({ Component, pageProps }) {
                                             width="640"
                                             height="360"
                                             frameBorder="0"
-                                            allow="autoplay; fullscreen; picture-in-picture"
+                                            allow="picture-in-picture"
                                             allowFullScreen=""
                                             title="Another Idea"
                                             data-ready="true"
-                                        ></iframe>`;
+                                        ></iframe>`; // allow="fullscreen; picture-in-picture"
 
                                         // Rolling up the loading screen
                                         setTimeout(() => {
 
-                                            let loadingScreenInterval = setInterval(() => {
-                                                if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
-                                                    gsap.to(".Load-screen", {
-                                                        // duration:1,
-                                                        duration:0.7,
-                                                        y:"-100vh",
-                                                        // ease:"power3",
-                                                        onComplete:()=>{
+                                            let iframe, player;
 
-                                                            document.querySelector(".Load-screen").classList.add("--is-hidden");
 
-                                                        }});
-                                                    clearInterval(loadingScreenInterval);
+                                            let iframe_interv = setInterval(() => {
+
+                                                iframe = document.querySelector('.homeHeadSection iframe');
+
+                                                if ( iframe == undefined ) return;
+
+                                                player = new Player(iframe);
+                                                player.play();
+
+
+                                                player.on('bufferend', () => {
+
+                                                    let loadingScreenInterval = setInterval(() => {
+                                                        if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
+                                                            gsap.to(".Load-screen", {
+                                                                // duration:1,
+                                                                duration:0.7,
+                                                                y:"-100vh",
+                                                                // ease:"power3",
+                                                                onComplete:()=>{
+
+                                                                    document.querySelector(".Load-screen").classList.add("--is-hidden");
+
+                                                                }});
+                                                            clearInterval(loadingScreenInterval);
+                                                    }, 0);
+
+                                                });
+
+                                                setTimeout(() => {
+
+                                                    let loadingScreenInterval = setInterval(() => {
+                                                        if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
+                                                            gsap.to(".Load-screen", {
+                                                                // duration:1,
+                                                                duration:0.7,
+                                                                y:"-100vh",
+                                                                // ease:"power3",
+                                                                onComplete:()=>{
+
+                                                                    document.querySelector(".Load-screen").classList.add("--is-hidden");
+
+                                                                }});
+                                                            clearInterval(loadingScreenInterval);
+                                                    }, 0);
+
+                                                }, load_s_t*2);
+
+
+                                                clearInterval( iframe_interv );
+
                                             }, 0);
 
-                                        }, load_s_t*1.8);
+                                        }, load_s_t*0.1);
 
                                     }
                                     xhr.onerror = function(){}
@@ -1644,7 +1685,7 @@ function MyApp({ Component, pageProps }) {
                                 scrollTrigger();
                             }
 
-                        }, load_s_t);
+                        }, load_s_t*0.5);
                     }
 
                     load_fn();
