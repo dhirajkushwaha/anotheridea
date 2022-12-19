@@ -1581,31 +1581,15 @@ function MyApp({ Component, pageProps }) {
                         }, load_s_t/10);
 
                         setTimeout(() => {
-                            setTimeout(() => {
-
-                                let loadingScreenInterval = setInterval(() => {
-                                    if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
-                                        gsap.to(".Load-screen", {
-                                            // duration:1,
-                                            duration:0.7,
-                                            y:"-100vh",
-                                            // ease:"power3",
-                                            onComplete:()=>{
-
-                                                document.querySelector(".Load-screen").classList.add("--is-hidden");
-
-                                            }});
-                                        clearInterval(loadingScreenInterval);
-                                }, 0);
-
-                            }, load_s_t*1.5);
-
+                            
+                            // uncollapse to see the loading screen code
                             if ( router.asPath == "/" ){ // vimeo video
 
                                 if ( window.navigator.onLine ){
 
                                     var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHttp');
                                     xhr.onload = function(){
+                                        // setting the innerHtml of required element
                                         document.querySelector(".vimeo-fullscreenVideo").innerHTML = `<iframe
                                             src="https://player.vimeo.com/video/777311602?h=0a152e67e9&title=0&portrait=0&muted=1&autoplay=1&controls=0&dnt=1&loop=1&transparent=0&background=1&app_id=000001"
                                             width="640"
@@ -1616,6 +1600,27 @@ function MyApp({ Component, pageProps }) {
                                             title="Another Idea"
                                             data-ready="true"
                                         ></iframe>`;
+
+                                        // Rolling up the loading screen
+                                        setTimeout(() => {
+
+                                            let loadingScreenInterval = setInterval(() => {
+                                                if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
+                                                    gsap.to(".Load-screen", {
+                                                        // duration:1,
+                                                        duration:0.7,
+                                                        y:"-100vh",
+                                                        // ease:"power3",
+                                                        onComplete:()=>{
+
+                                                            document.querySelector(".Load-screen").classList.add("--is-hidden");
+
+                                                        }});
+                                                    clearInterval(loadingScreenInterval);
+                                            }, 0);
+
+                                        }, load_s_t*1.8);
+
                                     }
                                     xhr.onerror = function(){}
                                     xhr.open("GET","https://api.publicapis.org/entries",true);
