@@ -1598,7 +1598,7 @@ function MyApp({ Component, pageProps }) {
                                         clearInterval(loadingScreenInterval);
                                 }, 0);
 
-                            }, load_s_t*0.5);
+                            }, load_s_t*1.5);
 
                             if ( router.asPath == "/" ){ // vimeo video
 
