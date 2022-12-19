@@ -715,7 +715,7 @@ export default function Home(props) {
 								// slideText.parentElement.querySelector(".AppImage ").style.removeProperty("border");
 
 								lower_txt_tl
-									.to(slideText.querySelectorAll(`.Works-slideSubtitle, .Works-slideOffice`), {duration:0.2, opacity:0, y:`${2*0.69}vw`,
+									.to(slideText.querySelectorAll(`.Works-slideSubtitle, .Works-slideOffice`), {delay: 1, duration:0.2, opacity:0, y:`${2*0.69}vw`,
 									onComplete:()=>{
 										lower_txt_tl.clear();
 										lower_txt_tl.eventCallback("onComplete", null);
@@ -1043,7 +1043,7 @@ export default function Home(props) {
 						experience, set emotion to rhythm, and elevate drama you cannot look
 						away from.
 					</p>
-					<Appbutton href="/about" label="Learn More" />
+					<Appbutton href="/team" label="Learn More" />
 				</div>
 				<Trustedby sendSwiperInstance={props.sendSwiperInstance} />
 			</section>

@@ -9,7 +9,7 @@ export default function ReadyToMake() {
         <>
             <div className="readyToMake">
                 <h4 className="readyToMake-text">Ready to make the <br /> next project different?</h4>
-                <Appbutton href="/contact" label="Let's" boldLabel="&nbsp;Talk" />
+                {/* <Appbutton href="/contact" label="Let's" boldLabel="&nbsp;Talk" /> */}
 			</div>
         </>
     );

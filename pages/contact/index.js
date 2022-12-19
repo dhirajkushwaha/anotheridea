@@ -53,10 +53,10 @@ export default function Directors(){
                                         <h3 className="ContactDetailsLabel">Email</h3>
                                         <span className="ContactDetailsInfo">srushti@anotheridea.in</span>
                                     </div>
-                                    <div className="ContactDetailsItem">
+                                    {/* <div className="ContactDetailsItem">
                                         <h3 className="ContactDetailsLabel">Phone</h3>
                                         <span className="ContactDetailsInfo">+91 99306 60099</span>
-                                    </div>
+                                    </div> */}
                                     <div className="ContactDetailsItem">
                                         <h3 className="ContactDetailsLabel">Address</h3>
                                         <span className="ContactDetailsInfo">

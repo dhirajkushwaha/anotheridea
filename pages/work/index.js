@@ -120,7 +120,7 @@ function WorksList(props){
                                 ["/", "/assets/works_thumbnail/Amazon-Prime-Day.jpg", "Amazon Prime Day", "Vikrant Yadav", "", "https://player.vimeo.com/video/748676041?h=f88346ac9f&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Amazon-Heroes-.jpg", "Amazon Great Indian Heroes", "Prosit Roy", "", "https://player.vimeo.com/video/674292092?h=e6360723d7&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Mi-TV.jpg", "MI TV", "Adam Johnson", "", "https://player.vimeo.com/video/674301398?h=515f40e64f&amp;quality=240p"],
-                                ["/", "/assets/works_thumbnail/Myntra-Unskippable.jpg", "Myntra Be Unskippable", "Sachin Kothre", "", "https://player.vimeo.com/video/674300863?h=29cd87ab5c&amp;quality=240p"],
+                                ["/", "/assets/works_thumbnail/Myntra-Unskippable.jpg", "Myntra Be Unskippable", "Sachin Kotre", "", "https://player.vimeo.com/video/674300863?h=29cd87ab5c&amp;quality=240p"],
 
                                 ["/", "/assets/works_thumbnail/The-Sleep-Company.jpg", "The Sleep Company", "Jeet Lotia", "", "https://player.vimeo.com/video/674831888?h=74c3bf7e11&amp;quality=240p"],
                                 ["/", "/assets/works_thumbnail/Motorolla-Ink.jpg", "MOTO g82", "Teodora Chingarova", "", "https://player.vimeo.com/video/746099784?h=ac5d0410ff&amp;quality=240p"],
