@@ -1582,6 +1582,25 @@ function MyApp({ Component, pageProps }) {
 
                         setTimeout(() => {
 
+                            const load_screen_roll = () => {
+
+                                let loadingScreenInterval = setInterval(() => {
+                                    if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
+                                        gsap.to(".Load-screen", {
+                                            // duration:1,
+                                            duration:0.7,
+                                            y:"-100vh",
+                                            // ease:"power3",
+                                            onComplete:()=>{
+
+                                                document.querySelector(".Load-screen").classList.add("--is-hidden");
+
+                                            }});
+                                        clearInterval(loadingScreenInterval);
+                                }, 0);
+
+                            }
+
                             // uncollapse to see the loading screen code
                             if ( router.asPath == "/" ){ // vimeo video
 
@@ -1617,24 +1636,7 @@ function MyApp({ Component, pageProps }) {
                                                 player.play();
 
 
-                                                player.on('bufferend', () => {
-
-                                                    let loadingScreenInterval = setInterval(() => {
-                                                        if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
-                                                            gsap.to(".Load-screen", {
-                                                                // duration:1,
-                                                                duration:0.7,
-                                                                y:"-100vh",
-                                                                // ease:"power3",
-                                                                onComplete:()=>{
-
-                                                                    document.querySelector(".Load-screen").classList.add("--is-hidden");
-
-                                                                }});
-                                                            clearInterval(loadingScreenInterval);
-                                                    }, 0);
-
-                                                });
+                                                player.on('bufferend', load_screen_roll);
 
                                                 setTimeout(() => {
 
@@ -1669,22 +1671,7 @@ function MyApp({ Component, pageProps }) {
                                 }
 
                             } else {
-
-                                let loadingScreenInterval = setInterval(() => {
-                                    if ( router.isReady === true && ( document.readyState === 'complete' || document.readyState === "interactive" ) )
-                                        gsap.to(".Load-screen", {
-                                            // duration:1,
-                                            duration:0.7,
-                                            y:"-100vh",
-                                            // ease:"power3",
-                                            onComplete:()=>{
-
-                                                document.querySelector(".Load-screen").classList.add("--is-hidden");
-
-                                            }});
-                                        clearInterval(loadingScreenInterval);
-                                }, 0);
-
+                                load_screen_roll()
                             }
 
                             { // applying lazy loading code
