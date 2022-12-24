@@ -11,6 +11,7 @@
   "dependencies": {
     "@vimeo/player": "^2.18.0",
     "gsap": "^3.11.1",
+    "jquery": "^3.6.3",
     "locomotive-scroll": "^3.6.1",
     "next": "^13.0.6",
     "react": "^18.2.0",

@@ -1,23 +1,134 @@
 // React
-import { React, useEffect, useRef } from "react";
+import { React, useEffect, useRef, useState } from "react";
 
 // Nextjs components
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 
 // Custom Components
 import Appbutton from "../../components/button/appbutton";
 
+import jQuery from "jquery";
+const $ = jQuery;
 
-export default function Directors(){
+export default function Contact(){
 
     const executed = useRef(0);
+
+    const [f_process_state, set_f_process_state] = useState(false);
+
+    const form_validation = () => {
+
+        if ( f_process_state ) return;
+
+        const contact_form = document.querySelector(".contact-form");
+
+        let css_selectors = [
+                    ".contact-form input[name='name']",
+                    ".contact-form input[name='mobile']",
+                    ".contact-form input[name='email']",
+                    ".contact-form textarea"
+                ]
+
+        const name_input = document.querySelector(css_selectors[0]);
+        const mobile_input = document.querySelector(css_selectors[1]);
+        const email_input = document.querySelector(css_selectors[2]);
+        const message_input = document.querySelector(css_selectors[3]);
+
+        const e_mail = "mehul@integrate360.in"
+
+        name_input.setCustomValidity("Name field must not be empty");
+        mobile_input.setCustomValidity("Please enter a phone number");
+        email_input.setCustomValidity("Please enter an e-mail");
+        message_input.setCustomValidity("Write few lines");
+
+        css_selectors.forEach((c_s, index) => {
+
+            document.querySelector(c_s).addEventListener("input", (e)=>{
+                e.target.setCustomValidity("");
+
+                if ( index == 0 ){
+                    if (e.target.value == ""){
+                        e.target.setCustomValidity("Name field must not be empty")
+                    }
+                }
+                else if (index == 1){
+
+                    if (e.target.value == ""){
+                        e.target.setCustomValidity("Please enter a phone number")
+                    }
+                    try {
+
+                        let str_last_el = (e.target.value.split('')[e.target.value.length-1]).toString().toLowerCase()
+
+                        if ( str_last_el < '0' || str_last_el > '9' ){
+                            e.target.value = e.target.value.substring(0, e.target.value.length-1) + e.target.value.substring(e.target.value.length);
+                        }
+
+                        if ( e.target.value.length > 10 ){
+                            e.target.value = e.target.value.substring(0, (e.target.value.length > 10) ? 10 : e.target.value.length);
+                        }
+
+                    } catch (error) {}
+
+                }
+                else if (index == 2){
+
+                    if (e.target.value == ""){
+                        e.target.setCustomValidity("Please enter an e-mail")
+                    }
+
+                }
+                else if (index == 3){
+
+                    if (e.target.value == ""){
+                        e.target.setCustomValidity("Write few lines")
+                    }
+
+                }
+            });
+
+        })
+
+        // mobile_input.addEventListener("input", handler_mobile);
+        contact_form.addEventListener("submit", (e)=> {
+
+            e.preventDefault();
+
+            $.ajax({
+                url: `https://formsubmit.co/ajax/${e_mail}`,
+                method: "POST",
+                data: {
+                    name: name_input.value,
+                    mobile: mobile_input.value,
+                    email: email_input.value,
+                    message: message_input.value,
+                    _subject: "Another Idea Contact Details Submitted."
+                },
+                dataType: "json",
+                beforeSend: ()=>{
+                    set_f_process_state(true);
+                },
+                success: ()=>{
+                    name_input.value = "";
+                    mobile_input.value = "";
+                    email_input.value = "";
+                    message_input.value = "";
+                }
+            });
+
+
+        });
+
+    }
 
     useEffect(() => {
 		if (typeof window === "undefined") { return; }
         if ( !executed.current){
 
+            form_validation()
+
+            executed.current = 1;
         }
     }, [])
 
@@ -74,23 +185,34 @@ export default function Directors(){
                                         </a>
                                     </div>
                                 </div>
-                                <form action="/form.js" className="ContactForm-form">
-                                    <input className="FormInput" type="text" name="Name" autoComplete="false" placeholder="Name" id="" />
-                                    <input className="FormInput" type="tel" name="Mobile" placeholder="Mobile" id="" />
-                                    <input className="FormInput" type="email" name="Email" placeholder="Email" id="" />
-                                    <textarea className="FormInput" name="Message" placeholder="Message" id="" cols="30" rows="10"></textarea>
-                                    <button className="FormButton" type="submit">
-					                    <Appbutton label="Submit"
-                                            bgColor="white"
-                                            textColor="#5541f8"
-                                            hoverTextColor="#fff"
-                                            hoverBgColor="#5541f8"
-                                            marginTop="calc( (30 / var(--vw-size-px)) * 1vw )"
-                                            hrefDir={false}
-                                            className="FormInputButton"
-                                        />
-                                    </button>
-                                </form>
+                                <div className="ContactForm-form">
+
+                                {
+                                    f_process_state ?
+                                    (<div className="ContactForm-processing">
+                                        <lottie-player src="/assets/success.json"  background="transparent"  speed="1"  style={{width: "180px", height: "180px"}} autoplay></lottie-player>
+                                    </div>) :
+                                    (<form method="POST" action="/contact" className="contact-form" >
+                                        {/* <input type="hidden" name="_next" value="http://anotherideaproduction.com/contact/?"/> */}
+                                        <input className="FormInput" type="text" name="name" spellCheck={false} autoComplete="false" required placeholder="Name" id="" />
+                                        <input className="FormInput" type="tel" name="mobile" spellCheck={false} placeholder="Mobile" required id=""/>
+                                        <input className="FormInput" type="email" name="email" spellCheck={false} placeholder="Email" required id="" />
+                                        <textarea className="FormInput" name="message" spellCheck={false} placeholder="Message" id="" cols="30" rows="10"></textarea>
+                                        <button className="FormButton" type="submit">
+                                            <Appbutton label="Submit"
+                                                bgColor="white"
+                                                textColor="#5541f8"
+                                                hoverTextColor="#fff"
+                                                hoverBgColor="#5541f8"
+                                                marginTop="calc( (30 / var(--vw-size-px)) * 1vw )"
+                                                hrefDir={false}
+                                                className="FormInputButton"
+                                            />
+                                        </button>
+                                    </form>)
+                                }
+
+                                </div>
                             </div>
                         </div>
 						<div className="Menu-secondNav">
