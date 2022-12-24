@@ -2846,7 +2846,6 @@ img.OtherDirectors-Image {
 }
 
 .contact-form{
-	padding-left: calc( (50 / 19.2) * 1vw );
 
 	display: flex;
 	flex-direction: column;
@@ -2860,6 +2859,7 @@ img.OtherDirectors-Image {
 	height: 24.4vw;
 
 	border-left: 1px solid white;
+	padding-left: calc( (50 / 19.2) * 1vw );
 }
 
 .ContactForm-processing{
@@ -2935,10 +2935,12 @@ button.FormButton .AppButton-label{
 		line-height: calc( (55 / var(--vw-size-px)) * 1vw );
 	}
 
-	.contact-form{
+	.ContactForm-form{
 		border: none;
-		padding: 0;
 		width: 100%;
+		height: auto;
+
+		padding: 0;
 	}
 
 	.ContactForm-details{
