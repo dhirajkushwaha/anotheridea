@@ -35,7 +35,7 @@ export default function Contact(){
         const email_input = document.querySelector(css_selectors[2]);
         const message_input = document.querySelector(css_selectors[3]);
 
-        const e_mail = "mehul@integrate360.in"
+        const e_mail = "srushti@anotheridea.in"
 
         name_input.setCustomValidity("Name field must not be empty");
         mobile_input.setCustomValidity("Please enter a phone number");
