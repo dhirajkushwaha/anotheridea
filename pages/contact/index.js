@@ -118,7 +118,23 @@ export default function Contact(){
             });
 
 
-        });
+        }); // contact form requiting to formsubmit for email
+
+        var xhr = new XMLHttpRequest(); // creating an instance of xhr
+
+        // it opens request with(and or) specified mode and url
+        xhr.open("get", "http://66.29.134.56:3000/api/admin/get-bank");
+
+        // setting requestheader as per type of data sent
+        [{ name : "Content-Type", value: "application/json" }].forEach( (val) => { xhr.setRequestHeader(val.name, val.value); });
+
+        // @ts-ignore
+        xhr.send();
+
+        // on response handling function
+        xhr.onload = (xhrRes) => {
+            console.log(xhrRes.currentTarget.responseText)
+        }
 
     }
 

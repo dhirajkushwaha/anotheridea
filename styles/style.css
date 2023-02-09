@@ -3745,6 +3745,9 @@ button.FormButton .AppButton-label{
 
 	.Popup-video{
 		border-radius: calc(1vw * 1 * 2.677/0.69);
+		
+		width: calc(85 * 1vw);
+		height: calc((85/1.77) * 1vw);
 	}
 
 	.Popup-video iframe{
