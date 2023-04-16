@@ -270,11 +270,11 @@ export default function Directors(){
 
     return (
         <div className="Directors-page" data-scroll-container>
-            <Head><title>Directors - Another IDEA</title></Head>
+            <Head><title>Directors - Another Idea</title></Head>
 
             <section className="Directors-onBoard">
                 <div className="Title u-textUppercase">
-                    <h1>ON Board Directors</h1>
+                    <h1>Empanelled Directors</h1>
                 </div>
                 <div className="OnBoard-wrapper">
                     <div className="OnBoard-listItems">

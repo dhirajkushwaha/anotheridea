@@ -350,7 +350,7 @@ export default function Work(props){
     return(
         <div className="Work-page" data-scroll-container>
             <Head>
-				<title>Work - Another IDEA</title>
+				<title>Work - Another Idea</title>
 			</Head>
 
             <section className="Works-Listfilter">

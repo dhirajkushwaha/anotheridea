@@ -178,7 +178,7 @@ class Slider {
 
 	run() {
 		this.lastX = lerp(this.lastX, this.currentX, this.opts.ease);
-		this.lastX = Math.floor(this.lastX * 100) / 100;
+		this.lastX = Math.floor(this.lastX * 10) / 10;
 
 		this.slides.forEach((slide, index) => {
 
@@ -748,7 +748,7 @@ export default function Home(props) {
 	return (
 		<div data-scroll-container>
 			<Head>
-				<title>Another IDEA</title>
+				<title>Another Idea</title>
 			</Head>
 
 			<section className="homeHeadSection">
@@ -757,19 +757,7 @@ export default function Home(props) {
 						className="vimeo-fullscreenVideo"
 						style={{ width: "1920px", height: "1080px" }}
 					>
-						{/* <iframe
-							  // https://player.vimeo.com/video/598717098?h=a297e390d4&title=0&portrait=0&muted=1&autoplay=1&controls=0&dnt=1&loop=1&transparent=0&background=1&app_id=122963
-							src="https://player.vimeo.com/video/777311602?h=0a152e67e9&title=0&portrait=0&muted=1&autoplay=1&controls=0&dnt=1&loop=1&transparent=0&background=1&app_id=000001"
-							// src="https://player.vimeo.com/video/777311602?h=a297e390d4&amp;title=0&amp;portrait=0&amp;muted=1&amp;autoplay=1&amp;controls=0&amp;dnt=1&amp;loop=1&amp;transparent=0&amp;background=1&amp;quality=auto&amp;app_id=122963"
-							// src="https://player.vimeo.com/video/711602?h=a297e390d4&amp;title=0&amp;portrait=0&amp;muted=1&amp;autoplay=1&amp;controls=0&amp;dnt=1&amp;loop=1&amp;transparent=0&amp;background=1&amp;quality=auto&amp;app_id=122963"
-							width="640"
-							height="360"
-							frameBorder="0"
-							allow="autoplay; fullscreen; picture-in-picture"
-							allowFullScreen=""
-							title="Another Idea"
-							data-ready="true"
-						></iframe> */}
+						{/* this space is for insertion code */}
 					</div>
 				</div>
 			</section>

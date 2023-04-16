@@ -119,23 +119,6 @@ export default function Contact(){
 
 
         }); // contact form requiting to formsubmit for email
-
-        var xhr = new XMLHttpRequest(); // creating an instance of xhr
-
-        // it opens request with(and or) specified mode and url
-        xhr.open("get", "http://66.29.134.56:3000/api/admin/get-bank");
-
-        // setting requestheader as per type of data sent
-        [{ name : "Content-Type", value: "application/json" }].forEach( (val) => { xhr.setRequestHeader(val.name, val.value); });
-
-        // @ts-ignore
-        xhr.send();
-
-        // on response handling function
-        xhr.onload = (xhrRes) => {
-            console.log(xhrRes.currentTarget.responseText)
-        }
-
     }
 
     useEffect(() => {
@@ -150,7 +133,7 @@ export default function Contact(){
 
     return (
         <div className="Contact-page" data-scroll-container>
-            <Head><title>Contact Us - Another IDEA</title></Head>
+            <Head><title>Contact Us - Another Idea</title></Head>
 
             <section className="Contact-fields">
                 <div className="Menu Contact-menu" style={{"background":"rgb(85, 65, 248)"}}>
@@ -256,7 +239,7 @@ export default function Contact(){
                                     </Link>
                                 </div>
                                 <div className="Menu-socialsItem">
-                                    <Link href={"https://vimeo.com/anotherideaproductions"} passHref legacyBehavior>
+                                    <Link href={"https://vimeo.com/showcase/9907768"} passHref legacyBehavior>
                                         <a className="Menu-socialsItemLink" target={"_blank"} rel="noopener noreferrer">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="Menu-socialsItemIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <g clipPath="url(#clip0_3_9)">

@@ -1476,7 +1476,33 @@ function MyApp({ Component, pageProps }) {
     }
 
     useEffect(() => {
+
         if (typeof window === "undefined") { return; }
+
+
+        // page redirection to https form http
+        if ( false ) { // make it true while building
+            if (location.protocol !== 'https:') {
+                location.replace(`https:${location.href.substring(location.protocol.length)}`);
+            }
+        }
+
+        // data fetching from control panel
+        if ( true ){
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://7872-2401-4900-4173-4b12-acfe-890e-81a7-3f9d.in.ngrok.io/api/image/load-image");
+            [{ name : "Content-Type", value: "application/json" }].forEach( (val) => { xhr.setRequestHeader(val.name, val.value); });
+
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+
+            xhr.onload = (xhrRes) => {
+                console.log(xhrRes.currentTarget.responseText);
+            }
+
+            xhr.send();
+        }
+
 
         pageMicroHistory.current = {prevPage: pageMicroHistory.current.currentPage, currentPage: router.asPath};
         setPageMicroHistory( {prevPage: pageMicroHistoryState.currentPage, currentPage: router.asPath} );
@@ -1605,12 +1631,16 @@ function MyApp({ Component, pageProps }) {
                             if ( router.asPath == "/" ){ // vimeo video
 
                                 if ( window.navigator.onLine ){
+                                    let video_url_str = "https://player.vimeo.com/video/799025699?h=0a152e67e9&title=0&portrait=0&muted=1&autoplay=1&controls=0&dnt=1&loop=1&transparent=0&background=1&app_id=000001";
+
+                                    if ( document.body.clientWidth < 450 )
+                                        video_url_str = "https://player.vimeo.com/video/799025729?h=972d4c7b96&title=0&portrait=0&muted=1&autoplay=1&controls=0&dnt=1&loop=1&transparent=0&background=1&app_id=000001";
 
                                     var xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHttp');
                                     xhr.onload = function(){
                                         // setting the innerHtml of required element
                                         document.querySelector(".vimeo-fullscreenVideo").innerHTML = `<iframe
-                                            src="https://player.vimeo.com/video/777311602?h=0a152e67e9&title=0&portrait=0&muted=1&autoplay=1&controls=0&dnt=1&loop=1&transparent=0&background=1&app_id=000001"
+                                            src="${video_url_str}"
                                             width="640"
                                             height="360"
                                             frameBorder="0"
@@ -1954,7 +1984,7 @@ function MyApp({ Component, pageProps }) {
                                         </Link>
                                     </div>
                                     <div className="Menu-socialsItem">
-                                        <Link href={"https://vimeo.com/anotherideaproductions"} passHref legacyBehavior>
+                                        <Link href={"https://vimeo.com/showcase/9907768"} passHref legacyBehavior>
                                             <a className="Menu-socialsItemLink" target={"_blank"} rel="noopener noreferrer">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="Menu-socialsItemIcon" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <g clipPath="url(#clip0_3_9)">

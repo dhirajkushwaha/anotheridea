@@ -262,7 +262,7 @@ export default function Team(){
 
     return (
         <div className="Directors-page" data-scroll-container>
-            <Head><title>Team - Another IDEA</title></Head>
+            <Head><title>Team - Another Idea</title></Head>
 
             <section className="Directors-onBoard">
                 <div className="Title u-textUppercase">
