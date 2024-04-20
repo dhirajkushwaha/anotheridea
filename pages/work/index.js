@@ -5,11 +5,7 @@ import { React, useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 
-// External Libraries
-// import {Curtains, Plane} from 'curtainsjs'; // Cloth Waving effect
-// import {Curtains, Plane} from 'react-curtains';
-
-// Gsap
+// GSAP
 import { gsap } from "gsap/dist/gsap";
 
 // Custom Components
@@ -165,7 +161,6 @@ function WorksList(props){
 
         document.querySelectorAll(".List-item").forEach((listItemEl) => {
 
-
             listItemEl.querySelector(".AppImage-overlay").style.setProperty("opacity", 1);
             gsap.set(listItemEl.querySelector(".WorksListItem-title"), { opacity:0, x:"20%" });
             gsap.set(listItemEl.querySelector(".WorksListItem-details"), { opacity:0, x:"20%" });
@@ -187,10 +182,6 @@ function WorksList(props){
                 }})
                 .fromTo(listItemEl.querySelector(".WorksListItem-title"), { opacity:0, x:"20%" }, { opacity:1, x:"0%" }, "<0.05")
                 .fromTo(listItemEl.querySelector(".WorksListItem-details"), { opacity:0, x:"20%" }, { opacity:1, x:"0%" }, "<0.1");
-
-            // gsap.set(listItemEl.querySelector(".AppImage-overlay"), { x:"0%" });
-            // gsap.set(listItemEl.querySelector(".WorksListItem-title"), { opacity:0, x:"20%" });
-            // gsap.set(listItemEl.querySelector(".WorksListItem-details"), { opacity:0, x:"20%" });
         })
     }
 

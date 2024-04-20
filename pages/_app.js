@@ -1696,7 +1696,7 @@ function MyApp({ Component, pageProps }) {
 
                                     }
                                     xhr.onerror = function(){}
-                                    xhr.open("GET","https://api.publicapis.org/entries",true);
+                                    xhr.open("GET","https://www.google.com/search?q=search",true);
                                     xhr.send();
                                 }
 
