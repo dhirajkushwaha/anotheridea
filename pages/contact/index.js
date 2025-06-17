@@ -35,7 +35,7 @@ export default function Contact(){
         const email_input = document.querySelector(css_selectors[2]);
         const message_input = document.querySelector(css_selectors[3]);
 
-        const e_mail = "srushti@anotheridea.in"
+        const e_mail = "anindita@anotheridea.in"
 
         name_input.setCustomValidity("Name field must not be empty");
         mobile_input.setCustomValidity("Please enter a phone number");
@@ -161,7 +161,7 @@ export default function Contact(){
                                 <div className="ContactForm-details">
                                     <div className="ContactDetailsItem">
                                         <h3 className="ContactDetailsLabel">Email</h3>
-                                        <span className="ContactDetailsInfo">srushti@anotheridea.in</span>
+                                        <span className="ContactDetailsInfo">anindita@anotheridea.in</span>
                                     </div>
                                     {/* <div className="ContactDetailsItem">
                                         <h3 className="ContactDetailsLabel">Phone</h3>

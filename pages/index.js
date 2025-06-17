@@ -779,52 +779,54 @@ export default function Home(props) {
 								touchAction: "pan-y",
 							}}
 						>
+ 
 							<WorksSliderItem
-								src="/assets/work_slider_thumbnail/Scram.jpg"
-								label="SCRAM 411"
-								dirName="Lloyd Baptista"
+								src="/assets/work_slider_thumbnail/HERO_XTREME.png"
+								label="Hero Xtreme"
+								dirName="Oliver Wüerffell"
 								overlayColor="#777799"
-								videoSrc="https://player.vimeo.com/video/703566550?h=9420574f64&amp;quality=240p"
+								videoSrc="https://player.vimeo.com/video/1039219871?h=9420574f64&amp;quality=240p"
 								addPopup={addPopup}
 								index="0"
-							/>
+							/> 
 							<WorksSliderItem
-								src="/assets/work_slider_thumbnail/yodha-cement.jpg"
-								label="YODHA 2.0"
-								dirName="Lloyd Baptista"
-								videoSrc="https://player.vimeo.com/video/757567353?h=48603657bf&amp;quality=240p"
+								src="/assets/work_slider_thumbnail/Creta.png"
+								label="Hyundai Creta "
+								dirName="Suraj Wanvari"
+								videoSrc="https://player.vimeo.com/video/1040753564?h=48603657bf&amp;quality=240p"
 								addPopup={addPopup}
 								index="1"
 							/>
+ 
 							<WorksSliderItem
-								src="/assets/work_slider_thumbnail/Minal-Murli-khali.jpg"
-								label="MINNAL MURALI"
-								dirName="Vasan Bala"
-								videoSrc="https://player.vimeo.com/video/674292817?h=8b0a629b30&amp;quality=240p"
+								src="/assets/work_slider_thumbnail/Cinthol.png"
+								label="Godrej Cinthol "
+								dirName="Roni Kleiner "
+								videoSrc="https://player.vimeo.com/video/1039249092?h=8b0a629b30&amp;quality=240p"
 								addPopup={addPopup}
 								index="2"
-							/>
+							/>  
 							<WorksSliderItem
-								src="/assets/work_slider_thumbnail/Amazon-Rakhi.jpg"
-								label="AMAZON KHEER"
-								dirName="Prosit Roy"
-								videoSrc="https://player.vimeo.com/video/674290692?h=6042c3a705&amp;quality=240p"
+								src="/assets/work_slider_thumbnail/Careem Pay.png"
+								label="Careem Pay "
+								dirName="John Fredrick Peter Mayne "
+								videoSrc="https://player.vimeo.com/video/1040772933?h=6042c3a705&amp;quality=240p"
 								addPopup={addPopup}
 								index="3"
 							/>
 							<WorksSliderItem
-								src="/assets/work_slider_thumbnail/Ola_Proximity.jpg"
-								label="OLA PROXIMITY UNLOCK"
-								dirName="Ken Rolston"
-								videoSrc="https://player.vimeo.com/video/765214457?h=b5716ad29c&amp;quality=240p"
+								src="/assets/work_slider_thumbnail/Park Avenue.png"
+								label="Park Avenue Voyage  "
+								dirName="Keyur Bipinchandra"
+								videoSrc="https://player.vimeo.com/video/941873100?h=b5716ad29c&amp;quality=240p"
 								addPopup={addPopup}
 								index="4"
-							/>
+							/> 
 							<WorksSliderItem
-								src="/assets/work_slider_thumbnail/MiTV.jpg"
-								label="Mi TV"
-								dirName="Adam Johnson"
-								videoSrc="https://player.vimeo.com/video/674301398?h=515f40e64f&amp;quality=240p"
+								src="/assets/work_slider_thumbnail/Dosti.png"
+								label="Dosti Realty  "
+								dirName="Sandeep Modi"
+								videoSrc="https://player.vimeo.com/video/938257659?h=515f40e64f&amp;quality=240p"
 								addPopup={addPopup}
 								index="5"
 							/>
